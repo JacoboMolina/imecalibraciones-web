@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+
+# Fonts (comerciales — no distribuir en repo público)
+assets/fonts/eras-bold-itc.*
+
+# Env / secrets
+.env

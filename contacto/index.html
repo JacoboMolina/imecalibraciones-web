@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contacto — IME Calibraciones | Tlaxcala, México</title>
+  <meta name="description" content="Comunícate con IME Calibraciones. Tel: +52 246 126 1782. Laboratorio de calibración acreditado en Tlaxcala.">
+  <link rel="canonical" href="https://imecalibraciones.com/contacto/">
+  <meta property="og:title" content="Contacto — IME Calibraciones | Tlaxcala, México">
+  <meta property="og:description" content="Comunícate con IME Calibraciones. Tel: +52 246 126 1782. Laboratorio de calibración acreditado en Tlaxcala.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://imecalibraciones.com/contacto/">
+  <meta property="og:image" content="https://imecalibraciones.com/assets/images/og-default.jpg">
+  <meta property="og:locale" content="es_MX">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logo/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/logo/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "IME Calibraciones",
+    "url": "https://imecalibraciones.com",
+    "telephone": "+52-246-126-1782",
+    "address": {
+      "@type": "PostalAddress",
+      "addressRegion": "Tlaxcala",
+      "addressCountry": "MX"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+52-246-126-1782",
+      "contactType": "customer service",
+      "areaServed": "MX",
+      "availableLanguage": "Spanish"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="site-header"></div>
+  <main>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Ruta de navegación">
+          <ol>
+            <li><a href="/">Inicio</a></li>
+            <li aria-current="page">Contacto</li>
+          </ol>
+        </nav>
+        <h1>Contáctanos</h1>
+        <p class="page-hero__subtitle">
+          Estamos listos para atender su solicitud de calibración o cotización.
+          Escríbanos o llámenos directamente.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== FORMULARIO + INFO DE CONTACTO ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="contact-layout">
+
+          <!-- COLUMNA IZQUIERDA: Formulario -->
+          <div class="contact-form-col">
+            <h2>Envíenos un mensaje</h2>
+
+            <!-- TODO: configurar el endpoint del formulario con Formspree o EmailJS.
+                 Reemplazar action="#" con la URL del endpoint correspondiente.
+                 Ejemplo Formspree: action="https://formspree.io/f/[FORM_ID]"
+                 Añadir method="POST" una vez configurado el endpoint. -->
+            <form
+              id="contact-form"
+              class="form"
+              action="#"
+              novalidate
+              aria-label="Formulario de contacto">
+
+              <!-- Campo honeypot anti-spam — oculto para usuarios reales -->
+              <div class="form-honeypot" aria-hidden="true">
+                <label for="website">No llenar este campo</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+              </div>
+
+              <div class="form-row form-row--two">
+                <div class="form-group">
+                  <label for="nombre" class="form-label">Nombre <span aria-hidden="true">*</span></label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    class="form-input"
+                    placeholder="Su nombre completo"
+                    required
+                    autocomplete="name">
+                  <span class="form-error" id="nombre-error" role="alert"></span>
+                </div>
+                <div class="form-group">
+                  <label for="empresa" class="form-label">Empresa</label>
+                  <input
+                    type="text"
+                    id="empresa"
+                    name="empresa"
+                    class="form-input"
+                    placeholder="Nombre de su empresa"
+                    autocomplete="organization">
+                </div>
+              </div>
+
+              <div class="form-row form-row--two">
+                <div class="form-group">
+                  <label for="correo" class="form-label">Correo electrónico <span aria-hidden="true">*</span></label>
+                  <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    class="form-input"
+                    placeholder="correo@empresa.com"
+                    required
+                    autocomplete="email">
+                  <span class="form-error" id="correo-error" role="alert"></span>
+                </div>
+                <div class="form-group">
+                  <label for="telefono" class="form-label">Teléfono</label>
+                  <input
+                    type="tel"
+                    id="telefono"
+                    name="telefono"
+                    class="form-input"
+                    placeholder="+52 000 000 0000"
+                    autocomplete="tel">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="magnitud" class="form-label">Magnitud de interés</label>
+                <select id="magnitud" name="magnitud" class="form-select">
+                  <option value="">— Seleccione una magnitud —</option>
+                  <!-- TODO: completar con las 32 magnitudes reales de IME Calibraciones -->
+                  <option value="temperatura">Temperatura</option>
+                  <option value="presion">Presión</option>
+                  <option value="masa">Masa</option>
+                  <option value="dimensional">Dimensional / Longitud</option>
+                  <option value="fuerza">Fuerza / Torque</option>
+                  <option value="volumen">Volumen</option>
+                  <option value="electrico">Eléctrico</option>
+                  <option value="humedad">Humedad</option>
+                  <!-- TODO: agregar las magnitudes restantes -->
+                  <option value="otro">Otra / No estoy seguro</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="mensaje" class="form-label">Mensaje <span aria-hidden="true">*</span></label>
+                <textarea
+                  id="mensaje"
+                  name="mensaje"
+                  class="form-textarea"
+                  rows="5"
+                  placeholder="Describa brevemente qué instrumentos necesita calibrar, cantidad y cualquier requerimiento especial."
+                  required></textarea>
+                <span class="form-error" id="mensaje-error" role="alert"></span>
+              </div>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn--primary btn--full" id="submit-btn">
+                  Enviar mensaje
+                </button>
+              </div>
+
+              <!-- Estados de respuesta del formulario -->
+              <div id="form-success" class="form-feedback form-feedback--success" role="alert" hidden>
+                <strong>¡Mensaje enviado!</strong> Nos pondremos en contacto con usted a la brevedad.
+              </div>
+              <div id="form-error" class="form-feedback form-feedback--error" role="alert" hidden>
+                <strong>Error al enviar.</strong> Por favor intente de nuevo o contáctenos directamente al
+                <a href="tel:+522461261782">+52 246 126 1782</a>.
+              </div>
+
+            </form>
+          </div>
+
+          <!-- COLUMNA DERECHA: Info de contacto + mapa -->
+          <div class="contact-info-col">
+            <h2>Información de contacto</h2>
+
+            <ul class="contact-details">
+              <li class="contact-detail">
+                <span class="contact-detail__icon" aria-hidden="true">📞</span>
+                <div>
+                  <strong>Teléfono</strong>
+                  <a href="tel:+522461261782" class="contact-detail__value">+52 246 126 1782</a>
+                </div>
+              </li>
+              <li class="contact-detail">
+                <span class="contact-detail__icon" aria-hidden="true">✉️</span>
+                <div>
+                  <strong>Correo electrónico</strong>
+                  <!-- TODO: confirmar dirección de correo electrónico oficial con IME -->
+                  <a href="mailto:contacto@imecalibraciones.com" class="contact-detail__value">
+                    contacto@imecalibraciones.com <em>(TODO: confirmar)</em>
+                  </a>
+                </div>
+              </li>
+              <li class="contact-detail">
+                <span class="contact-detail__icon" aria-hidden="true">📍</span>
+                <div>
+                  <strong>Ubicación</strong>
+                  <!-- TODO: confirmar dirección exacta del laboratorio con IME -->
+                  <span class="contact-detail__value">Tlaxcala, México <em>(TODO: dirección exacta)</em></span>
+                </div>
+              </li>
+              <li class="contact-detail">
+                <span class="contact-detail__icon" aria-hidden="true">🕐</span>
+                <div>
+                  <strong>Horarios de atención</strong>
+                  <!-- TODO: confirmar horarios reales con IME -->
+                  <span class="contact-detail__value">
+                    Lunes a Viernes: 8:00 – 18:00 h <em>(TODO: confirmar)</em><br>
+                    Sábados: 9:00 – 13:00 h <em>(TODO: confirmar)</em>
+                  </span>
+                </div>
+              </li>
+            </ul>
+
+            <!-- Google Maps -->
+            <div class="map-wrapper">
+              <!-- TODO: reemplazar este iframe con el embed de Google Maps de la ubicación exacta del laboratorio.
+                   Para obtenerlo: Google Maps > compartir > insertar mapa > copiar iframe. -->
+              <div class="map-placeholder" aria-label="Mapa de ubicación — pendiente de configurar">
+                <p>
+                  Mapa de ubicación<br>
+                  <em>(TODO: insertar iframe de Google Maps con la ubicación exacta del laboratorio)</em>
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PORTAL DE INFORMES ===== -->
+    <section class="section section--alt">
+      <div class="container container--narrow text-center">
+        <h2>¿Ya es cliente? Acceda al Portal de Informes</h2>
+        <p>
+          Descargue sus certificados de calibración, consulte el estado de sus órdenes de
+          servicio y gestione su historial desde nuestro portal en línea.
+        </p>
+        <a
+          href="https://calibracionesime.com.mx"
+          class="btn btn--primary btn--lg"
+          target="_blank"
+          rel="noopener"
+          aria-label="Ir al portal de informes de IME Calibraciones (abre en nueva ventana)">
+          Ir al Portal de Informes
+        </a>
+      </div>
+    </section>
+
+  </main>
+  <div id="site-footer"></div>
+  <div id="whatsapp-widget" class="no-print"></div>
+  <script src="/assets/js/utils.js" defer></script>
+  <script defer>
+    // ===== Manejador básico del formulario de contacto =====
+    // TODO: conectar con el endpoint real (Formspree/EmailJS) y reemplazar la lógica de fetch.
+    (function () {
+      const form = document.getElementById('contact-form');
+      if (!form) return;
+
+      const submitBtn = document.getElementById('submit-btn');
+      const successMsg = document.getElementById('form-success');
+      const errorMsg = document.getElementById('form-error');
+
+      function showFeedback(el) {
+        successMsg.hidden = true;
+        errorMsg.hidden = true;
+        el.hidden = false;
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      function validateField(input) {
+        const errorEl = document.getElementById(input.id + '-error');
+        if (!errorEl) return true;
+        if (!input.validity.valid) {
+          errorEl.textContent = input.validationMessage;
+          input.setAttribute('aria-invalid', 'true');
+          return false;
+        }
+        errorEl.textContent = '';
+        input.removeAttribute('aria-invalid');
+        return true;
+      }
+
+      // Validación en tiempo real al salir de cada campo requerido
+      form.querySelectorAll('[required]').forEach(function (input) {
+        input.addEventListener('blur', function () { validateField(input); });
+      });
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        // Honeypot: si el campo está relleno, es spam — ignorar silenciosamente
+        if (form.elements['website'] && form.elements['website'].value) return;
+
+        // Validar todos los campos requeridos
+        let valid = true;
+        form.querySelectorAll('[required]').forEach(function (input) {
+          if (!validateField(input)) valid = false;
+        });
+        if (!valid) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando…';
+
+        try {
+          // TODO: reemplazar la URL con el endpoint real de Formspree/EmailJS
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (response.ok) {
+            form.reset();
+            showFeedback(successMsg);
+          } else {
+            showFeedback(errorMsg);
+          }
+        } catch (_err) {
+          showFeedback(errorMsg);
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Enviar mensaje';
+        }
+      });
+    }());
+  </script>
+</body>
+</html>

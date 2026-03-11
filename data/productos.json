@@ -1,0 +1,32 @@
+{
+  "version": "1.0",
+  "ultima_actualizacion": "2026-03-01",
+  "nota": "Fuente de verdad del catálogo. Editar solo este archivo, nunca los HTML individuales. Correr 'node scripts/generate-catalog.js' después de cada cambio.",
+  "total_productos": 0,
+  "productos": [
+    {
+      "_comentario": "EJEMPLO — eliminar antes de producción",
+      "id": "ejemplo-balanza-precision-001",
+      "slug": "balanza-precision-ohaus-ex224",
+      "nombre": "Balanza de Precisión Analítica",
+      "marca": "Ohaus",
+      "modelo": "Explorer EX224",
+      "magnitud": "Masa",
+      "categoria": "Balanzas",
+      "descripcion_corta": "Balanza analítica de alta precisión para laboratorio con pantalla táctil y conectividad USB.",
+      "descripcion_larga": "La Ohaus Explorer EX224 es una balanza analítica de alto rendimiento diseñada para laboratorios que requieren precisión y fiabilidad. Cuenta con pantalla táctil a color, múltiples modos de pesaje y conectividad RS232/USB.",
+      "especificaciones": [
+        { "campo": "Capacidad máxima", "valor": "220 g" },
+        { "campo": "Resolución",       "valor": "0.1 mg" },
+        { "campo": "Reproducibilidad", "valor": "0.1 mg" },
+        { "campo": "Alimentación",     "valor": "100–240 V AC" },
+        { "campo": "Comunicación",     "valor": "RS232, USB" }
+      ],
+      "imagenes": [],
+      "pdf_ficha": null,
+      "tags": ["balanza", "analítica", "laboratorio", "masa", "precisión"],
+      "activo": false,
+      "fecha_agregado": "2026-03-01"
+    }
+  ]
+}
