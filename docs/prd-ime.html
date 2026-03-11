@@ -1,0 +1,1439 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>PRD — IME Calibraciones | Sitio Web + Catálogo</title>
+  <style>
+    :root {
+      --ink: #111827;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --accent: #111827;
+      --code-bg: #1e293b;
+      --code-fg: #e2e8f0;
+      --green: #d1fae5;
+      --green-ink: #065f46;
+      --yellow: #fef9c3;
+      --yellow-ink: #92400e;
+      --red: #fee2e2;
+      --red-ink: #991b1b;
+      --blue: #dbeafe;
+      --blue-ink: #1e40af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── Layout ── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 240px;
+      height: 100vh;
+      background: #0f172a;
+      color: #94a3b8;
+      overflow-y: auto;
+      padding: 20px 0;
+      z-index: 100;
+    }
+    .sidebar-logo {
+      padding: 0 20px 16px;
+      border-bottom: 1px solid #1e293b;
+      margin-bottom: 12px;
+    }
+    .sidebar-logo strong { color: #f1f5f9; font-size: 13px; display: block; }
+    .sidebar-logo span { font-size: 11px; color: #64748b; }
+    .nav-group { padding: 4px 0; }
+    .nav-group-title {
+      padding: 8px 20px 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #475569;
+    }
+    .nav-item {
+      display: block;
+      padding: 5px 20px;
+      font-size: 12px;
+      color: #94a3b8;
+      text-decoration: none;
+      border-left: 2px solid transparent;
+    }
+    .nav-item:hover { color: #f1f5f9; background: #1e293b; }
+    .nav-item.active { color: #f1f5f9; border-left-color: #3b82f6; background: #1e293b; }
+
+    .main {
+      margin-left: 240px;
+      padding: 40px 48px 80px;
+      max-width: 1000px;
+    }
+
+    /* ── Doc header ── */
+    .doc-header {
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 24px;
+      margin-bottom: 40px;
+    }
+    .doc-header .tag {
+      display: inline-block;
+      background: #111827;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .doc-header h1 { font-size: 28px; font-weight: 800; line-height: 1.2; }
+    .doc-header p { color: var(--muted); margin-top: 8px; font-size: 14px; }
+    .doc-meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .doc-meta-item { font-size: 12px; color: var(--muted); }
+    .doc-meta-item strong { color: var(--ink); }
+
+    /* ── Sections ── */
+    .section { margin-bottom: 56px; }
+    h2 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 24px;
+    }
+    h3 {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 24px 0 10px;
+      color: var(--ink);
+    }
+    h4 {
+      font-size: 13px;
+      font-weight: 700;
+      margin: 16px 0 8px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    p { margin-bottom: 12px; color: var(--ink); }
+    ul, ol { padding-left: 20px; margin-bottom: 12px; }
+    li { margin-bottom: 4px; }
+    .muted { color: var(--muted); }
+    .small { font-size: 12px; }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-green { background: var(--green); color: var(--green-ink); }
+    .badge-yellow { background: var(--yellow); color: var(--yellow-ink); }
+    .badge-red { background: var(--red); color: var(--red-ink); }
+    .badge-blue { background: var(--blue); color: var(--blue-ink); }
+    .badge-gray { background: #f1f5f9; color: #475569; border: 1px solid var(--line); }
+    .tbd { background: var(--yellow); color: var(--yellow-ink); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; }
+
+    /* ── Code blocks ── */
+    pre {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      padding: 16px 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 12px;
+      font-family: "JetBrains Mono", "Cascadia Code", "Fira Code", Consolas, monospace;
+      line-height: 1.6;
+      margin: 12px 0;
+    }
+    code {
+      background: #f1f5f9;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: "JetBrains Mono", Consolas, monospace;
+      color: #1d4ed8;
+    }
+    pre code { background: none; color: inherit; padding: 0; }
+
+    /* ── Tables ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+    th {
+      background: #f9fafb;
+      text-align: left;
+      padding: 8px 12px;
+      font-weight: 700;
+      font-size: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+
+    /* ── Cards ── */
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px 20px;
+      background: var(--bg);
+      margin: 12px 0;
+    }
+    .card-title { font-weight: 700; font-size: 13px; margin-bottom: 8px; }
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+    .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 12px 0; }
+
+    /* ── Callouts ── */
+    .callout {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+    .callout-info { background: var(--blue); color: var(--blue-ink); border-left: 3px solid #3b82f6; }
+    .callout-warn { background: var(--yellow); color: var(--yellow-ink); border-left: 3px solid #f59e0b; }
+    .callout-success { background: var(--green); color: var(--green-ink); border-left: 3px solid #10b981; }
+    .callout-danger { background: var(--red); color: var(--red-ink); border-left: 3px solid #ef4444; }
+
+    /* ── Page spec cards ── */
+    .page-spec {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 16px 0;
+      background: var(--bg);
+    }
+    .page-spec-header {
+      background: #0f172a;
+      color: #f1f5f9;
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .page-spec-header .url { font-family: Consolas, monospace; font-size: 13px; color: #93c5fd; }
+    .page-spec-body { padding: 16px; }
+    .page-spec-body h4 { margin-top: 12px; }
+    .page-spec-body h4:first-child { margin-top: 0; }
+
+    /* ── Divider ── */
+    .divider { height: 1px; background: var(--line); margin: 24px 0; }
+
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; padding: 24px 16px; }
+      .grid2, .grid3 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════ SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <strong>PRD — IME Calibraciones</strong>
+    <span>v1.0 · 2026 · INTERNAL</span>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Proyecto</div>
+    <a class="nav-item" href="#overview">Overview</a>
+    <a class="nav-item" href="#stack">Stack &amp; Arquitectura</a>
+    <a class="nav-item" href="#file-structure">Estructura de archivos</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Fase 1 — Sitio</div>
+    <a class="nav-item" href="#fase1-paginas">Mapa de páginas</a>
+    <a class="nav-item" href="#fase1-home">Home</a>
+    <a class="nav-item" href="#fase1-servicios">Servicios</a>
+    <a class="nav-item" href="#fase1-acreditaciones">Acreditaciones</a>
+    <a class="nav-item" href="#fase1-nosotros">Nosotros</a>
+    <a class="nav-item" href="#fase1-contacto">Contacto</a>
+    <a class="nav-item" href="#fase1-legales">Páginas legales</a>
+    <a class="nav-item" href="#fase1-componentes">Componentes</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Fase 2 — Catálogo</div>
+    <a class="nav-item" href="#fase2-data">Modelo de datos</a>
+    <a class="nav-item" href="#fase2-index">Catálogo (índice)</a>
+    <a class="nav-item" href="#fase2-filtros">Filtros &amp; búsqueda</a>
+    <a class="nav-item" href="#fase2-detalle">Página de producto</a>
+    <a class="nav-item" href="#fase2-print">Print / PDF ficha</a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title">Transversal</div>
+    <a class="nav-item" href="#seo-geo">SEO &amp; GEO</a>
+    <a class="nav-item" href="#performance">Performance</a>
+    <a class="nav-item" href="#integraciones">Integraciones</a>
+    <a class="nav-item" href="#assets">Assets del cliente</a>
+    <a class="nav-item" href="#out-of-scope">Out of scope</a>
+    <a class="nav-item" href="#acceptance">Criterios de aceptación</a>
+    <a class="nav-item" href="#risks">Riesgos</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════ MAIN -->
+<main class="main">
+
+  <!-- ── DOC HEADER ── -->
+  <div class="doc-header">
+    <div class="tag">PRD · INTERNAL · NO COMPARTIR</div>
+    <h1>IME Calibraciones<br/>Sitio Web + Catálogo de Productos</h1>
+    <p>Product Requirements Document — guía técnica completa para implementación con Claude Code</p>
+    <div class="doc-meta">
+      <div class="doc-meta-item"><strong>Cliente:</strong> Ingeniería y Metrología Certificada Para Calibración de Equipos de Control y Pruebas S.A. de C.V.</div>
+      <div class="doc-meta-item"><strong>Developer:</strong> Ignacio Jacobo Molina Miranda</div>
+      <div class="doc-meta-item"><strong>Folio base:</strong> COT-2026-001</div>
+      <div class="doc-meta-item"><strong>Stack:</strong> Vanilla HTML / CSS / JS · GitHub Pages</div>
+      <div class="doc-meta-item"><strong>Versión PRD:</strong> 1.0 · Marzo 2026</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════ OVERVIEW -->
+  <section class="section" id="overview">
+    <h2>1. Overview del proyecto</h2>
+
+    <p>IME Calibraciones es un laboratorio de calibración acreditado en Tlaxcala, México. Atiende industrias manufactureras, automotrices, farmacéuticas y laboratorios que requieren calibración certificada de instrumentos de medición. Su nombre legal es <em>Ingeniería y Metrología Certificada Para Calibración de Equipos de Control y Pruebas S.A. de C.V.</em></p>
+
+    <p>El sitio actual es WordPress con plugins, lento, con PageSpeed bajo, secciones incompletas y sin estructura SEO. El cliente ya tiene anticipo pagado para la Fase 1.</p>
+
+    <h3>Objetivos del cliente (en orden de prioridad)</h3>
+    <ol>
+      <li><strong>Visibilidad en Google y motores IA</strong> — aparecer en búsquedas como "calibración en Tlaxcala", "laboratorio de calibración acreditado México", y consultas específicas de instrumentos.</li>
+      <li><strong>Catálogo de productos profesional</strong> — comparable o superior a suministrosenmetrologia.com, con filtros y búsqueda.</li>
+      <li><strong>Carrusel de 32 magnitudes en el home</strong> — presentar visualmente el alcance de sus servicios de calibración.</li>
+    </ol>
+
+    <h3>Fases del proyecto</h3>
+    <table>
+      <thead>
+        <tr><th>Fase</th><th>Alcance</th><th>Costo</th><th>Estado</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Fase 1</strong></td>
+          <td>Sitio web completo (12 páginas), migración de contenido, SEO base, puesta en marcha</td>
+          <td>$17,400 MXN c/IVA</td>
+          <td><span class="badge badge-green">Anticipo pagado</span></td>
+        </tr>
+        <tr>
+          <td><strong>Fase 2</strong></td>
+          <td>Catálogo de productos (~150 productos, 32 magnitudes, filtros, búsqueda, páginas individuales)</td>
+          <td>TBD ($18,000–$20,000 + IVA)</td>
+          <td><span class="badge badge-yellow">En cotización</span></td>
+        </tr>
+        <tr>
+          <td><strong>Fase 3 (futura)</strong></td>
+          <td>GEO/SEO avanzado — FAQs técnicas, schema semántico por servicio, arquitectura de contenido. <em>No cotizado actualmente. El catálogo (Fase 2) ya aporta mejoras significativas de SEO/GEO por sí solo.</em></td>
+          <td>A cotizar</td>
+          <td><span class="badge badge-gray">No cotizado</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-info">
+      <strong>Nota para el agente:</strong> Este PRD cubre Fase 1 y Fase 2 en detalle. La Fase 3 (GEO) está documentada en <code>geo-plan.html</code>. La arquitectura de Fase 1 debe construirse anticipando que Fase 2 y 3 se integrarán sin cambios estructurales.
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ STACK -->
+  <section class="section" id="stack">
+    <h2>2. Stack &amp; Arquitectura</h2>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Stack tecnológico</div>
+        <ul>
+          <li><strong>HTML5</strong> semántico (sin framework)</li>
+          <li><strong>CSS3</strong> — variables CSS, flexbox, grid, sin preprocesadores</li>
+          <li><strong>JavaScript ES6+</strong> vanilla — sin React, Vue, ni jQuery</li>
+          <li><strong>JSON</strong> como capa de datos para el catálogo</li>
+          <li><strong>GitHub Pages</strong> — hosting estático, $0/mes</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Por qué este stack</div>
+        <ul>
+          <li>Sin costos de hosting ni mantenimiento de servidor</li>
+          <li>Sin base de datos que mantener ni plugins que caducan</li>
+          <li>Carga ultra-rápida → mejor PageSpeed → mejor SEO</li>
+          <li>El cliente recibe el código completo, sin dependencias de terceros</li>
+          <li>150 productos en JSON = ~80KB, filtrado en memoria = instantáneo</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Principios de arquitectura</h3>
+    <ul>
+      <li>Una página HTML por URL — sin routing SPA</li>
+      <li>CSS custom properties para toda la paleta y tipografía — fácil de mantener</li>
+      <li>Componentes HTML reutilizables via JS include o inline (header, footer, nav)</li>
+      <li>Catálogo: <code>productos.json</code> es la única fuente de verdad. Nunca duplicar datos en HTML.</li>
+      <li>Todas las imágenes optimizadas en WebP + fallback JPG</li>
+      <li>Sin JavaScript en el critical path — CSS carga primero, JS al final o <code>defer</code></li>
+    </ul>
+
+    <h3>Identidad visual</h3>
+    <div class="callout callout-warn">
+      <strong><span class="tbd">TBD</span></strong> — Ver <code>MANUAL DE IDENTIDAD 2025.pdf</code> en <code>/docs/</code>. Los valores exactos de color y tipografía se extraen del manual antes de iniciar implementación.
+    </div>
+    <p>Colores identificados provisionalmente (del sitio actual):</p>
+    <table>
+      <thead><tr><th>Variable CSS</th><th>Uso</th><th>Valor provisional</th></tr></thead>
+      <tbody>
+        <tr><td><code>--color-primary</code></td><td>Rojo IME — CTAs, acentos</td><td><code>#e73a46</code></td></tr>
+        <tr><td><code>--color-secondary</code></td><td>Azul marino — headers, nav</td><td><code>#1d3557</code></td></tr>
+        <tr><td><code>--color-ink</code></td><td>Texto principal</td><td><code>#111827</code></td></tr>
+        <tr><td><code>--color-muted</code></td><td>Texto secundario</td><td><code>#6b7280</code></td></tr>
+        <tr><td><code>--color-bg</code></td><td>Fondo</td><td><code>#ffffff</code></td></tr>
+        <tr><td><code>--color-surface</code></td><td>Fondo de cards/secciones</td><td><code>#f8fafc</code></td></tr>
+        <tr><td><code>--color-line</code></td><td>Bordes y divisores</td><td><code>#e5e7eb</code></td></tr>
+      </tbody>
+    </table>
+    <p class="muted small">Confirmar y reemplazar con valores exactos del manual antes de hacer commit del design system.</p>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ FILE STRUCTURE -->
+  <section class="section" id="file-structure">
+    <h2>3. Estructura de archivos</h2>
+
+    <pre><code>imecalibraciones/                   ← raíz del repo (GitHub Pages)
+├── index.html                      ← Home
+├── servicios/
+│   └── index.html                  ← Página de servicios overview
+├── acreditaciones/
+│   └── index.html
+├── nosotros/
+│   └── index.html
+├── contacto/
+│   └── index.html
+├── aviso-de-privacidad/
+│   └── index.html
+├── terminos-y-condiciones/
+│   └── index.html
+│
+├── catalogo/                       ← FASE 2
+│   ├── index.html                  ← Catálogo (índice con filtros)
+│   └── [slug-producto]/
+│       └── index.html              ← Página individual por producto (×150)
+│                                      (generadas con script desde JSON)
+│
+├── assets/
+│   ├── css/
+│   │   ├── main.css                ← Design system + variables globales
+│   │   ├── components.css          ← Componentes reutilizables
+│   │   └── catalog.css             ← Estilos específicos del catálogo
+│   ├── js/
+│   │   ├── nav.js                  ← Header/nav interactivo
+│   │   ├── catalog.js              ← Filtros, búsqueda, render de productos
+│   │   └── utils.js                ← Helpers compartidos
+│   ├── images/
+│   │   ├── logo/                   ← Versiones del logo (SVG + PNG)
+│   │   ├── team/                   ← Fotos del equipo
+│   │   ├── lab/                    ← Fotos del laboratorio
+│   │   ├── magnitudes/             ← Íconos/imágenes de las 32 magnitudes
+│   │   └── productos/              ← Fotos de productos (WebP)
+│   └── pdfs/                       ← PDFs de acreditaciones, catálogo general
+│
+├── data/
+│   └── productos.json              ← Fuente de verdad del catálogo (FASE 2)
+│
+├── 404.html
+├── sitemap.xml                     ← Generado/actualizado post-deploy
+└── robots.txt</code></pre>
+
+    <div class="callout callout-info">
+      Las páginas de producto en <code>catalogo/[slug]/index.html</code> se generan con un script Node.js que lee <code>productos.json</code> y renderiza el template HTML por cada producto. Esto permite URLs limpias sin servidor.
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ FASE 1 PÁGINAS -->
+  <section class="section" id="fase1-paginas">
+    <h2>4. Fase 1 — Mapa de páginas</h2>
+
+    <table>
+      <thead>
+        <tr><th>#</th><th>URL</th><th>Título de página</th><th>Notas</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><code>/</code></td><td>Inicio</td><td>Home principal</td></tr>
+        <tr><td>2</td><td><code>/servicios/</code></td><td>Servicios de Calibración</td><td>Overview + links a detalle por magnitud</td></tr>
+        <tr><td>3</td><td><code>/acreditaciones/</code></td><td>Acreditaciones y Certificaciones</td><td>EMA, normas, PDFs descargables</td></tr>
+        <tr><td>4</td><td><code>/nosotros/</code></td><td>Nosotros — IME Calibraciones</td><td>Historia, misión, visión, equipo</td></tr>
+        <tr><td>5</td><td><code>/contacto/</code></td><td>Contacto</td><td>Formulario, mapa, datos</td></tr>
+        <tr><td>6</td><td><code>/catalogo/</code></td><td>Catálogo de Instrumentos</td><td>Fase 1: placeholder elegante → Fase 2: catálogo completo</td></tr>
+        <tr><td>7</td><td><code>/aviso-de-privacidad/</code></td><td>Aviso de Privacidad</td><td>Legal</td></tr>
+        <tr><td>8</td><td><code>/terminos-y-condiciones/</code></td><td>Términos y Condiciones</td><td>Legal</td></tr>
+        <tr><td>9</td><td><code>/faqs/</code></td><td>Preguntas Frecuentes</td><td>FAQs técnicas con data del equipo de IME. Alta prioridad para SEO/GEO.</td></tr>
+        <tr><td>10–12</td><td><span class="tbd">TBD</span></td><td>Páginas adicionales</td><td>Candidatos: páginas por industria (automotriz, farmacéutica, etc.) o servicios destacados. Confirmar con cliente.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-warn">
+      Las páginas 9–12 se confirman en sesión con IME antes de iniciar. Candidatos: página de FAQs (alta prioridad para GEO), páginas por industria (automotriz, farmacéutica, etc.), o página de portal/informes.
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ HOME -->
+  <section class="section" id="fase1-home">
+    <h2>5. Home — <code>/index.html</code></h2>
+
+    <div class="page-spec">
+      <div class="page-spec-header">
+        <span>Home — Inicio</span>
+        <span class="url">/</span>
+      </div>
+      <div class="page-spec-body">
+
+        <h4>Meta SEO</h4>
+        <table>
+          <tbody>
+            <tr><td><strong>Title</strong></td><td>IME Calibraciones — Laboratorio Acreditado en Tlaxcala, México</td></tr>
+            <tr><td><strong>Description</strong></td><td>Calibración acreditada de instrumentos de medición. Trazabilidad nacional e internacional. Servicio para industria manufacturera, farmacéutica y automotriz en México.</td></tr>
+            <tr><td><strong>Schema</strong></td><td><code>Organization</code> + <code>LocalBusiness</code> + <code>WebSite</code></td></tr>
+          </tbody>
+        </table>
+
+        <h4>Secciones (en orden de aparición)</h4>
+
+        <ol>
+          <li>
+            <strong>Hero</strong><br/>
+            Tagline principal + subtítulo + CTA primario ("Solicitar cotización" → WhatsApp o form) + CTA secundario ("Ver catálogo" → <code>/catalogo/</code>). Imagen/video de fondo del laboratorio. <em>Texto del hero: <span class="tbd">TBD — pendiente diferenciadores del cliente</span></em>
+          </li>
+          <li>
+            <strong>Carrusel de 32 magnitudes</strong><br/>
+            Grid o carrusel horizontal con las 32 magnitudes de calibración que IME cubre. Cada elemento: ícono/imagen + nombre de magnitud + link a sección de servicios o catálogo filtrado por esa magnitud. <em>Auto-play suave, pausar en hover. Responsive: 4 col desktop, 2 col mobile.</em> Lista de magnitudes: <span class="tbd">TBD — pendiente lista definitiva de IME</span>
+          </li>
+          <li>
+            <strong>Propuesta de valor / Por qué IME</strong><br/>
+            3–4 cards: Acreditación EMA, Trazabilidad nacional e internacional, Cobertura (a definir con cliente), Tiempo de respuesta. <em><span class="tbd">TBD — confirmar con marketing cuáles son los diferenciadores reales</span></em>
+          </li>
+          <li>
+            <strong>Industrias que atienden</strong><br/>
+            Grid de industrias con ícono + nombre. Referencia del sitio actual como base. Ej: Automotriz, Farmacéutica, Manufactura, Laboratorios, Alimentos, Aeroespacial, etc.
+          </li>
+          <li>
+            <strong>Clientes / Logos</strong><br/>
+            Carrusel de logos de clientes reales. <em>Requiere material del cliente. Alta prioridad — señal de credibilidad B2B (ver Metrolab como referencia).</em>
+          </li>
+          <li>
+            <strong>Estadísticas / Trust signals</strong><br/>
+            Años de experiencia, número de clientes, magnitudes calibradas, etc. <em><span class="tbd">TBD — cliente debe confirmar números reales</span></em>
+          </li>
+          <li>
+            <strong>CTA intermedio — Catálogo</strong><br/>
+            Banner o sección llamando a ver el catálogo de instrumentos. "Encuentra el instrumento que necesitas calibrar." → <code>/catalogo/</code>
+          </li>
+          <li>
+            <strong>Sobre IME (snippet)</strong><br/>
+            2–3 párrafos cortos sobre la empresa + foto del laboratorio. Link a <code>/nosotros/</code>.
+          </li>
+          <li>
+            <strong>Formulario de contacto / CTA final</strong><br/>
+            Formulario básico (nombre, empresa, correo, mensaje) + datos de contacto directos + mapa de Google Maps embebido con ubicación correcta del laboratorio.
+          </li>
+        </ol>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ SERVICIOS -->
+  <section class="section" id="fase1-servicios">
+    <h2>6. Servicios — <code>/servicios/</code></h2>
+
+    <div class="page-spec">
+      <div class="page-spec-header">
+        <span>Servicios de Calibración</span>
+        <span class="url">/servicios/</span>
+      </div>
+      <div class="page-spec-body">
+
+        <h4>Meta SEO</h4>
+        <table>
+          <tbody>
+            <tr><td><strong>Title</strong></td><td>Servicios de Calibración — IME Calibraciones | Tlaxcala, México</td></tr>
+            <tr><td><strong>Description</strong></td><td>Calibración acreditada para temperatura, presión, masa, dimensional, eléctrica y más. Trazabilidad CENAM/NIST. Laboratorio en Tlaxcala con cobertura nacional.</td></tr>
+            <tr><td><strong>Schema</strong></td><td><code>Service</code> (uno por magnitud/servicio principal)</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Secciones</h4>
+        <ol>
+          <li><strong>Hero de página</strong> — título H1 + breadcrumb (<code>Inicio &gt; Servicios</code>)</li>
+          <li><strong>Intro</strong> — párrafo sobre el alcance de calibración, acreditación, trazabilidad</li>
+          <li><strong>Grid de servicios/magnitudes</strong> — cards para cada magnitud principal con: nombre, descripción corta, instrumentos que calibran, link a catálogo filtrado por esa magnitud</li>
+          <li><strong>Normas y trazabilidad</strong> — lista de normas aplicables, referencias a CENAM, NIST, EMA</li>
+          <li><strong>CTA</strong> — "¿No encuentras lo que buscas? Contáctanos"</li>
+        </ol>
+
+        <div class="callout callout-info">
+          <strong>Relación con catálogo (Fase 2):</strong> Cada magnitud en esta página enlaza a <code>/catalogo/?magnitud=[nombre]</code> — el catálogo ya filtrado por esa magnitud. Esto crea una red de enlaces internos muy valiosa para SEO.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ ACREDITACIONES -->
+  <section class="section" id="fase1-acreditaciones">
+    <h2>7. Acreditaciones — <code>/acreditaciones/</code></h2>
+
+    <div class="page-spec">
+      <div class="page-spec-header">
+        <span>Acreditaciones y Certificaciones</span>
+        <span class="url">/acreditaciones/</span>
+      </div>
+      <div class="page-spec-body">
+
+        <h4>Meta SEO</h4>
+        <table>
+          <tbody>
+            <tr><td><strong>Title</strong></td><td>Acreditaciones — IME Calibraciones | EMA Acreditado</td></tr>
+            <tr><td><strong>Description</strong></td><td>Laboratorio de calibración acreditado por EMA bajo la norma ISO/IEC 17025. Trazabilidad metrológica nacional e internacional reconocida.</td></tr>
+            <tr><td><strong>Schema</strong></td><td><code>Organization</code> (con hasCredential)</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Secciones</h4>
+        <ol>
+          <li><strong>Header + breadcrumb</strong></li>
+          <li><strong>Acreditación EMA</strong> — qué es EMA, qué significa para el cliente, número de acreditación. Fuente: <code>EMA16dic24.pdf</code></li>
+          <li><strong>Visor de PDF inline (nativo)</strong> — mostrar el certificado sin forzar descarga. Implementar con <code>&lt;iframe src="/assets/pdfs/acreditacion-ema.pdf"&gt;</code>. En mobile el navegador abre su visor nativo — sin librería externa requerida. Incluir botón de descarga como fallback.</li>
+          <li><strong>Normas aplicables</strong> — ISO/IEC 17025 y otras según aplique a IME</li>
+          <li><strong>Trazabilidad</strong> — CENAM, NIST, PTB, UKAS (confirmar cuáles aplican)</li>
+          <li><strong>Otros documentos descargables</strong> — los 9 PDFs migrados del sitio actual. Cada uno con botón de descarga + visor iframe donde aplique.</li>
+          <li><strong>¿Qué significa para usted?</strong> — sección explicativa para compradores B2B no técnicos</li>
+        </ol>
+
+        <div class="callout callout-success">
+          Esta página es estratégica para GEO: los motores IA citan páginas con información verificable sobre acreditaciones. Incluir número de acreditación, vigencia y alcance de forma explícita.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ NOSOTROS -->
+  <section class="section" id="fase1-nosotros">
+    <h2>8. Nosotros — <code>/nosotros/</code></h2>
+
+    <div class="page-spec">
+      <div class="page-spec-header">
+        <span>Nosotros — IME Calibraciones</span>
+        <span class="url">/nosotros/</span>
+      </div>
+      <div class="page-spec-body">
+
+        <h4>Meta SEO</h4>
+        <table>
+          <tbody>
+            <tr><td><strong>Title</strong></td><td>Nosotros — IME Calibraciones | Laboratorio de Metrología en Tlaxcala</td></tr>
+            <tr><td><strong>Description</strong></td><td>Conoce a IME Calibraciones: historia, misión, equipo y valores. Laboratorio de calibración acreditado al servicio de la industria mexicana.</td></tr>
+            <tr><td><strong>Schema</strong></td><td><code>Organization</code> + <code>Person</code> (por cada miembro del equipo)</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Secciones</h4>
+        <ol>
+          <li><strong>Historia / Quiénes somos</strong> — textos definitivos <span class="tbd">TBD — pendiente del cliente</span></li>
+          <li><strong>Misión y Visión</strong></li>
+          <li><strong>Valores</strong></li>
+          <li><strong>Equipo</strong> — fotos + nombres + puestos. <em>Requiere fotos reales o generadas con IA.</em></li>
+          <li><strong>Instalaciones</strong> — galería de fotos del laboratorio</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ CONTACTO -->
+  <section class="section" id="fase1-contacto">
+    <h2>9. Contacto — <code>/contacto/</code></h2>
+
+    <div class="page-spec">
+      <div class="page-spec-header">
+        <span>Contacto</span>
+        <span class="url">/contacto/</span>
+      </div>
+      <div class="page-spec-body">
+
+        <h4>Secciones</h4>
+        <ol>
+          <li><strong>Formulario de contacto</strong> — campos: Nombre, Empresa, Correo, Teléfono, Mensaje, Magnitud/Servicio de interés (select). Envío via Formspree o EmailJS (sin backend).</li>
+          <li><strong>Datos directos</strong> — Teléfono: +52 246 126 1782 · Correo · WhatsApp</li>
+          <li><strong>Mapa</strong> — Google Maps embed con ubicación exacta del laboratorio</li>
+          <li><strong>Horarios</strong> — <span class="tbd">TBD — confirmar con cliente</span></li>
+          <li><strong>Portal de informes</strong> — Link/banner visible a calibracionesime.com.mx</li>
+        </ol>
+
+        <h4>Implementación del formulario</h4>
+        <p>Sin backend propio. Opciones en orden de preferencia:</p>
+        <ol>
+          <li><strong>Formspree</strong> — plan gratuito, 50 submissions/mes, sin código de servidor</li>
+          <li><strong>EmailJS</strong> — envío directo desde JS, gratuito hasta 200/mes</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ LEGALES -->
+  <section class="section" id="fase1-legales">
+    <h2>10. Páginas legales</h2>
+
+    <p>Páginas simples, contenido de texto. Migrar del sitio actual y actualizar si es necesario.</p>
+    <ul>
+      <li><code>/aviso-de-privacidad/</code> — Aviso de Privacidad (LFPDPPP México)</li>
+      <li><code>/terminos-y-condiciones/</code> — Términos y Condiciones de uso del sitio</li>
+    </ul>
+    <p class="muted small">Schema: ninguno requerido. Meta robots: index, follow. Sin CTA ni diseño complejo.</p>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ COMPONENTES -->
+  <section class="section" id="fase1-componentes">
+    <h2>11. Componentes reutilizables</h2>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Header / Nav</div>
+        <ul>
+          <li>Logo IME (SVG preferible)</li>
+          <li>Navegación principal: Inicio, Servicios, Acreditaciones, Catálogo, Nosotros, Contacto</li>
+          <li>CTA en nav: "Portal de informes" (link externo a calibracionesime.com.mx)</li>
+          <li>Hamburger menu en mobile</li>
+          <li>Sticky en scroll, con sombra sutil al hacer scroll</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Footer</div>
+        <ul>
+          <li>Logo + tagline</li>
+          <li>Links rápidos (misma nav)</li>
+          <li>Datos de contacto: Tel +52 246 126 1782</li>
+          <li>Redes sociales (URLs confirmadas):
+            <ul>
+              <li>Facebook: <code>facebook.com/CalibracionIME</code></li>
+              <li>Instagram: <code>instagram.com/calibracionesime</code></li>
+              <li>YouTube: <code>youtube.com/@CalibracionesIME</code></li>
+              <li>LinkedIn: <code>mx.linkedin.com/company/calibracionesime</code></li>
+            </ul>
+          </li>
+          <li>Link al portal calibracionesime.com.mx</li>
+          <li>Copyright + links legales</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">WhatsApp Widget</div>
+        <ul>
+          <li>Botón flotante fijo en esquina inferior derecha</li>
+          <li>Se integra como widget de tercero (provisto por otro developer)</li>
+          <li>Implementación: un <code>&lt;script&gt;</code> tag o iframe embebido — compatible con páginas estáticas sin problema</li>
+          <li>No bloquear render — cargar con <code>defer</code></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Breadcrumb</div>
+        <ul>
+          <li>Presente en todas las páginas internas (no en home)</li>
+          <li>Implementar como <code>&lt;nav aria-label="breadcrumb"&gt;</code></li>
+          <li>Schema <code>BreadcrumbList</code> en JSON-LD en cada página</li>
+          <li>Ejemplo: Inicio › Servicios › Temperatura</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Sistema de diseño (CSS)</h3>
+    <pre><code>/* assets/css/main.css — variables globales */
+:root {
+  /* Colores — ver Manual de Identidad 2025 */
+  --color-primary:    #e73a46;   /* TBD-MANUAL */
+  --color-secondary:  #1d3557;   /* TBD-MANUAL */
+  --color-ink:        #111827;
+  --color-muted:      #6b7280;
+  --color-bg:         #ffffff;
+  --color-surface:    #f8fafc;
+  --color-line:       #e5e7eb;
+
+  /* Tipografía — ERAS BOLD ITC (headings) + Poppins (body) */
+  --font-heading: 'Eras Bold ITC', 'Arial Black', sans-serif; /* Ver nota de licencia */
+  --font-body:    'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+  /* Espaciado */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  16px;
+  --space-lg:  24px;
+  --space-xl:  40px;
+  --space-2xl: 64px;
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.08);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+
+  /* Transiciones estándar */
+  --transition-fast:   150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow:   400ms ease;
+}</code></pre>
+
+    <h3>Tipografía — nota de licencia</h3>
+    <p><strong>Poppins:</strong> gratuita en Google Fonts. Cargar via <code>&lt;link&gt;</code> con <code>font-display: swap</code> y preconnect a <code>fonts.googleapis.com</code>.</p>
+    <p><strong>ERAS BOLD ITC:</strong> fuente comercial de ITC. IME debe proveer los archivos <code>.woff</code> y <code>.woff2</code> de su licencia, o adquirir licencia web en MyFonts/Adobe Fonts. Sin los archivos, usar fallback <code>'Arial Black'</code> como placeholder durante desarrollo. No distribuir los archivos de fuente en el repo público.</p>
+
+    <h3>Animaciones y transiciones</h3>
+    <p>El sitio debe sentirse moderno y fluido. Criterio: si la animación no aporta claridad o dirección al usuario, no va.</p>
+    <table>
+      <thead><tr><th>Elemento</th><th>Animación</th><th>Implementación</th></tr></thead>
+      <tbody>
+        <tr><td>Links y botones</td><td>Color/background transition en hover</td><td><code>transition: var(--transition-fast)</code></td></tr>
+        <tr><td>Cards</td><td>Sutil elevación de sombra en hover</td><td><code>box-shadow</code> transition</td></tr>
+        <tr><td>Secciones al hacer scroll</td><td>Fade-in + slide-up suave al entrar al viewport</td><td>IntersectionObserver + clase CSS <code>.visible</code></td></tr>
+        <tr><td>Carrusel de magnitudes</td><td>Auto-scroll suave, pausa en hover</td><td>CSS scroll-behavior + JS minimal</td></tr>
+        <tr><td>Nav en scroll</td><td>Sombra sutil al bajar, fija en la parte superior</td><td>CSS position sticky + JS scroll listener</td></tr>
+        <tr><td>Filtros del catálogo</td><td>Fade del grid al cambiar filtros</td><td>Opacity transition en el contenedor</td></tr>
+        <tr><td>Imágenes de producto</td><td>Zoom sutil en hover (tarjeta del catálogo)</td><td><code>transform: scale(1.03)</code> con overflow hidden</td></tr>
+      </tbody>
+    </table>
+    <div class="callout callout-warn">
+      Todas las animaciones deben respetar <code>prefers-reduced-motion</code>. Usuarios con configuración de movimiento reducido no ven animaciones.
+    </div>
+    <pre><code>@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}</code></pre>
+
+    <h3>Favicon</h3>
+    <p>El favicon es el ícono que aparece en la pestaña del navegador, bookmarks y al guardar el sitio en el home screen de un celular. Sin él el sitio se ve incompleto.</p>
+    <pre><code>&lt;!-- En el &lt;head&gt; de todas las páginas --&gt;
+&lt;link rel="icon" type="image/svg+xml" href="/assets/images/logo/favicon.svg"&gt;
+&lt;link rel="icon" type="image/png" sizes="32x32" href="/assets/images/logo/favicon-32.png"&gt;
+&lt;link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/apple-touch-icon.png"&gt;</code></pre>
+    <p>Archivos necesarios: <code>favicon.svg</code> (ícono o isotipo del logo), <code>favicon-32.png</code> (32×32px), <code>apple-touch-icon.png</code> (180×180px para iOS). Generar desde el logo de IME.</p>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ FASE 2 DATA MODEL -->
+  <section class="section" id="fase2-data">
+    <h2>12. Fase 2 — Modelo de datos (<code>productos.json</code>)</h2>
+
+    <p>El archivo <code>/data/productos.json</code> es la fuente de verdad de todo el catálogo. El HTML de cada página de producto se genera desde este archivo. Nunca editar los HTML individuales de productos directamente.</p>
+
+    <h3>Schema de un producto</h3>
+    <pre><code>{
+  "id": "balanza-precision-ohaus-ex224",          // kebab-case, único
+  "slug": "balanza-precision-ohaus-ex224",         // = URL: /catalogo/balanza-precision-ohaus-ex224/
+  "nombre": "Balanza de Precisión Analítica",
+  "marca": "Ohaus",
+  "modelo": "Explorer EX224",
+  "magnitud": "Masa",                              // Debe ser exactamente uno de los 32 valores
+  "categoria": "Balanzas",                         // Subcategoría dentro de la magnitud
+  "descripcion_corta": "Balanza analítica de alta precisión para laboratorio...",
+  "descripcion_larga": "Texto completo para la página de detalle. Puede incluir HTML básico.",
+  "especificaciones": [
+    { "campo": "Capacidad máxima",  "valor": "220 g" },
+    { "campo": "Resolución",        "valor": "0.1 mg" },
+    { "campo": "Reproducibilidad",  "valor": "0.1 mg" },
+    { "campo": "Alimentación",      "valor": "100–240 V AC" },
+    { "campo": "Comunicación",      "valor": "RS232, USB" }
+  ],
+  "imagenes": [
+    "balanza-precision-ohaus-ex224-1.webp",        // imagen principal (índice 0)
+    "balanza-precision-ohaus-ex224-2.webp",
+    "balanza-precision-ohaus-ex224-3.webp"
+  ],
+  "pdf_ficha": "ohaus-ex224-ficha-tecnica.pdf",    // null si no aplica
+  "tags": ["balanza", "analítica", "laboratorio", "masa", "precisión"],
+  "activo": true,                                  // false = no aparece en catálogo
+  "fecha_agregado": "2026-03-01"
+}</code></pre>
+
+    <h3>Estructura del array raíz</h3>
+    <pre><code>{
+  "version": "1.0",
+  "ultima_actualizacion": "2026-03-01",
+  "total_productos": 150,
+  "productos": [ /* array de productos */ ]
+}</code></pre>
+
+    <h3>Valores válidos para <code>magnitud</code></h3>
+    <div class="callout callout-warn">
+      <strong><span class="tbd">TBD</span></strong> — IME debe confirmar la lista exacta de sus 32 magnitudes. Los valores del campo <code>magnitud</code> deben coincidir exactamente con la lista oficial para que los filtros funcionen correctamente.
+    </div>
+    <p>Magnitudes de referencia (metrología general — confirmar cuáles aplican a IME):</p>
+    <div class="grid3">
+      <ul class="small">
+        <li>Temperatura</li>
+        <li>Presión</li>
+        <li>Masa / Fuerza</li>
+        <li>Dimensional / Longitud</li>
+        <li>Eléctrica</li>
+        <li>Humedad</li>
+        <li>Caudal / Flujo</li>
+        <li>Acústica / Sonido</li>
+        <li>Vibración</li>
+        <li>Torque</li>
+        <li>Dureza</li>
+      </ul>
+      <ul class="small">
+        <li>Óptica / Luminosidad</li>
+        <li>Radiación</li>
+        <li>pH / Química</li>
+        <li>Tiempo / Frecuencia</li>
+        <li>Velocidad</li>
+        <li>Densidad</li>
+        <li>Viscosidad</li>
+        <li>Rugosidad</li>
+        <li>Concentración</li>
+        <li>Ángulo</li>
+      </ul>
+      <ul class="small">
+        <li>Volumen</li>
+        <li>Conductividad</li>
+        <li>Vacío</li>
+        <li>Aceleración</li>
+        <li>Par motor</li>
+        <li>Nivel</li>
+        <li>…y más</li>
+        <li class="muted"><em>Confirmar lista completa</em></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ CATÁLOGO INDEX -->
+  <section class="section" id="fase2-index">
+    <h2>13. Catálogo — página índice (<code>/catalogo/</code>)</h2>
+
+    <div class="page-spec">
+      <div class="page-spec-header">
+        <span>Catálogo de Instrumentos</span>
+        <span class="url">/catalogo/</span>
+      </div>
+      <div class="page-spec-body">
+
+        <h4>Meta SEO</h4>
+        <table>
+          <tbody>
+            <tr><td><strong>Title</strong></td><td>Catálogo de Instrumentos — IME Calibraciones | Metrología Industrial</td></tr>
+            <tr><td><strong>Description</strong></td><td>Catálogo de instrumentos de medición y calibración. Filtrar por magnitud, marca o categoría. +150 productos para industria manufacturera y laboratorios.</td></tr>
+            <tr><td><strong>Schema</strong></td><td><code>ItemList</code> con los primeros 10–20 productos destacados</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Layout</h4>
+        <ul>
+          <li>Barra de filtros lateral (desktop) / drawer/accordion (mobile)</li>
+          <li>Grid de tarjetas de productos (3 col desktop, 2 col tablet, 1 col mobile)</li>
+          <li>Buscador en la parte superior — búsqueda en tiempo real mientras se escribe</li>
+          <li>Contador de resultados: "Mostrando 47 de 150 productos"</li>
+          <li>Chips de filtros activos con botón "×" para remover</li>
+        </ul>
+
+        <h4>Tarjeta de producto (en el índice)</h4>
+        <ul>
+          <li>Imagen principal (WebP, lazy load). Si no hay imagen: placeholder genérico con logo IME + ícono de la magnitud correspondiente. Nunca broken image.</li>
+          <li>Badge de magnitud (chip de color)</li>
+          <li>Nombre del producto</li>
+          <li>Marca + Modelo</li>
+          <li>2–3 especificaciones clave (índices 0, 1, 2 del array <code>especificaciones</code>)</li>
+          <li>Botón "Ver detalle" → <code>/catalogo/[slug]/</code></li>
+          <li>Sin precio visible — cotización vía WhatsApp</li>
+        </ul>
+
+        <h4>Orden por defecto</h4>
+        <p>Los productos se agrupan y ordenan por magnitud (orden alfabético de magnitud → orden alfabético de nombre dentro de cada magnitud). El usuario puede cambiar el orden via filtro de magnitud.</p>
+
+        <h4>Estado vacío (sin resultados)</h4>
+        <p>Cuando ningún producto coincide con los filtros activos, mostrar:</p>
+        <ul>
+          <li>Ícono o ilustración simple</li>
+          <li>Texto: <em>"No encontramos productos con esos filtros."</em></li>
+          <li>CTA: "Contáctanos — podemos ayudarte a encontrar lo que necesitas" → <code>/contacto/</code> o WhatsApp</li>
+          <li>Botón secundario: "Limpiar filtros"</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ FILTROS -->
+  <section class="section" id="fase2-filtros">
+    <h2>14. Sistema de filtros y búsqueda</h2>
+
+    <h3>Filtros disponibles</h3>
+    <table>
+      <thead><tr><th>Filtro</th><th>Tipo</th><th>Fuente</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Magnitud</strong></td><td>Checkbox múltiple</td><td><code>producto.magnitud</code></td><td><span class="badge badge-green">Confirmar lista</span></td></tr>
+        <tr><td><strong>Marca</strong></td><td>Checkbox múltiple</td><td><code>producto.marca</code></td><td><span class="badge badge-green">Extraer del JSON</span></td></tr>
+        <tr><td><strong>Categoría</strong></td><td>Checkbox múltiple</td><td><code>producto.categoria</code></td><td><span class="badge badge-green">Extraer del JSON</span></td></tr>
+        <tr><td><strong>Búsqueda libre</strong></td><td>Input texto</td><td>nombre + marca + modelo + tags</td><td><span class="badge badge-green">Implementar</span></td></tr>
+        <tr><td><strong>Filtros adicionales</strong></td><td><span class="tbd">TBD</span></td><td>Pendiente de IME</td><td><span class="badge badge-yellow">Pendiente</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Implementación de filtros (<code>catalog.js</code>)</h3>
+    <pre><code>// Lógica de filtrado — todo en memoria, sin fetch adicional
+const state = {
+  busqueda: '',
+  filtros: {
+    magnitud: new Set(),
+    marca: new Set(),
+    categoria: new Set()
+  }
+};
+
+function filtrarProductos(productos, state) {
+  return productos.filter(p => {
+    const matchBusqueda = !state.busqueda ||
+      [p.nombre, p.marca, p.modelo, ...(p.tags || [])]
+        .join(' ')
+        .toLowerCase()
+        .includes(state.busqueda.toLowerCase());
+
+    const matchMagnitud = state.filtros.magnitud.size === 0 ||
+      state.filtros.magnitud.has(p.magnitud);
+
+    const matchMarca = state.filtros.marca.size === 0 ||
+      state.filtros.marca.has(p.marca);
+
+    const matchCategoria = state.filtros.categoria.size === 0 ||
+      state.filtros.categoria.has(p.categoria);
+
+    return matchBusqueda && matchMagnitud && matchMarca && matchCategoria;
+  });
+}
+
+// Los filtros disponibles se generan dinámicamente desde el JSON
+// — nunca hardcodear opciones en el HTML</code></pre>
+
+    <h3>URL con estado de filtros</h3>
+    <p>Los filtros activos se reflejan en la URL como query params para que sean linkables y compartibles:</p>
+    <pre><code>/catalogo/?magnitud=Temperatura&marca=Fluke
+/catalogo/?busqueda=termometro+infrarrojo</code></pre>
+    <p>Al cargar la página, leer los query params y aplicar los filtros automáticamente.</p>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ DETALLE PRODUCTO -->
+  <section class="section" id="fase2-detalle">
+    <h2>15. Página de producto — <code>/catalogo/[slug]/</code></h2>
+
+    <div class="page-spec">
+      <div class="page-spec-header">
+        <span>Detalle de Producto</span>
+        <span class="url">/catalogo/[slug]/index.html</span>
+      </div>
+      <div class="page-spec-body">
+
+        <h4>Meta SEO (dinámico por producto)</h4>
+        <table>
+          <tbody>
+            <tr><td><strong>Title</strong></td><td><code>{nombre} — {marca} {modelo} | IME Calibraciones</code></td></tr>
+            <tr><td><strong>Description</strong></td><td><code>{descripcion_corta} Calibración acreditada disponible. IME Calibraciones, Tlaxcala.</code></td></tr>
+            <tr><td><strong>Schema</strong></td><td><code>Product</code> + <code>BreadcrumbList</code></td></tr>
+            <tr><td><strong>OG Image</strong></td><td>Primera imagen del producto</td></tr>
+          </tbody>
+        </table>
+
+        <h4>Schema Product (JSON-LD)</h4>
+        <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{nombre}",
+  "brand": { "@type": "Brand", "name": "{marca}" },
+  "model": "{modelo}",
+  "description": "{descripcion_larga}",
+  "image": ["{url_imagen_1}", "{url_imagen_2}"],
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@type": "Organization",
+      "name": "IME Calibraciones"
+    },
+    "url": "https://imecalibraciones.com/catalogo/{slug}/"
+  }
+}</code></pre>
+
+        <h4>Layout de la página de producto</h4>
+        <ol>
+          <li>
+            <strong>Breadcrumb</strong> — Inicio › Catálogo › {Magnitud} › {Nombre producto}
+          </li>
+          <li>
+            <strong>Galería de imágenes</strong> — Imagen principal grande + thumbnails clickeables. Hasta 5 imágenes por producto. Si solo hay 1, mostrar solo esa sin carrusel.
+          </li>
+          <li>
+            <strong>Info principal</strong> — Nombre (H1), badge de magnitud, marca/modelo, descripción corta.
+          </li>
+          <li>
+            <strong>CTA de cotización</strong> — Botón prominente "Solicitar cotización por WhatsApp" (abre widget o link directo). Sin precio visible.
+          </li>
+          <li>
+            <strong>Descripción completa</strong> — descripcion_larga del JSON.
+          </li>
+          <li>
+            <strong>Tabla de especificaciones técnicas</strong> — renderizar el array <code>especificaciones</code> como tabla de dos columnas.
+          </li>
+          <li>
+            <strong>Botones de descarga</strong> — "Descargar ficha técnica (PDF)" si <code>pdf_ficha != null</code>. "Imprimir ficha" (activa estilos CSS de impresión).
+          </li>
+          <li>
+            <strong>Productos relacionados</strong> — 3–4 productos de la misma magnitud. Generados desde el JSON.
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <h3>Generación de páginas de producto</h3>
+    <p>Las 150 páginas HTML se generan con un script Node.js local. No requiere build server en producción — el output es HTML estático.</p>
+    <pre><code>// scripts/generate-catalog.js
+const fs = require('fs');
+const path = require('path');
+
+const data = JSON.parse(fs.readFileSync('./data/productos.json'));
+const template = fs.readFileSync('./templates/producto.html', 'utf8');
+
+data.productos.forEach(producto => {
+  const html = renderTemplate(template, producto);
+  const dir = `./catalogo/${producto.slug}/`;
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), html);
+});
+
+console.log(`Generados ${data.productos.length} productos.`);</code></pre>
+
+    <p>Ejecutar después de cada actualización del JSON:</p>
+    <pre><code>node scripts/generate-catalog.js</code></pre>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ PRINT / PDF -->
+  <section class="section" id="fase2-print">
+    <h2>16. Ficha técnica imprimible (CSS Print)</h2>
+
+    <p>Cada página de producto incluye un botón "Imprimir ficha técnica". Al activarlo, se aplican estilos CSS de impresión que ocultan nav, footer, CTAs y muestran solo la información técnica del producto en formato limpio A4.</p>
+
+    <pre><code>/* assets/css/main.css — sección @media print */
+@media print {
+  header, footer, .nav-breadcrumb, .cta-cotizar,
+  .productos-relacionados, .no-print {
+    display: none !important;
+  }
+
+  .product-detail {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .product-gallery img:not(:first-child) {
+    display: none; /* Solo imagen principal en print */
+  }
+
+  .spec-table {
+    page-break-inside: avoid;
+  }
+
+  /* Agregar logo de IME en header de impresión */
+  .print-header {
+    display: block !important;
+  }
+}</code></pre>
+
+    <div class="callout callout-success">
+      Esta feature evita la dependencia de que el cliente provea PDFs por producto. Con el botón "Imprimir", cualquier página de producto genera automáticamente una ficha limpia. Si el cliente además tiene PDFs del fabricante, se agregan como descarga adicional.
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ SEO & GEO -->
+  <section class="section" id="seo-geo">
+    <h2>17. SEO &amp; GEO — Estrategia transversal</h2>
+
+    <div class="callout callout-info">
+      El SEO técnico base está incluido en Fase 1. El catálogo (Fase 2) multiplica el impacto SEO/GEO por sí solo — 150 páginas indexables, schema Product por producto, y red de enlaces internos. GEO avanzado (FAQs técnicas, schema semántico por servicio) queda disponible como Fase 3 futura si el cliente lo solicita.
+    </div>
+
+    <h3>Fase 1 — SEO base (incluido en COT-2026-001)</h3>
+    <table>
+      <thead><tr><th>Ítem</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td>Title + Description</td><td>Único por página, incluye ciudad (Tlaxcala) y servicio</td></tr>
+        <tr><td>H1–H3</td><td>Un H1 único por página, jerarquía consistente</td></tr>
+        <tr><td>Schema básico</td><td>Organization + LocalBusiness en todas las páginas</td></tr>
+        <tr><td>Sitemap.xml</td><td>Incluye todas las URLs. Actualizar cada vez que se agrega contenido.</td></tr>
+        <tr><td>Robots.txt</td><td>Permitir indexación de todo excepto <code>/data/</code> y <code>/scripts/</code></td></tr>
+        <tr><td>Canonical</td><td>Self-referencing canonical. Dominio canónico: <code>imecalibraciones.com</code> (sin www). GitHub Pages configurado con CNAME apuntando al dominio existente.</td></tr>
+        <tr><td>OpenGraph</td><td>og:title, og:description, og:image por página. OG image default: logo IME sobre fondo de color primario.</td></tr>
+        <tr><td>Google Analytics</td><td>GA4 · ID: <code>G-ZZKMX0MKYW</code></td></tr>
+        <tr><td>Google Search Console</td><td>Configurar y verificar propiedad una vez publicado. Enviar sitemap. Solicitar indexación de páginas principales. Requiere acceso a DNS o meta tag de verificación.</td></tr>
+        <tr><td>Favicon</td><td>SVG + PNG 32px + Apple touch icon 180px. Ver sección de design system.</td></tr>
+        <tr><td>Imágenes</td><td>Alt text descriptivo en todas. Dimensiones explícitas en atributos width/height para evitar CLS.</td></tr>
+        <tr><td>Fuentes</td><td>Poppins via Google Fonts con preconnect + font-display: swap. ERAS BOLD ITC via @font-face local.</td></tr>
+        <tr><td>Performance</td><td>Target: PageSpeed ≥ 90 mobile, ≥ 95 desktop</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Fase 2 — SEO específico del catálogo</h3>
+    <table>
+      <thead><tr><th>Ítem</th><th>Detalle</th></tr></thead>
+      <tbody>
+        <tr><td>URLs limpias</td><td><code>/catalogo/[slug]/</code> — descriptivas, sin IDs numéricos</td></tr>
+        <tr><td>Schema Product</td><td>En cada una de las 150 páginas de producto</td></tr>
+        <tr><td>Schema ItemList</td><td>En <code>/catalogo/</code> con los productos más relevantes</td></tr>
+        <tr><td>Sitemap actualizado</td><td>Regenerar cada vez que se agrega un producto</td></tr>
+        <tr><td>Internal linking</td><td>Servicios → Catálogo filtrado; Producto → Productos relacionados</td></tr>
+        <tr><td>Breadcrumb schema</td><td>BreadcrumbList en cada página de producto</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Lo que el catálogo aporta al GEO</h3>
+    <ul>
+      <li>150 páginas indexables con contenido técnico único = 150 oportunidades de aparecer en búsquedas long-tail</li>
+      <li>Búsquedas como <em>"calibrador de temperatura Fluke México"</em> → página de producto → lead</li>
+      <li>Los motores IA (ChatGPT, Gemini, Perplexity) citan sitios con catálogos bien estructurados y schema Product correcto</li>
+      <li>Más contenido técnico = más superficie "citable" = más autoridad de dominio</li>
+    </ul>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ PERFORMANCE -->
+  <section class="section" id="performance">
+    <h2>18. Performance</h2>
+
+    <table>
+      <thead><tr><th>Métrica</th><th>Target</th><th>Estrategia</th></tr></thead>
+      <tbody>
+        <tr><td>PageSpeed Mobile</td><td>≥ 90</td><td>Imágenes WebP, lazy load, JS defer, CSS inline crítico</td></tr>
+        <tr><td>PageSpeed Desktop</td><td>≥ 95</td><td>Misma estrategia</td></tr>
+        <tr><td>LCP (Largest Contentful Paint)</td><td>&lt; 2.5s</td><td>Preload de imagen hero, no bloquear render</td></tr>
+        <tr><td>CLS (Cumulative Layout Shift)</td><td>&lt; 0.1</td><td>Dimensiones explícitas en todas las imágenes</td></tr>
+        <tr><td>Carga inicial catálogo</td><td>&lt; 200ms percibido</td><td>productos.json carga en background; skeleton loaders</td></tr>
+        <tr><td>Filtrado</td><td>Instantáneo (&lt; 16ms)</td><td>Todo en memoria, sin requests adicionales</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Optimización de imágenes</h3>
+    <ul>
+      <li>Todas las imágenes en WebP con fallback <code>&lt;picture&gt;</code> para JPG</li>
+      <li>Imágenes de productos: máx 800×800px, comprimir a &lt;150KB</li>
+      <li>Logo: SVG cuando sea posible</li>
+      <li>Íconos de magnitudes: SVG inline o sprite</li>
+      <li>Lazy load en todas las imágenes excepto hero y above-the-fold</li>
+    </ul>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ INTEGRACIONES -->
+  <section class="section" id="integraciones">
+    <h2>19. Integraciones externas</h2>
+
+    <table>
+      <thead><tr><th>Servicio</th><th>Propósito</th><th>Implementación</th><th>Costo</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Google Analytics 4</strong></td>
+          <td>Tracking</td>
+          <td>Script con ID existente: <code>G-ZZKMX0MKYW</code></td>
+          <td>Gratis</td>
+        </tr>
+        <tr>
+          <td><strong>Google Maps</strong></td>
+          <td>Mapa en contacto</td>
+          <td>Iframe embed (no API key)</td>
+          <td>Gratis</td>
+        </tr>
+        <tr>
+          <td><strong>Formspree / EmailJS</strong></td>
+          <td>Formulario de contacto</td>
+          <td>POST desde JS sin backend</td>
+          <td>Gratis (plan básico)</td>
+        </tr>
+        <tr>
+          <td><strong>WhatsApp Widget</strong></td>
+          <td>Cotizaciones</td>
+          <td>Script/iframe provisto por otro developer. Cargar con <code>defer</code>. No bloquear render.</td>
+          <td>N/A (provisto por cliente)</td>
+        </tr>
+        <tr>
+          <td><strong>Portal calibracionesime.com.mx</strong></td>
+          <td>Portal de informes clientes</td>
+          <td>Link externo visible en nav y footer. No modificar el portal.</td>
+          <td>N/A</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ ASSETS -->
+  <section class="section" id="assets">
+    <h2>20. Assets requeridos del cliente</h2>
+
+    <div class="callout callout-warn">
+      El proyecto no puede completarse sin estos assets. Establecer fecha límite de entrega con IME al inicio.
+    </div>
+
+    <table>
+      <thead><tr><th>Asset</th><th>Para qué se usa</th><th>Formato</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td>Logo en alta resolución</td><td>Header, footer, OG image, print</td><td>SVG + PNG 512px</td><td><span class="badge badge-green">Disponible (manual identidad)</span></td></tr>
+        <tr><td>Manual de identidad</td><td>Colores exactos, tipografía, usos del logo</td><td>PDF</td><td><span class="badge badge-green">Disponible en /docs/</span></td></tr>
+        <tr><td>Textos "Nosotros" (historia, misión, visión)</td><td>Página Nosotros</td><td>Word / texto</td><td><span class="badge badge-yellow">Pendiente</span></td></tr>
+        <tr><td>Fotos del equipo</td><td>Página Nosotros</td><td>JPG/PNG, alta res</td><td><span class="badge badge-yellow">Pendiente (o generar con IA)</span></td></tr>
+        <tr><td>Fotos del laboratorio</td><td>Home hero, Nosotros, galería</td><td>JPG/PNG, alta res</td><td><span class="badge badge-yellow">Pendiente (o generar con IA)</span></td></tr>
+        <tr><td>Logos de clientes</td><td>Home — trust signals</td><td>SVG o PNG transparente</td><td><span class="badge badge-yellow">Pendiente</span></td></tr>
+        <tr><td>PDFs de acreditaciones</td><td>Página Acreditaciones</td><td>PDF</td><td><span class="badge badge-green">EMA16dic24.pdf en /docs/</span></td></tr>
+        <tr><td>Lista de 32 magnitudes</td><td>Carrusel home, filtros catálogo</td><td>Lista de texto</td><td><span class="badge badge-yellow">Pendiente confirmación</span></td></tr>
+        <tr><td>Lista de industrias que atienden</td><td>Home, Servicios</td><td>Lista de texto</td><td><span class="badge badge-yellow">Pendiente</span></td></tr>
+        <tr><td>Datos de contacto vigentes</td><td>Contacto, footer, schema</td><td>Texto</td><td><span class="badge badge-green">Tel: +52 246 126 1782</span></td></tr>
+        <tr><td>Dirección exacta del laboratorio</td><td>Google Maps, schema LocalBusiness</td><td>Dirección completa</td><td><span class="badge badge-yellow">Pendiente confirmar</span></td></tr>
+        <tr><td>Estadísticas (años exp., # clientes, etc.)</td><td>Home — trust signals</td><td>Números confirmados</td><td><span class="badge badge-yellow">Pendiente</span></td></tr>
+        <tr><td>Diferenciadores vs competencia</td><td>Home hero copy, FAQs, SEO</td><td>Texto</td><td><span class="badge badge-yellow">Pendiente (preguntar a marketing)</span></td></tr>
+        <tr><td><strong>Catálogo de productos (Fase 2)</strong></td><td>productos.json</td><td>Excel o template definido</td><td><span class="badge badge-yellow">Template enviado, pendiente llenado</span></td></tr>
+        <tr><td>Fotos de productos</td><td>Páginas de producto</td><td>JPG/PNG, fondo blanco preferible</td><td><span class="badge badge-yellow">Pendiente (o mejorar con IA)</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ OUT OF SCOPE -->
+  <section class="section" id="out-of-scope">
+    <h2>21. Out of scope</h2>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">No incluido en Fase 1</div>
+        <ul>
+          <li>Catálogo de productos con filtros (→ Fase 2)</li>
+          <li>GEO/SEO avanzado, FAQs técnicas, schema complejo (→ Fase 3)</li>
+          <li>Blog o sección de artículos</li>
+          <li>E-commerce o carrito de compras</li>
+          <li>Sistema de precios o lista de precios visible</li>
+          <li>Panel de administración CMS</li>
+          <li>Modificación del portal calibracionesime.com.mx</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">No incluido en Fase 2 (catálogo)</div>
+        <ul>
+          <li>Panel CMS para que el cliente edite productos solo</li>
+          <li>Base de datos backend (todo es JSON estático)</li>
+          <li>Sistema de precios o e-commerce</li>
+          <li>Comparador de productos</li>
+          <li>Sistema de inventario</li>
+          <li>Más de 150 productos (extensión se cotiza)</li>
+          <li>Más de los filtros acordados (extensión se cotiza)</li>
+          <li>GEO avanzado / FAQs técnicas / schema por servicio → disponible como Fase 3 futura</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ ACCEPTANCE -->
+  <section class="section" id="acceptance">
+    <h2>22. Criterios de aceptación</h2>
+
+    <h3>Fase 1</h3>
+    <ul>
+      <li>Las 12 páginas acordadas están publicadas en el dominio imecalibraciones.com</li>
+      <li>PageSpeed ≥ 90 en mobile en todas las páginas principales</li>
+      <li>Schema Organization + LocalBusiness sin errores en Rich Results Test</li>
+      <li>Sitemap.xml accesible en <code>/sitemap.xml</code></li>
+      <li>Formulario de contacto envía correos correctamente</li>
+      <li>Sitio funcional en Chrome, Firefox, Safari (desktop + mobile)</li>
+      <li>HTTPS activo, sin mixed content warnings</li>
+      <li>Google Analytics registrando sesiones</li>
+      <li>Portal calibracionesime.com.mx linkeado y accesible</li>
+    </ul>
+
+    <h3>Fase 2 (catálogo)</h3>
+    <ul>
+      <li>Todos los productos en <code>productos.json</code> tienen página HTML generada</li>
+      <li>Filtros funcionan correctamente (combinaciones múltiples)</li>
+      <li>Búsqueda en tiempo real funciona sin delay visible</li>
+      <li>Schema Product sin errores en cada página de producto</li>
+      <li>URLs reflejan estado de filtros (query params)</li>
+      <li>Botón "Imprimir ficha" genera output limpio en A4</li>
+      <li>Todas las imágenes cargan correctamente (no broken images)</li>
+      <li>Sitemap actualizado incluye las 150 URLs de productos</li>
+    </ul>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ RISKS -->
+  <section class="section" id="risks">
+    <h2>23. Riesgos y mitigaciones</h2>
+
+    <table>
+      <thead><tr><th>Riesgo</th><th>Probabilidad</th><th>Impacto</th><th>Mitigación</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Cliente retrasa entrega de assets (fotos, textos, productos)</td>
+          <td><span class="badge badge-red">Alta</span></td>
+          <td>Bloquea entrega</td>
+          <td>Establecer fecha límite de assets al inicio. Continuar con placeholder y IA mientras tanto.</td>
+        </tr>
+        <tr>
+          <td>Lista de magnitudes incompleta o cambia durante desarrollo</td>
+          <td><span class="badge badge-yellow">Media</span></td>
+          <td>Requiere regenerar catálogo</td>
+          <td>Confirmar lista antes de generar filtros. El sistema es flexible por diseño.</td>
+        </tr>
+        <tr>
+          <td>Productos del catálogo exceden 150</td>
+          <td><span class="badge badge-yellow">Media</span></td>
+          <td>Trabajo extra no cotizado</td>
+          <td>Cotización incluye "hasta 150 productos". Excedente se cotiza como extensión ($X por producto adicional).</td>
+        </tr>
+        <tr>
+          <td>Fotos de productos de baja calidad</td>
+          <td><span class="badge badge-yellow">Media</span></td>
+          <td>Catálogo poco profesional</td>
+          <td>Mejora con IA (remove background, upscale) incluida en el proceso. Si no hay foto, usar imagen genérica por magnitud.</td>
+        </tr>
+        <tr>
+          <td>Widget de WhatsApp afecta performance</td>
+          <td><span class="badge badge-green">Baja</span></td>
+          <td>Baja PageSpeed</td>
+          <td>Cargar con defer + lazy. Si el widget es muy pesado, escalar al cliente (no es nuestra responsabilidad directa).</td>
+        </tr>
+        <tr>
+          <td>Cliente pide cambios fuera de alcance durante desarrollo</td>
+          <td><span class="badge badge-red">Alta</span></td>
+          <td>Scope creep</td>
+          <td>Este PRD es el documento de referencia. Cualquier cambio fuera de lo aquí especificado = nueva cotización.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+</body>
+</html>
