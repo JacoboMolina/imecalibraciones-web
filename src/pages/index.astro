@@ -536,10 +536,12 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     let current = 0;
 
     function visibleCount() {
-      const w = window.innerWidth;
-      if (w <= 480) return 1;
-      if (w <= 768) return 2;
-      return 3;
+      // Derive count from actual container width — no brittle px breakpoints
+      const MIN_CARD = 200; // px: minimum readable card width
+      const vw = viewport.clientWidth;
+      if (vw >= MIN_CARD * 3 + GAP * 2) return 3;
+      if (vw >= MIN_CARD * 2 + GAP)     return 2;
+      return 1;
     }
 
     function maxIndex() { return TOTAL - visibleCount(); }
