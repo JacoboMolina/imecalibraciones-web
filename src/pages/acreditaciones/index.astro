@@ -83,10 +83,23 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     <!-- ===== CERTIFICADOS ===== -->
     <section class="section acred-certs">
       <div class="container">
+
+        <!-- Tabs -->
+        <div class="acred-tabs" role="tablist" aria-label="Certificados de acreditación">
+          <button class="acred-tab acred-tab--active" role="tab" aria-selected="true" aria-controls="panel-ema" data-tab="ema">
+            <span class="acred-tab__dot acred-tab__dot--blue"></span>
+            Acreditación EMA
+          </button>
+          <button class="acred-tab" role="tab" aria-selected="false" aria-controls="panel-pjla" data-tab="pjla">
+            <span class="acred-tab__dot acred-tab__dot--purple"></span>
+            Acreditación PJLA · No. 54194
+          </button>
+        </div>
+
         <div class="acred-grid">
 
           <!-- EMA -->
-          <div class="acred-card" id="ema">
+          <div class="acred-card" id="panel-ema" role="tabpanel" aria-labelledby="tab-ema">
             <div class="acred-card__top">
               <div class="acred-card__seal">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
@@ -117,7 +130,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
           </div>
 
           <!-- PJLA -->
-          <div class="acred-card acred-card--pjla" id="pjla">
+          <div class="acred-card acred-card--pjla" id="panel-pjla" role="tabpanel" aria-labelledby="tab-pjla" hidden>
             <div class="acred-card__top">
               <div class="acred-card__seal acred-card__seal--pjla">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
@@ -360,11 +373,46 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
   color: rgba(255,255,255,.3);
 }
 
-/* ── CERT CARDS ── */
+/* ── TABS ── */
 .acred-certs { padding-top: var(--space-10); }
+.acred-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: var(--space-5);
+  border-bottom: 1px solid var(--color-line);
+  padding-bottom: 0;
+}
+.acred-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  padding: 10px 18px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  transition: color .15s, border-color .15s;
+  font-family: inherit;
+}
+.acred-tab:hover { color: var(--color-ink); }
+.acred-tab--active { color: var(--color-ink); border-bottom-color: var(--color-primary); }
+.acred-tab__dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.acred-tab__dot--blue   { background: var(--color-primary); }
+.acred-tab__dot--purple { background: #7c3aed; }
+
+/* ── CERT CARDS ── */
 .acred-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: var(--space-6);
   align-items: start;
 }
@@ -546,7 +594,6 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
-  .acred-grid { grid-template-columns: 1fr; }
   .acred-benefits { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
@@ -561,3 +608,21 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
   .acred-hero__badge { width: 100%; }
 }
 </style>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.acred-tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      tabs.forEach(t => {
+        t.classList.remove('acred-tab--active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll<HTMLElement>('.acred-card').forEach(panel => {
+        panel.hidden = panel.id !== `panel-${target}`;
+      });
+      tab.classList.add('acred-tab--active');
+      tab.setAttribute('aria-selected', 'true');
+    });
+  });
+</script>
