@@ -2026,26 +2026,40 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
 }
 
 /* ── NOSOTROS — REDES SOCIALES ── */
-.nosotros-redes__layout {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  gap: var(--space-12);
+.nosotros-redes__embeds {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+}
+.nosotros-redes__embed-wrap {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  max-width: 860px;
-  margin: 0 auto;
+  gap: 8px;
 }
-.nosotros-redes__video .tiktok-embed {
-  margin: 0 !important;
-}
-.nosotros-redes__links p {
+.nosotros-redes__embed-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
   color: var(--color-muted);
-  margin-bottom: var(--space-6);
-  line-height: 1.7;
+}
+.nosotros-redes__embed-wrap .tiktok-embed,
+.nosotros-redes__embed-wrap .instagram-media {
+  margin: 0 !important;
 }
 .nosotros-redes__icons {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 640px;
+  margin: 0 auto;
 }
 .nosotros-red {
   display: flex;
@@ -2079,13 +2093,7 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
   font-weight: 500;
 }
 @media (max-width: 640px) {
-  .nosotros-redes__layout {
-    grid-template-columns: 1fr;
-  }
-  .nosotros-redes__video {
-    max-width: 340px;
-    margin: 0 auto;
-  }
+  .nosotros-redes__embeds { flex-direction: column; align-items: center; }
 }
 
 
