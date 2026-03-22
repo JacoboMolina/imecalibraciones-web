@@ -2,12 +2,16 @@
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const navLinks = [
-  { href: `${b}/`,                label: 'Inicio' },
   { href: `${b}/servicios/`,      label: 'Servicios' },
   { href: `${b}/acreditaciones/`, label: 'Acreditaciones' },
   { href: `${b}/catalogo/`,       label: 'Catálogo' },
   { href: `${b}/nosotros/`,       label: 'Nosotros' },
-  { href: `${b}/contacto/`,       label: 'Contacto' },
+];
+
+const contactoLinks = [
+  { href: `${b}/contacto/`,              label: 'Contacto general' },
+  { href: `${b}/bolsa-de-trabajo/`,      label: 'Bolsa de trabajo' },
+  { href: `${b}/quejas-y-sugerencias/`,  label: 'Quejas y sugerencias' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -17,6 +21,8 @@ function isActive(href: string) {
   if (path === '/') return currentPath === '/' || currentPath === `${b}/`;
   return currentPath.startsWith(href);
 }
+
+const contactoActive = contactoLinks.some(l => isActive(l.href));
 ---
 
 <header class="site-header" role="banner">
@@ -40,6 +46,25 @@ function isActive(href: string) {
         </a>
       ))}
 
+      <!-- Dropdown Contacto -->
+      <div class={`nav-dropdown${contactoActive ? ' nav-dropdown--active' : ''}`}>
+        <button class="nav-dropdown__trigger" aria-expanded="false" aria-haspopup="true">
+          Contacto
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" width="14" height="14">
+            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/>
+          </svg>
+        </button>
+        <ul class="nav-dropdown__menu" role="menu">
+          {contactoLinks.map(link => (
+            <li role="none">
+              <a href={link.href} role="menuitem" aria-current={isActive(link.href) ? 'page' : undefined}>
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <a href="https://calibracionesime.com.mx"
          target="_blank"
          rel="noopener noreferrer">
@@ -50,3 +75,27 @@ function isActive(href: string) {
     </nav>
   </div>
 </header>
+
+<script>
+  // Dropdown toggle
+  document.querySelectorAll('.nav-dropdown__trigger').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!expanded));
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.nav-dropdown__trigger').forEach(btn => {
+      btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+  // Cerrar con Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.nav-dropdown__trigger').forEach(btn => {
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+</script>
