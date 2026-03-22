@@ -77,29 +77,45 @@ const contactoActive = contactoLinks.some(l => isActive(l.href));
 </header>
 
 <script>
-  function alignDropdown(trigger: HTMLElement) {
-    const menu = trigger.nextElementSibling as HTMLElement;
-    if (!menu) return;
-    const rect = trigger.getBoundingClientRect();
-    menu.style.left = `${rect.left + rect.width / 2}px`;
-  }
-
   document.querySelectorAll<HTMLElement>('.nav-dropdown__trigger').forEach(btn => {
     const dropdown = btn.closest('.nav-dropdown') as HTMLElement;
+    const menu = btn.nextElementSibling as HTMLElement;
+    let hideTimer: ReturnType<typeof setTimeout>;
 
-    // Hover
-    dropdown.addEventListener('mouseenter', () => alignDropdown(btn));
+    function show() {
+      clearTimeout(hideTimer);
+      const rect = btn.getBoundingClientRect();
+      menu.style.left = `${rect.left + rect.width / 2}px`;
+      menu.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
 
-    // Click (accesibilidad / móvil)
+    function scheduleHide() {
+      hideTimer = setTimeout(() => {
+        menu.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }, 120);
+    }
+
+    // Hover en trigger
+    dropdown.addEventListener('mouseenter', show);
+    dropdown.addEventListener('mouseleave', scheduleHide);
+
+    // Hover en el propio menú (fixed, fuera del dropdown)
+    menu.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+    menu.addEventListener('mouseleave', scheduleHide);
+
+    // Click (móvil / teclado)
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!expanded));
-      if (!expanded) alignDropdown(btn);
+      menu.classList.contains('is-open') ? scheduleHide() : show();
     });
   });
 
   document.addEventListener('click', () => {
+    document.querySelectorAll<HTMLElement>('.nav-dropdown__menu').forEach(m => {
+      m.classList.remove('is-open');
+    });
     document.querySelectorAll('.nav-dropdown__trigger').forEach(btn => {
       btn.setAttribute('aria-expanded', 'false');
     });
@@ -107,9 +123,8 @@ const contactoActive = contactoLinks.some(l => isActive(l.href));
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      document.querySelectorAll('.nav-dropdown__trigger').forEach(btn => {
-        btn.setAttribute('aria-expanded', 'false');
-      });
+      document.querySelectorAll<HTMLElement>('.nav-dropdown__menu').forEach(m => m.classList.remove('is-open'));
+      document.querySelectorAll('.nav-dropdown__trigger').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
     }
   });
 </script>
