@@ -532,13 +532,12 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     const cards    = Array.from(track.querySelectorAll<HTMLElement>('.dif-stat'));
 
     const GAP   = 16;
-    const TOTAL = cards.length; // 6
+    const TOTAL = cards.length;
+    const MIN_CARD = 200; // minimum readable card width in px
     let current = 0;
+    let vw = 0; // set by ResizeObserver — always accurate
 
     function visibleCount() {
-      // Derive count from actual container width — no brittle px breakpoints
-      const MIN_CARD = 200; // px: minimum readable card width
-      const vw = viewport.clientWidth;
       if (vw >= MIN_CARD * 3 + GAP * 2) return 3;
       if (vw >= MIN_CARD * 2 + GAP)     return 2;
       return 1;
@@ -548,16 +547,14 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
     function setWidths() {
       const vis   = visibleCount();
-      const cardW = (viewport.clientWidth - GAP * (vis - 1)) / vis;
+      const cardW = (vw - GAP * (vis - 1)) / vis;
       cards.forEach(c => { c.style.flex = `0 0 ${cardW}px`; });
       return cardW;
     }
 
-    // Dots are generated dynamically because maxIndex changes with breakpoint
     function renderDots() {
-      const count = maxIndex() + 1;
       dotsWrap.innerHTML = '';
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i <= maxIndex(); i++) {
         const d = document.createElement('span');
         d.className = 'dif-carousel__dot' + (i === current ? ' dif-carousel__dot--active' : '');
         d.addEventListener('click', () => goTo(i));
@@ -573,14 +570,9 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     function updateCenter() {
       const vis = visibleCount();
       cards.forEach((c, i) => {
-        let isCenter: boolean;
-        if (vis === 3) {
-          // Only the middle card is the focal point
-          isCenter = i === current + 1;
-        } else {
-          // On tablet (2) and mobile (1) all visible cards are full-size
-          isCenter = i >= current && i < current + vis;
-        }
+        const isCenter = vis === 3
+          ? i === current + 1
+          : (i >= current && i < current + vis);
         c.classList.toggle('dif-stat--center', isCenter);
       });
     }
@@ -598,19 +590,14 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     prevBtn.addEventListener('click', () => goTo(current - 1));
     nextBtn.addEventListener('click', () => goTo(current + 1));
 
-    let resizeTimer: ReturnType<typeof setTimeout>;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        current = Math.min(current, maxIndex()); // clamp index for new breakpoint
-        renderDots();
-        goTo(current);
-      }, 100);
-    });
-
-    // init
-    setWidths();
-    renderDots();
-    goTo(0);
+    // ResizeObserver fires with the real element size — no window.innerWidth guessing
+    new ResizeObserver(entries => {
+      const newVw = entries[0].contentRect.width;
+      if (newVw === vw) return;
+      vw = newVw;
+      current = Math.min(current, maxIndex());
+      renderDots();
+      goTo(current);
+    }).observe(viewport);
   })();
 </script>

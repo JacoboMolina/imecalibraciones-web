@@ -1445,9 +1445,9 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
 }
 .dif-carousel__viewport {
   flex: 1;
-  overflow-x: clip;   /* clips horizontal overflow without blocking vertical shadow */
-  overflow-y: visible;
-  padding: 16px 0;    /* room for glow shadow + lift on center card */
+  overflow: hidden;
+  padding: 24px 0;  /* extends clip boundary so vertical shadow is visible */
+  margin: -24px 0;  /* compensate so layout height is unchanged */
 }
 .dif-carousel__track {
   display: flex;
