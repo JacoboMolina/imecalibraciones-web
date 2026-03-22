@@ -77,20 +77,34 @@ const contactoActive = contactoLinks.some(l => isActive(l.href));
 </header>
 
 <script>
-  // Dropdown toggle
-  document.querySelectorAll('.nav-dropdown__trigger').forEach(btn => {
+  function alignDropdown(trigger: HTMLElement) {
+    const menu = trigger.nextElementSibling as HTMLElement;
+    if (!menu) return;
+    const rect = trigger.getBoundingClientRect();
+    menu.style.left = `${rect.left + rect.width / 2}px`;
+  }
+
+  document.querySelectorAll<HTMLElement>('.nav-dropdown__trigger').forEach(btn => {
+    const dropdown = btn.closest('.nav-dropdown') as HTMLElement;
+
+    // Hover
+    dropdown.addEventListener('mouseenter', () => alignDropdown(btn));
+
+    // Click (accesibilidad / móvil)
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       const expanded = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', String(!expanded));
+      if (!expanded) alignDropdown(btn);
     });
   });
+
   document.addEventListener('click', () => {
     document.querySelectorAll('.nav-dropdown__trigger').forEach(btn => {
       btn.setAttribute('aria-expanded', 'false');
     });
   });
-  // Cerrar con Escape
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       document.querySelectorAll('.nav-dropdown__trigger').forEach(btn => {
