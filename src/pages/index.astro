@@ -537,8 +537,8 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
     function visibleCount() {
       const w = window.innerWidth;
-      if (w <= 600) return 1;
-      if (w <= 960) return 2;
+      if (w <= 480) return 1;
+      if (w <= 768) return 2;
       return 3;
     }
 
