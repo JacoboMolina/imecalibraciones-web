@@ -192,74 +192,40 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
         <header class="section__header text-center">
           <p class="section__eyebrow">¿Por qué elegirnos?</p>
           <h2 class="section-title">Lo que diferencia a IME</h2>
-          <p class="section__subtitle text-muted">6 razones por las que los líderes industriales de México confían su metrología a IME.</p>
+          <p class="section__subtitle text-muted">Lo que nos hace distintos, en números.</p>
         </header>
         <div class="diferenciadores-grid">
 
-          <article class="diferenciador-card animate-on-scroll">
-            <div class="diferenciador-card__icon" aria-hidden="true">
+          <article class="dif-stat animate-on-scroll">
+            <div class="dif-stat__icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
             </div>
-            <div class="diferenciador-card__text">
-              <h3 class="diferenciador-card__title">Más acreditaciones que cualquier otro lab en México</h3>
-              <p class="diferenciador-card__body">Doble respaldo EMA + PJLA. Más alcance, más confianza en cada certificado.</p>
-              <a href={`${b}/acreditaciones/`} class="diferenciador-card__link">Ver acreditaciones</a>
-            </div>
+            <div class="dif-stat__value">EMA + PJLA</div>
+            <p class="dif-stat__label">Única doble acreditación ISO/IEC 17025 en México</p>
           </article>
 
-          <article class="diferenciador-card animate-on-scroll">
-            <div class="diferenciador-card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
-            </div>
-            <div class="diferenciador-card__text">
-              <h3 class="diferenciador-card__title">Métodos patentados — sin envíos al extranjero</h3>
-              <p class="diferenciador-card__body">Calibramos lo que antes salía del país. Ahorro real en tiempo y costo logístico.</p>
-              <a href={`${b}/servicios/`} class="diferenciador-card__link">Ver servicios</a>
-            </div>
-          </article>
-
-          <article class="diferenciador-card animate-on-scroll">
-            <div class="diferenciador-card__icon" aria-hidden="true">
+          <article class="dif-stat animate-on-scroll">
+            <div class="dif-stat__icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.25 5.337c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.036 1.007-1.875 2.25-1.875S15 2.34 15 3.375c0 .369-.128.713-.349 1.003-.215.283-.401.604-.401.959 0 .332.278.598.61.578 1.91-.114 3.79-.342 5.632-.676a.75.75 0 01.878.645 49.17 49.17 0 01.376 5.452.657.657 0 01-.66.664c-.354 0-.675-.186-.958-.401a1.647 1.647 0 00-1.003-.349c-1.035 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401.31 0 .557.262.534.571a48.774 48.774 0 01-.595 4.845.75.75 0 01-.61.61c-1.82.317-3.673.533-5.555.642a.58.58 0 01-.611-.581c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.035-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959a.641.641 0 01-.658.643 49.118 49.118 0 01-4.708-.36.75.75 0 01-.645-.878c.293-1.614.504-3.257.629-4.924A.53.53 0 005.337 15c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.036 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.369 0 .713.128 1.003.349.283.215.604.401.959.401a.656.656 0 00.659-.663 47.703 47.703 0 00-.31-4.82.75.75 0 01.83-.832c1.343.155 2.703.254 4.077.294a.64.64 0 00.657-.642z"/></svg>
             </div>
-            <div class="diferenciador-card__text">
-              <h3 class="diferenciador-card__title">Capacidad para 24,000 equipos al año</h3>
-              <p class="diferenciador-card__body">Un solo proveedor para toda su planta, en todas las magnitudes que necesite.</p>
-              <a href={`${b}/servicios/`} class="diferenciador-card__link">Ver catálogo</a>
-            </div>
+            <div class="dif-stat__value">24,000</div>
+            <p class="dif-stat__label">Equipos calibrados por año — un solo proveedor para toda su planta</p>
           </article>
 
-          <article class="diferenciador-card animate-on-scroll">
-            <div class="diferenciador-card__icon" aria-hidden="true">
+          <article class="dif-stat animate-on-scroll">
+            <div class="dif-stat__icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clip-rule="evenodd"/></svg>
             </div>
-            <div class="diferenciador-card__text">
-              <h3 class="diferenciador-card__title">Servicio 365 días en cualquier estado</h3>
-              <p class="diferenciador-card__body">Nos adaptamos a sus turnos y horarios donde su operación lo necesite.</p>
-              <a href={`${b}/contacto/`} class="diferenciador-card__link">Agendar servicio</a>
-            </div>
+            <div class="dif-stat__value">365 días</div>
+            <p class="dif-stat__label">Servicio en cualquier estado, adaptado a sus turnos y horarios</p>
           </article>
 
-          <article class="diferenciador-card animate-on-scroll">
-            <div class="diferenciador-card__icon" aria-hidden="true">
+          <article class="dif-stat animate-on-scroll">
+            <div class="dif-stat__icon" aria-hidden="true">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25zM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h.375a3 3 0 116 0h3a.75.75 0 00.75-.75V15z"/><path d="M8.25 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0zM15.75 6.75a.75.75 0 00-.75.75v11.25c0 .087.015.17.042.248a3 3 0 015.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 00-3.732-10.104 1.837 1.837 0 00-1.47-.725H15.75z"/><path d="M19.5 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"/></svg>
             </div>
-            <div class="diferenciador-card__text">
-              <h3 class="diferenciador-card__title">Recolección y entrega sin costo</h3>
-              <p class="diferenciador-card__body">Traslado gratuito en radio de 100 km, con seguro incluido. Sus equipos siempre protegidos.</p>
-              <a href={`${b}/contacto/`} class="diferenciador-card__link">Solicitar servicio</a>
-            </div>
-          </article>
-
-          <article class="diferenciador-card animate-on-scroll">
-            <div class="diferenciador-card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8.25 10.875a2.625 2.625 0 115.25 0 2.625 2.625 0 01-5.25 0z"/><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.125 4.5a4.125 4.125 0 102.338 7.524l2.007 2.006a.75.75 0 101.06-1.06l-2.006-2.007a4.125 4.125 0 00-3.399-6.463z" clip-rule="evenodd"/></svg>
-            </div>
-            <div class="diferenciador-card__text">
-              <h3 class="diferenciador-card__title">Flota propia: 15 vehículos y 4 choferes</h3>
-              <p class="diferenciador-card__body">Sin terceros. Logística propia que garantiza cada recolección y entrega puntual.</p>
-              <a href={`${b}/contacto/`} class="diferenciador-card__link">Conocer cobertura</a>
-            </div>
+            <div class="dif-stat__value">100 km</div>
+            <p class="dif-stat__label">Recolección y entrega sin costo, con seguro incluido</p>
           </article>
 
         </div>
