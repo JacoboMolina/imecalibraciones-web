@@ -2049,9 +2049,9 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
   text-transform: uppercase;
   color: var(--color-muted);
 }
-.nosotros-redes__embed-wrap .tiktok-embed,
-.nosotros-redes__embed-wrap .instagram-media {
-  margin: 0 !important;
+.nosotros-redes__embed-wrap iframe {
+  border-radius: var(--radius-lg);
+  display: block;
 }
 .nosotros-redes__icons {
   display: flex;
