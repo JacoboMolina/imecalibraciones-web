@@ -258,13 +258,8 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
           </button>
         </div>
 
-        <!-- Dots -->
-        <div class="dif-carousel__dots" aria-hidden="true">
-          <span class="dif-carousel__dot dif-carousel__dot--active"></span>
-          <span class="dif-carousel__dot"></span>
-          <span class="dif-carousel__dot"></span>
-          <span class="dif-carousel__dot"></span>
-        </div>
+        <!-- Dots — rendered by JS based on visible count -->
+        <div class="dif-carousel__dots" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -533,48 +528,70 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     const viewport = document.querySelector<HTMLElement>('.dif-carousel__viewport')!;
     const prevBtn  = document.querySelector<HTMLButtonElement>('.dif-carousel__arrow--prev')!;
     const nextBtn  = document.querySelector<HTMLButtonElement>('.dif-carousel__arrow--next')!;
-    const dots     = document.querySelectorAll<HTMLElement>('.dif-carousel__dot');
-    const cards    = track.querySelectorAll<HTMLElement>('.dif-stat');
+    const dotsWrap = document.querySelector<HTMLElement>('.dif-carousel__dots')!;
+    const cards    = Array.from(track.querySelectorAll<HTMLElement>('.dif-stat'));
 
-    const GAP     = 16;
-    const TOTAL   = cards.length; // 6
-    let current   = 0;
+    const GAP   = 16;
+    const TOTAL = cards.length; // 6
+    let current = 0;
 
     function visibleCount() {
-      return window.innerWidth <= 600 ? 1 : 3;
+      const w = window.innerWidth;
+      if (w <= 600) return 1;
+      if (w <= 960) return 2;
+      return 3;
     }
 
-    function maxIndex() {
-      return TOTAL - visibleCount();
-    }
+    function maxIndex() { return TOTAL - visibleCount(); }
 
     function setWidths() {
-      const vis    = visibleCount();
-      const cardW  = (viewport.clientWidth - GAP * (vis - 1)) / vis;
+      const vis   = visibleCount();
+      const cardW = (viewport.clientWidth - GAP * (vis - 1)) / vis;
       cards.forEach(c => { c.style.flex = `0 0 ${cardW}px`; });
       return cardW;
     }
 
+    // Dots are generated dynamically because maxIndex changes with breakpoint
+    function renderDots() {
+      const count = maxIndex() + 1;
+      dotsWrap.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const d = document.createElement('span');
+        d.className = 'dif-carousel__dot' + (i === current ? ' dif-carousel__dot--active' : '');
+        d.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(d);
+      }
+    }
+
+    function updateDots() {
+      dotsWrap.querySelectorAll('.dif-carousel__dot').forEach((d, i) =>
+        d.classList.toggle('dif-carousel__dot--active', i === current));
+    }
+
     function updateCenter() {
-      const vis    = visibleCount();
-      const center = current + Math.floor(vis / 2); // middle slot of the visible window
-      cards.forEach((c, i) => c.classList.toggle('dif-stat--center', i === center));
+      const vis = visibleCount();
+      cards.forEach((c, i) => {
+        let isCenter: boolean;
+        if (vis === 3) {
+          // Only the middle card is the focal point
+          isCenter = i === current + 1;
+        } else {
+          // On tablet (2) and mobile (1) all visible cards are full-size
+          isCenter = i >= current && i < current + vis;
+        }
+        c.classList.toggle('dif-stat--center', isCenter);
+      });
     }
 
     function goTo(index: number) {
-      const vis    = visibleCount();
-      const cardW  = (viewport.clientWidth - GAP * (vis - 1)) / vis;
-      current      = Math.max(0, Math.min(index, maxIndex()));
+      const cardW = setWidths();
+      current = Math.max(0, Math.min(index, maxIndex()));
       track.style.transform = `translateX(-${current * (cardW + GAP)}px)`;
-
-      dots.forEach((d, i) => d.classList.toggle('dif-carousel__dot--active', i === current));
       prevBtn.disabled = current === 0;
       nextBtn.disabled = current >= maxIndex();
+      updateDots();
       updateCenter();
     }
-
-    // dots click
-    dots.forEach((d, i) => d.addEventListener('click', () => goTo(i)));
 
     prevBtn.addEventListener('click', () => goTo(current - 1));
     nextBtn.addEventListener('click', () => goTo(current + 1));
@@ -582,11 +599,16 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     let resizeTimer: ReturnType<typeof setTimeout>;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => { setWidths(); goTo(current); }, 100);
+      resizeTimer = setTimeout(() => {
+        current = Math.min(current, maxIndex()); // clamp index for new breakpoint
+        renderDots();
+        goTo(current);
+      }, 100);
     });
 
     // init
     setWidths();
+    renderDots();
     goTo(0);
   })();
 </script>
