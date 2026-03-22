@@ -402,7 +402,7 @@
 
 .section__subtitle,
 .section__intro {
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   color: var(--color-muted);
   max-width: 640px;
   margin-bottom: var(--space-8);
@@ -1710,7 +1710,7 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
 }
 .sectores-marquee__label {
   text-align: center;
-  font-size: var(--text-sm);
+  font-size: var(--text-base);
   font-weight: 600;
   letter-spacing: .06em;
   text-transform: uppercase;
