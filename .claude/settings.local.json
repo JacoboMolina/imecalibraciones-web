@@ -40,7 +40,10 @@
       "Bash(python:*)",
       "Bash(cp:*)",
       "Bash(ls:*)",
-      "Bash(kill:*)"
+      "Bash(kill:*)",
+      "Bash(cd \"C:\\\\Users\\\\Jacobo Molina\\\\imecalibraciones-web\" && rm public/CNAME)",
+      "Bash(cd \"C:\\\\Users\\\\Jacobo Molina\\\\imecalibraciones-web\" && npm run build 2>&1)",
+      "Bash(for f:*)"
     ]
   }
 }

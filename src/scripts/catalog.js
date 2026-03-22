@@ -4,6 +4,8 @@
    Fuente de verdad: /data/productos.json
    ============================================================ */
 
+const BASE = (typeof window.__BASE__ === 'string') ? window.__BASE__ : '';
+
 let allProducts = [];
 
 const state = {
@@ -27,7 +29,7 @@ function normalize(str) {
 async function loadProducts() {
   showSkeletons();
   try {
-    const res = await fetch('/data/productos.json');
+    const res = await fetch(`${BASE}/data/productos.json`);
     if (!res.ok) throw new Error('Error al cargar el catálogo');
     const data = await res.json();
     allProducts = data.productos.filter(p => p.activo !== false);
@@ -86,15 +88,15 @@ function renderGrid(products) {
 
 function productCardHTML(p) {
   const img = p.imagenes?.[0]
-    ? `/assets/images/productos/${p.imagenes[0]}`
-    : '/assets/images/productos/placeholder.webp';
+    ? `${BASE}/assets/images/productos/${p.imagenes[0]}`
+    : `${BASE}/assets/images/productos/placeholder.webp`;
 
   const badges = [];
   if (p.acreditacion_pjla) badges.push(`<span class="badge badge-pjla">PJLA ${p.acreditacion_pjla}</span>`);
   if (p.acreditacion_ema)  badges.push(`<span class="badge badge-ema">EMA ${p.acreditacion_ema}</span>`);
 
   return `
-    <a class="product-card" href="/catalogo/${p.slug}/">
+    <a class="product-card" href="${BASE}/catalogo/${p.slug}/">
       <div class="product-card-image">
         <img src="${img}" alt="${p.nombre}" width="400" height="400" loading="lazy">
       </div>
@@ -121,7 +123,7 @@ function emptyStateHTML() {
       <p>Intenta con otros criterios o contáctanos — podemos ayudarte.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         <button class="btn btn-secondary" onclick="clearAllFilters()">Limpiar filtros</button>
-        <a class="btn btn-primary" href="/contacto/">Contáctanos</a>
+        <a class="btn btn-primary" href="${BASE}/contacto/">Contáctanos</a>
       </div>
     </div>`;
 }
@@ -274,7 +276,7 @@ function showError() {
   grid.innerHTML = `
     <div class="catalog-error">
       <strong>El catálogo está en mantenimiento.</strong>
-      Intenta más tarde o <a href="/contacto/">contáctanos directamente</a>.
+      Intenta más tarde o <a href="${BASE}/contacto/">contáctanos directamente</a>.
     </div>`;
 }
 

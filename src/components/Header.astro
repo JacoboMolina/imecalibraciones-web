@@ -1,25 +1,28 @@
 ---
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const navLinks = [
-  { href: '/',                label: 'Inicio' },
-  { href: '/servicios/',      label: 'Servicios' },
-  { href: '/acreditaciones/', label: 'Acreditaciones' },
-  { href: '/catalogo/',       label: 'Catálogo' },
-  { href: '/nosotros/',       label: 'Nosotros' },
-  { href: '/contacto/',       label: 'Contacto' },
+  { href: `${b}/`,                label: 'Inicio' },
+  { href: `${b}/servicios/`,      label: 'Servicios' },
+  { href: `${b}/acreditaciones/`, label: 'Acreditaciones' },
+  { href: `${b}/catalogo/`,       label: 'Catálogo' },
+  { href: `${b}/nosotros/`,       label: 'Nosotros' },
+  { href: `${b}/contacto/`,       label: 'Contacto' },
 ];
 
 const currentPath = Astro.url.pathname;
 
 function isActive(href: string) {
-  if (href === '/') return currentPath === '/';
+  const path = href.replace(b, '') || '/';
+  if (path === '/') return currentPath === '/' || currentPath === `${b}/`;
   return currentPath.startsWith(href);
 }
 ---
 
 <header class="site-header" role="banner">
   <div class="container">
-    <a class="site-logo" href="/" aria-label="IME Calibraciones — Inicio">
-      <img src="/assets/images/logo/logo-principal.png"
+    <a class="site-logo" href={`${b}/`} aria-label="IME Calibraciones — Inicio">
+      <img src={`${b}/assets/images/logo/logo-principal.png`}
            alt="IME Calibraciones"
            width="160" height="48">
     </a>
@@ -43,7 +46,7 @@ function isActive(href: string) {
         Inicia sesión
       </a>
 
-      <a href="/contacto/#contacto-form" class="nav-cta">Cotizar</a>
+      <a href={`${b}/contacto/#contacto-form`} class="nav-cta">Cotizar</a>
     </nav>
   </div>
 </header>

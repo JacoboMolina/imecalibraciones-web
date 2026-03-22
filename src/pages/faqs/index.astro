@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Base
@@ -68,7 +69,7 @@ import Base from '../../layouts/Base.astro';
       <div class="container">
         <nav class="breadcrumb" aria-label="Ruta de navegación">
           <ol>
-            <li><a href="/">Inicio</a></li>
+            <li><a href={`${b}/`}>Inicio</a></li>
             <li aria-current="page">Preguntas Frecuentes</li>
           </ol>
         </nav>
@@ -174,7 +175,7 @@ import Base from '../../layouts/Base.astro';
                 emitidos por laboratorios acreditados tienen validez nacional e internacional.
               </p>
               <p>
-                <a href="/acreditaciones/">Ver nuestros certificados de acreditación</a>
+                <a href={`${b}/acreditaciones/`}>Ver nuestros certificados de acreditación</a>
               </p>
             </div>
           </details>
@@ -303,7 +304,7 @@ import Base from '../../layouts/Base.astro';
         <h2>¿No encuentras tu respuesta?</h2>
         <p>Contáctanos directamente y nuestro equipo técnico resolverá todas tus dudas.</p>
         <div class="cta-actions">
-          <a href="/contacto/" class="btn btn--primary btn--lg">Contáctanos</a>
+          <a href={`${b}/contacto/`} class="btn btn--primary btn--lg">Contáctanos</a>
           <a href="tel:+522461261782" class="btn btn--outline btn--lg">Llamar ahora</a>
         </div>
       </div>

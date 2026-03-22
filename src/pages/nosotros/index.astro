@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Base
@@ -26,7 +27,7 @@ import Base from '../../layouts/Base.astro';
       <div class="container">
         <nav class="breadcrumb" aria-label="Ruta de navegación">
           <ol>
-            <li><a href="/">Inicio</a></li>
+            <li><a href={`${b}/`}>Inicio</a></li>
             <li aria-current="page">Nosotros</li>
           </ol>
         </nav>
@@ -267,8 +268,8 @@ import Base from '../../layouts/Base.astro';
         <h2>¿Le gustaría conocer más?</h2>
         <p>Contáctenos para obtener información sobre nuestros servicios o agendar una visita.</p>
         <div class="cta-actions">
-          <a href="/contacto/" class="btn btn--primary btn--lg">Contáctanos</a>
-          <a href="/acreditaciones/" class="btn btn--outline btn--lg">Ver acreditaciones</a>
+          <a href={`${b}/contacto/`} class="btn btn--primary btn--lg">Contáctanos</a>
+          <a href={`${b}/acreditaciones/`} class="btn btn--outline btn--lg">Ver acreditaciones</a>
         </div>
       </div>
     </section>

@@ -285,6 +285,7 @@
   margin: 0;
 }
 .page-hero .breadcrumb { color: rgba(255,255,255,.65); padding-bottom: var(--space-6); }
+
 .page-hero .breadcrumb a { color: rgba(255,255,255,.65); }
 .page-hero .breadcrumb a:hover { color: #fff; }
 .page-hero .breadcrumb-current { color: rgba(255,255,255,.9); }

@@ -23,6 +23,7 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <!DOCTYPE html>
@@ -41,19 +42,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
   <meta property="og:image" content={`https://imecalibraciones.com${ogImage}`}>
   <meta property="og:locale" content="es_MX">
 
-  <link rel="icon" type="image/svg+xml" href="/assets/images/logo/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/logo/favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/apple-touch-icon.png">
+  <link rel="icon" type="image/svg+xml" href={`${b}/assets/images/logo/favicon.svg`}>
+  <link rel="icon" type="image/png" sizes="32x32" href={`${b}/assets/images/logo/favicon-32.png`}>
+  <link rel="apple-touch-icon" sizes="180x180" href={`${b}/assets/images/logo/apple-touch-icon.png`}>
 
   <slot name="styles" />
-
   <slot name="head" />
 </head>
 <body>
   <Header />
   <slot />
   <Footer />
-  <script src="/assets/js/utils.js" defer></script>
+  <script src={`${b}/assets/js/utils.js`} defer></script>
   <slot name="scripts" />
 </body>
 </html>

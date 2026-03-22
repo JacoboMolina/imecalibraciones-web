@@ -1,5 +1,6 @@
 ---
 const year = new Date().getFullYear();
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <footer class="site-footer" role="contentinfo">
@@ -8,8 +9,8 @@ const year = new Date().getFullYear();
 
       <!-- Marca -->
       <div class="footer-brand">
-        <a class="site-logo" href="/" aria-label="IME Calibraciones">
-          <img src="/assets/images/logo/logo-principal.png"
+        <a class="site-logo" href={`${b}/`} aria-label="IME Calibraciones">
+          <img src={`${b}/assets/images/logo/logo-principal.png`}
                alt="IME Calibraciones"
                width="140" height="42">
         </a>
@@ -41,17 +42,17 @@ const year = new Date().getFullYear();
       <!-- Links -->
       <div class="footer-col">
         <h4>Empresa</h4>
-        <a href="/nosotros/">Nosotros</a>
-        <a href="/acreditaciones/">Acreditaciones</a>
-        <a href="/faqs/">Preguntas frecuentes</a>
+        <a href={`${b}/nosotros/`}>Nosotros</a>
+        <a href={`${b}/acreditaciones/`}>Acreditaciones</a>
+        <a href={`${b}/faqs/`}>Preguntas frecuentes</a>
         <a href="https://calibracionesime.com.mx" target="_blank" rel="noopener noreferrer">Portal de informes ↗</a>
       </div>
 
       <div class="footer-col">
         <h4>Servicios</h4>
-        <a href="/servicios/">Todos los servicios</a>
-        <a href="/catalogo/">Catálogo de instrumentos</a>
-        <a href="/contacto/">Solicitar cotización</a>
+        <a href={`${b}/servicios/`}>Todos los servicios</a>
+        <a href={`${b}/catalogo/`}>Catálogo de instrumentos</a>
+        <a href={`${b}/contacto/`}>Solicitar cotización</a>
       </div>
 
       <div class="footer-col">
@@ -59,7 +60,7 @@ const year = new Date().getFullYear();
         <a href="tel:+522464667048">+52 246 466 7048</a>
         <a href="tel:+522461261782">+52 246 126 1782</a>
         <a href="mailto:contacto@imecalibraciones.com">contacto@imecalibraciones.com</a>
-        <a href="/contacto/">Ver ubicación</a>
+        <a href={`${b}/contacto/`}>Ver ubicación</a>
       </div>
 
     </div>
@@ -67,8 +68,8 @@ const year = new Date().getFullYear();
     <div class="footer-bottom">
       <span>© {year} IME Calibraciones. Todos los derechos reservados.</span>
       <div style="display:flex;gap:16px;">
-        <a href="/aviso-de-privacidad/">Aviso de privacidad</a>
-        <a href="/terminos-y-condiciones/">Términos y condiciones</a>
+        <a href={`${b}/aviso-de-privacidad/`}>Aviso de privacidad</a>
+        <a href={`${b}/terminos-y-condiciones/`}>Términos y condiciones</a>
       </div>
     </div>
   </div>

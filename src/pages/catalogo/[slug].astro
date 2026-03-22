@@ -19,9 +19,10 @@ const relacionados = productosData.productos
   .filter(r => r.activo !== false && r.magnitud === p.magnitud && r.slug !== p.slug)
   .slice(0, 4);
 
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 const imgSrc = p.imagenes?.[0]
-  ? `/assets/images/productos/${p.imagenes[0]}`
-  : '/assets/images/productos/placeholder.webp';
+  ? `${b}/assets/images/productos/${p.imagenes[0]}`
+  : `${b}/assets/images/productos/placeholder.webp`;
 
 /* Badges de acreditación */
 const badges = [];
@@ -72,9 +73,9 @@ const whatsappHref = `https://wa.me/522461261782?text=${whatsappMsg}`;
     <div class="container" style="padding-top: var(--space-6);">
       <nav class="breadcrumb" aria-label="Ruta de navegación">
         <ol>
-          <li><a href="/">Inicio</a></li>
-          <li><a href="/catalogo/">Catálogo</a></li>
-          <li><a href={`/catalogo/?magnitud=${encodeURIComponent(p.magnitud)}`}>{p.magnitud}</a></li>
+          <li><a href={`${b}/`}>Inicio</a></li>
+          <li><a href={`${b}/catalogo/`}>Catálogo</a></li>
+          <li><a href={`${b}/catalogo/?magnitud=${encodeURIComponent(p.magnitud)}`}>{p.magnitud}</a></li>
           <li aria-current="page">{p.nombre}</li>
         </ol>
       </nav>
@@ -100,10 +101,10 @@ const whatsappHref = `https://wa.me/522461261782?text=${whatsappMsg}`;
               {p.imagenes.map((img, i) => (
                 <button
                   class={`product-thumb ${i === 0 ? 'active' : ''}`}
-                  onclick={`switchImage('/assets/images/productos/${img}', this)`}
+                  onclick={`switchImage('${b}/assets/images/productos/${img}', this)`}
                   aria-label={`Ver imagen ${i + 1} de ${p.nombre}`}
                 >
-                  <img src={`/assets/images/productos/${img}`} alt="" width="72" height="72" loading="lazy" />
+                  <img src={`${b}/assets/images/productos/${img}`} alt="" width="72" height="72" loading="lazy" />
                 </button>
               ))}
             </div>
@@ -146,14 +147,14 @@ const whatsappHref = `https://wa.me/522461261782?text=${whatsappMsg}`;
               </svg>
               Solicitar cotización
             </a>
-            <a href="/contacto/" class="btn btn-secondary">
+            <a href={`${b}/contacto/`} class="btn btn-secondary">
               Más información
             </a>
           </div>
 
           <!-- Print header oculto, visible solo al imprimir -->
           <div class="print-header">
-            <img src="/assets/images/logo/logo-principal.svg" alt="IME Calibraciones" />
+            <img src={`${b}/assets/images/logo/logo-principal.svg`} alt="IME Calibraciones" />
             <span>imecalibraciones.com · Tel. +52 246 126 1782</span>
           </div>
 
@@ -186,10 +187,10 @@ const whatsappHref = `https://wa.me/522461261782?text=${whatsappMsg}`;
           <div class="related-grid">
             {relacionados.map(r => {
               const rImg = r.imagenes?.[0]
-                ? `/assets/images/productos/${r.imagenes[0]}`
-                : '/assets/images/productos/placeholder.webp';
+                ? `${b}/assets/images/productos/${r.imagenes[0]}`
+                : `${b}/assets/images/productos/placeholder.webp`;
               return (
-                <a class="product-card" href={`/catalogo/${r.slug}/`}>
+                <a class="product-card" href={`${b}/catalogo/${r.slug}/`}>
                   <div class="product-card-image">
                     <img src={rImg} alt={r.nombre} width="300" height="300" loading="lazy" />
                   </div>

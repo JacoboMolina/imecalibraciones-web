@@ -5,6 +5,7 @@ import { clientes } from '../data/clientes';
 import slide1 from '../assets/images/hero/slide-1.png';
 import slide2 from '../assets/images/hero/slide-2.png';
 import slide3 from '../assets/images/hero/slide-3.png';
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const magnitudesGrupos = [
   { nombre: 'Dimensional y Geométrica', color: '#3b82f6', icon: 'M9 7.5l3 4.5m0 0l3-4.5M12 12v5.25M15 12H9m6 3H9m12-3a9 9 0 11-18 0 9 9 0 0118 0z', items: ['Longitud', 'Ángulo', 'Rugosidad', 'Velocidad', 'Aceleración', 'Par de apriete'] },
@@ -21,7 +22,7 @@ const magnitudesGrupos = [
   title="IME Calibraciones — Laboratorio Acreditado en Tlaxcala, México"
   description="Calibración acreditada de instrumentos de medición. Trazabilidad nacional e internacional. Servicio para industria manufacturera, farmacéutica y automotriz en México."
 >
-  <link rel="preload" as="video" href="/assets/video/hero-lab.mp4" type="video/mp4" slot="head">
+  <link rel="preload" as="video" href={`${b}/assets/video/hero-lab.mp4`} type="video/mp4" slot="head">
 
   <main class="hv2">
 
@@ -30,8 +31,8 @@ const magnitudesGrupos = [
       <div class="hv2-hero__bg" aria-hidden="true">
         <div class="hv2-hero__carousel" id="heroCarousel">
           <div class="hv2-hero__slide hv2-hero__slide--video hv2-hero__slide--active">
-            <video autoplay muted loop playsinline poster="/assets/images/hero/hero-poster.png" fetchpriority="high">
-              <source src="/assets/video/hero-lab.mp4" type="video/mp4">
+            <video autoplay muted loop playsinline poster={`${b}/assets/images/hero/hero-poster.png`} fetchpriority="high">
+              <source src={`${b}/assets/video/hero-lab.mp4`} type="video/mp4">
             </video>
           </div>
           <div class="hv2-hero__slide">
@@ -68,8 +69,8 @@ const magnitudesGrupos = [
           32 magnitudes · Tlaxcala para todo México y Guatemala.
         </p>
         <div class="hv2-hero__actions">
-          <a href="/contacto/" class="btn btn-primary btn-lg">Solicitar cotización</a>
-          <a href="/servicios/" class="btn btn-outline-white btn-lg">Ver servicios</a>
+          <a href={`${b}/contacto/`} class="btn btn-primary btn-lg">Solicitar cotización</a>
+          <a href={`${b}/servicios/`} class="btn btn-outline-white btn-lg">Ver servicios</a>
         </div>
       </div>
 
@@ -214,7 +215,7 @@ const magnitudesGrupos = [
             </div>
             <h3>Calibración en Laboratorio</h3>
             <p>Recibimos sus instrumentos en nuestras instalaciones acreditadas en Tlaxcala. Recolección y entrega sin costo dentro de 100 km.</p>
-            <a href="/servicios/" class="hv2-servicio-card__link">Ver servicio →</a>
+            <a href={`${b}/servicios/`} class="hv2-servicio-card__link">Ver servicio →</a>
           </article>
 
           <article class="hv2-servicio-card animate-on-scroll">
@@ -223,7 +224,7 @@ const magnitudesGrupos = [
             </div>
             <h3>Calibración On-Site</h3>
             <p>Nuestros ingenieros se desplazan a su planta con equipo patrón certificado. Sin mover sus instrumentos críticos ni detener su producción.</p>
-            <a href="/servicios/" class="hv2-servicio-card__link">Ver servicio →</a>
+            <a href={`${b}/servicios/`} class="hv2-servicio-card__link">Ver servicio →</a>
           </article>
 
           <article class="hv2-servicio-card animate-on-scroll">
@@ -232,7 +233,7 @@ const magnitudesGrupos = [
             </div>
             <h3>Mantenimiento Preventivo</h3>
             <p>Programas de mantenimiento y calibración que extienden la vida útil de sus equipos y garantizan lecturas confiables en todo momento.</p>
-            <a href="/servicios/" class="hv2-servicio-card__link">Ver servicio →</a>
+            <a href={`${b}/servicios/`} class="hv2-servicio-card__link">Ver servicio →</a>
           </article>
 
           <article class="hv2-servicio-card animate-on-scroll">
@@ -241,7 +242,7 @@ const magnitudesGrupos = [
             </div>
             <h3>Venta de Equipos</h3>
             <p>Amplia gama de equipos de medición industrial de las mejores marcas. Asesoría especializada para elegir el instrumento correcto.</p>
-            <a href="/catalogo/" class="hv2-servicio-card__link">Ver catálogo →</a>
+            <a href={`${b}/catalogo/`} class="hv2-servicio-card__link">Ver catálogo →</a>
           </article>
 
         </div>
@@ -314,7 +315,7 @@ const magnitudesGrupos = [
               <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>Ingenieros técnicos signatarios autorizados por EMA y PJLA</li>
               <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>Imparcialidad y confidencialidad garantizadas en cada servicio</li>
             </ul>
-            <a href="/nosotros/" class="btn btn-secondary">Conocer la empresa</a>
+            <a href={`${b}/nosotros/`} class="btn btn-secondary">Conocer la empresa</a>
           </div>
         </div>
       </div>
@@ -329,8 +330,8 @@ const magnitudesGrupos = [
             <p>Siempre cerca de ti&nbsp;&nbsp;·&nbsp;&nbsp;IME</p>
           </div>
           <div class="hv2-cta-band__actions">
-            <a href="/contacto/" class="btn btn-primary btn-lg">Solicitar cotización</a>
-            <a href="/catalogo/" class="btn btn-outline-white btn-lg">Ver catálogo</a>
+            <a href={`${b}/contacto/`} class="btn btn-primary btn-lg">Solicitar cotización</a>
+            <a href={`${b}/catalogo/`} class="btn btn-outline-white btn-lg">Ver catálogo</a>
           </div>
         </div>
       </div>
@@ -373,7 +374,7 @@ const magnitudesGrupos = [
                 <textarea id="v2-mensaje" name="mensaje" class="form-textarea" rows="4" placeholder="Describa el instrumento o los servicios que necesita…"></textarea>
               </div>
               <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">Enviar solicitud</button>
-              <p class="contacto-form__disclaimer">Al enviar acepta nuestro <a href="/aviso-de-privacidad/">aviso de privacidad</a>. Le respondemos en menos de 24 horas hábiles.</p>
+              <p class="contacto-form__disclaimer">Al enviar acepta nuestro <a href={`${b}/aviso-de-privacidad/`}>aviso de privacidad</a>. Le respondemos en menos de 24 horas hábiles.</p>
             </form>
           </div>
           <div class="contacto-home__info">

@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Base
@@ -34,7 +35,7 @@ import Base from '../../layouts/Base.astro';
       <div class="container">
         <nav class="breadcrumb" aria-label="Ruta de navegación">
           <ol>
-            <li><a href="/">Inicio</a></li>
+            <li><a href={`${b}/`}>Inicio</a></li>
             <li aria-current="page">Acreditaciones</li>
           </ol>
         </nav>
@@ -63,7 +64,7 @@ import Base from '../../layouts/Base.astro';
                 <p>Entidad Mexicana de Acreditación · ISO/IEC 17025</p>
               </div>
             </div>
-            <a href="/assets/pdfs/acreditacion-ema.pdf" class="btn btn-secondary acred-card__download" download aria-label="Descargar certificado EMA">
+            <a href={`${b}/assets/pdfs/acreditacion-ema.pdf`} class="btn btn-secondary acred-card__download" download aria-label="Descargar certificado EMA">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z"/><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z"/></svg>
               Descargar
             </a>
@@ -88,11 +89,11 @@ import Base from '../../layouts/Base.astro';
           </div>
           <div class="acred-card__viewer">
             <iframe
-              src="/assets/pdfs/acreditacion-ema.pdf"
+              src={`${b}/assets/pdfs/acreditacion-ema.pdf`}
               title="Certificado de Acreditación EMA — IME Calibraciones"
               class="pdf-embed"
               loading="lazy">
-              <p>Tu navegador no puede mostrar PDFs. <a href="/assets/pdfs/acreditacion-ema.pdf" download>Descarga el certificado aquí</a>.</p>
+              <p>Tu navegador no puede mostrar PDFs. <a href={`${b}/assets/pdfs/acreditacion-ema.pdf`} download>Descarga el certificado aquí</a>.</p>
             </iframe>
           </div>
         </div>
@@ -109,7 +110,7 @@ import Base from '../../layouts/Base.astro';
                 <p>Perry Johnson Laboratory Accreditation · No. 54194</p>
               </div>
             </div>
-            <a href="/assets/pdfs/acreditacion-pjla.pdf" class="btn btn-secondary acred-card__download" download aria-label="Descargar certificado PJLA">
+            <a href={`${b}/assets/pdfs/acreditacion-pjla.pdf`} class="btn btn-secondary acred-card__download" download aria-label="Descargar certificado PJLA">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z"/><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z"/></svg>
               Descargar
             </a>
@@ -134,11 +135,11 @@ import Base from '../../layouts/Base.astro';
           </div>
           <div class="acred-card__viewer">
             <iframe
-              src="/assets/pdfs/acreditacion-pjla.pdf"
+              src={`${b}/assets/pdfs/acreditacion-pjla.pdf`}
               title="Certificado de Acreditación PJLA No. 54194 — IME Calibraciones"
               class="pdf-embed"
               loading="lazy">
-              <p>Tu navegador no puede mostrar PDFs. <a href="/assets/pdfs/acreditacion-pjla.pdf" download>Descarga el certificado aquí</a>.</p>
+              <p>Tu navegador no puede mostrar PDFs. <a href={`${b}/assets/pdfs/acreditacion-pjla.pdf`} download>Descarga el certificado aquí</a>.</p>
             </iframe>
           </div>
         </div>
@@ -237,8 +238,8 @@ import Base from '../../layouts/Base.astro';
         <h2>¿Necesita un certificado con validez oficial?</h2>
         <p>Solicite su calibración acreditada y obtenga documentación reconocida por auditores, clientes y reguladores.</p>
         <div class="cta-actions">
-          <a href="/contacto/" class="btn btn-primary">Solicitar calibración</a>
-          <a href="/servicios/" class="btn btn-secondary">Ver servicios</a>
+          <a href={`${b}/contacto/`} class="btn btn-primary">Solicitar calibración</a>
+          <a href={`${b}/servicios/`} class="btn btn-secondary">Ver servicios</a>
         </div>
       </div>
     </section>

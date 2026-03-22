@@ -5,6 +5,7 @@ import { clientes } from '../data/clientes';
 import slide1 from '../assets/images/hero/slide-1.png';
 import slide2 from '../assets/images/hero/slide-2.png';
 import slide3 from '../assets/images/hero/slide-3.png';
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Base
@@ -13,7 +14,7 @@ import slide3 from '../assets/images/hero/slide-3.png';
 >
 
   <!-- Preload del video hero para mejorar LCP -->
-  <link rel="preload" as="video" href="/assets/video/hero-lab.mp4" type="video/mp4" slot="head">
+  <link rel="preload" as="video" href={`${b}/assets/video/hero-lab.mp4`} type="video/mp4" slot="head">
 
   <!-- Schema JSON-LD específico del home -->
   <script type="application/ld+json" slot="head">
@@ -70,8 +71,8 @@ import slide3 from '../assets/images/hero/slide-3.png';
       <div class="hero__bg" aria-hidden="true">
         <div class="hero__carousel" id="heroCarousel">
           <div class="hero__slide hero__slide--video hero__slide--active">
-            <video autoplay muted loop playsinline poster="/assets/images/hero/hero-poster.png" fetchpriority="high">
-              <source src="/assets/video/hero-lab.mp4" type="video/mp4">
+            <video autoplay muted loop playsinline poster={`${b}/assets/images/hero/hero-poster.png`} fetchpriority="high">
+              <source src={`${b}/assets/video/hero-lab.mp4`} type="video/mp4">
             </video>
           </div>
           <div class="hero__slide">
@@ -117,13 +118,13 @@ import slide3 from '../assets/images/hero/slide-3.png';
           </div>
 
           <div class="hero__actions">
-            <a href="/contacto/" class="btn btn-primary btn-lg hero__cta-primary">
+            <a href={`${b}/contacto/`} class="btn btn-primary btn-lg hero__cta-primary">
               Solicitar cotización
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/>
               </svg>
             </a>
-            <a href="/catalogo/" class="btn btn-outline-white btn-lg">Ver catálogo de instrumentos</a>
+            <a href={`${b}/catalogo/`} class="btn btn-outline-white btn-lg">Ver catálogo de instrumentos</a>
           </div>
         </div>
       </div>
@@ -202,7 +203,7 @@ import slide3 from '../assets/images/hero/slide-3.png';
             <div class="diferenciador-card__text">
               <h3 class="diferenciador-card__title">Más acreditaciones que cualquier otro lab en México</h3>
               <p class="diferenciador-card__body">Doble respaldo EMA + PJLA. Más alcance, más confianza en cada certificado.</p>
-              <a href="/acreditaciones/" class="diferenciador-card__link">Ver acreditaciones</a>
+              <a href={`${b}/acreditaciones/`} class="diferenciador-card__link">Ver acreditaciones</a>
             </div>
           </article>
 
@@ -213,7 +214,7 @@ import slide3 from '../assets/images/hero/slide-3.png';
             <div class="diferenciador-card__text">
               <h3 class="diferenciador-card__title">Métodos patentados — sin envíos al extranjero</h3>
               <p class="diferenciador-card__body">Calibramos lo que antes salía del país. Ahorro real en tiempo y costo logístico.</p>
-              <a href="/servicios/" class="diferenciador-card__link">Ver servicios</a>
+              <a href={`${b}/servicios/`} class="diferenciador-card__link">Ver servicios</a>
             </div>
           </article>
 
@@ -224,7 +225,7 @@ import slide3 from '../assets/images/hero/slide-3.png';
             <div class="diferenciador-card__text">
               <h3 class="diferenciador-card__title">Capacidad para 24,000 equipos al año</h3>
               <p class="diferenciador-card__body">Un solo proveedor para toda su planta, en todas las magnitudes que necesite.</p>
-              <a href="/servicios/" class="diferenciador-card__link">Ver catálogo</a>
+              <a href={`${b}/servicios/`} class="diferenciador-card__link">Ver catálogo</a>
             </div>
           </article>
 
@@ -235,7 +236,7 @@ import slide3 from '../assets/images/hero/slide-3.png';
             <div class="diferenciador-card__text">
               <h3 class="diferenciador-card__title">Servicio 365 días en cualquier estado</h3>
               <p class="diferenciador-card__body">Nos adaptamos a sus turnos y horarios donde su operación lo necesite.</p>
-              <a href="/contacto/" class="diferenciador-card__link">Agendar servicio</a>
+              <a href={`${b}/contacto/`} class="diferenciador-card__link">Agendar servicio</a>
             </div>
           </article>
 
@@ -246,7 +247,7 @@ import slide3 from '../assets/images/hero/slide-3.png';
             <div class="diferenciador-card__text">
               <h3 class="diferenciador-card__title">Recolección y entrega sin costo</h3>
               <p class="diferenciador-card__body">Traslado gratuito en radio de 100 km, con seguro incluido. Sus equipos siempre protegidos.</p>
-              <a href="/contacto/" class="diferenciador-card__link">Solicitar servicio</a>
+              <a href={`${b}/contacto/`} class="diferenciador-card__link">Solicitar servicio</a>
             </div>
           </article>
 
@@ -257,7 +258,7 @@ import slide3 from '../assets/images/hero/slide-3.png';
             <div class="diferenciador-card__text">
               <h3 class="diferenciador-card__title">Flota propia: 15 vehículos y 4 choferes</h3>
               <p class="diferenciador-card__body">Sin terceros. Logística propia que garantiza cada recolección y entrega puntual.</p>
-              <a href="/contacto/" class="diferenciador-card__link">Conocer cobertura</a>
+              <a href={`${b}/contacto/`} class="diferenciador-card__link">Conocer cobertura</a>
             </div>
           </article>
 
@@ -347,7 +348,7 @@ import slide3 from '../assets/images/hero/slide-3.png';
                 Más de 32 años calibrando la industria mexicana
               </li>
             </ul>
-            <a href="/contacto/" class="btn btn-primary">Solicitar cotización</a>
+            <a href={`${b}/contacto/`} class="btn btn-primary">Solicitar cotización</a>
           </div>
 
         </div>
@@ -387,11 +388,11 @@ import slide3 from '../assets/images/hero/slide-3.png';
             <p class="cta-catalogo__body">Consulte nuestro catálogo de más de 300 instrumentos — desde calibradores y manómetros hasta analizadores de gases y equipos de laboratorio.</p>
           </div>
           <div class="cta-catalogo__actions">
-            <a href="/catalogo/" class="btn btn-primary btn-lg">
+            <a href={`${b}/catalogo/`} class="btn btn-primary btn-lg">
               Ver catálogo completo
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/></svg>
             </a>
-            <a href="/contacto/" class="btn btn-outline-white btn-lg">Solicitar cotización</a>
+            <a href={`${b}/contacto/`} class="btn btn-outline-white btn-lg">Solicitar cotización</a>
           </div>
         </div>
       </div>
@@ -403,7 +404,7 @@ import slide3 from '../assets/images/hero/slide-3.png';
         <div class="sobre-ime__layout">
           <div class="sobre-ime__media">
             <div class="sobre-ime__image-wrap">
-              <video class="sobre-ime__video" src="/assets/video/logo-animado-white.mp4" autoplay muted playsinline aria-label="Logo animado IME Calibraciones"></video>
+              <video class="sobre-ime__video" src={`${b}/assets/video/logo-animado-white.mp4`} autoplay muted playsinline aria-label="Logo animado IME Calibraciones"></video>
             </div>
             <div class="sobre-ime__acreds">
               <div class="sobre-ime__acred">
@@ -426,7 +427,7 @@ import slide3 from '../assets/images/hero/slide-3.png';
             <h2 class="section-title">El primer laboratorio de metrología en Tlaxcala</h2>
             <p>Fundado el 23 de marzo de 1993 por Juan Bautista Canela Mulato, IME fue el primer laboratorio en el Estado de Tlaxcala en ofrecer servicios especializados en metrología. Más de 32 años después, seguimos siendo el referente de la industria mexicana en calibración acreditada.</p>
             <p>Somos el único laboratorio en México con acreditación simultánea ante <strong>PJLA</strong> (No. 54194) y <strong>EMA</strong>, con ingenieros técnicos signatarios autorizados para firmar y aprobar certificados con validez nacional e internacional.</p>
-            <a href="/nosotros/" class="btn btn-secondary">Conocer la empresa</a>
+            <a href={`${b}/nosotros/`} class="btn btn-secondary">Conocer la empresa</a>
           </div>
         </div>
       </div>
@@ -471,7 +472,7 @@ import slide3 from '../assets/images/hero/slide-3.png';
                 <textarea id="ch-mensaje" name="mensaje" class="form-textarea" rows="4" placeholder="Describa el instrumento o los servicios que necesita…"></textarea>
               </div>
               <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">Enviar solicitud</button>
-              <p class="contacto-form__disclaimer">Al enviar acepta nuestro <a href="/aviso-de-privacidad/">aviso de privacidad</a>. Le respondemos en menos de 24 horas hábiles.</p>
+              <p class="contacto-form__disclaimer">Al enviar acepta nuestro <a href={`${b}/aviso-de-privacidad/`}>aviso de privacidad</a>. Le respondemos en menos de 24 horas hábiles.</p>
             </form>
           </div>
           <div class="contacto-home__info">
