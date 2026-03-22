@@ -1981,6 +1981,30 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
 .sobre-ime__content .section-title { margin-bottom: var(--space-5); }
 .sobre-ime__content p { color: var(--color-muted); margin-bottom: var(--space-4); }
 
+.sobre-ime__social {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: var(--space-5);
+}
+.sobre-ime__social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-surface-2, #f0f4f8);
+  color: var(--color-text-muted, #64748b);
+  transition: background .2s, color .2s, transform .2s;
+}
+.sobre-ime__social a svg { width: 16px; height: 16px; }
+.sobre-ime__social a:hover {
+  background: var(--color-primary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 .sobre-ime__puntos {
   display: flex;
   flex-direction: column;
