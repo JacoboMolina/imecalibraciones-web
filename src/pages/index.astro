@@ -555,17 +555,22 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
       return cardW;
     }
 
+    function updateCenter() {
+      const vis    = visibleCount();
+      const center = current + Math.floor(vis / 2); // middle slot of the visible window
+      cards.forEach((c, i) => c.classList.toggle('dif-stat--center', i === center));
+    }
+
     function goTo(index: number) {
       const vis    = visibleCount();
       const cardW  = (viewport.clientWidth - GAP * (vis - 1)) / vis;
       current      = Math.max(0, Math.min(index, maxIndex()));
       track.style.transform = `translateX(-${current * (cardW + GAP)}px)`;
 
-      const dotCount = dots.length;
       dots.forEach((d, i) => d.classList.toggle('dif-carousel__dot--active', i === current));
-
       prevBtn.disabled = current === 0;
       nextBtn.disabled = current >= maxIndex();
+      updateCenter();
     }
 
     // dots click

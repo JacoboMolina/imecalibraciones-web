@@ -1445,7 +1445,9 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
 }
 .dif-carousel__viewport {
   flex: 1;
-  overflow: hidden;
+  overflow-x: clip;   /* clips horizontal overflow without blocking vertical shadow */
+  overflow-y: visible;
+  padding: 16px 0;    /* room for glow shadow + lift on center card */
 }
 .dif-carousel__track {
   display: flex;
@@ -1491,11 +1493,32 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
 .diferenciadores-grid {
   display: flex;
   gap: 16px;
+  align-items: center; /* vertical alignment during scale change */
 }
 .diferenciadores-grid .dif-stat {
   flex: 0 0 auto; /* JS sets exact width */
   min-width: 0;
+  transition: transform .45s cubic-bezier(.4,0,.2,1),
+              opacity  .45s cubic-bezier(.4,0,.2,1),
+              box-shadow .45s cubic-bezier(.4,0,.2,1),
+              border-top-width .45s;
+  transform: scale(0.92) translateY(6px);
+  opacity: 0.55;
+  border-top-width: 3px;
 }
+.diferenciadores-grid .dif-stat--center {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  border-top-width: 4px;
+}
+
+/* Color glow on center — each card shines with its own palette */
+.dif-stat--gold.dif-stat--center  { box-shadow: 0 20px 48px -10px rgba(200,168,64,.50), 0 4px 12px rgba(0,0,0,.07); }
+.dif-stat--blue.dif-stat--center  { box-shadow: 0 20px 48px -10px rgba(6,61,115,.40),   0 4px 12px rgba(0,0,0,.07); }
+.dif-stat--green.dif-stat--center { box-shadow: 0 20px 48px -10px rgba(22,163,74,.40),  0 4px 12px rgba(0,0,0,.07); }
+.dif-stat--orange.dif-stat--center{ box-shadow: 0 20px 48px -10px rgba(234,88,12,.40),  0 4px 12px rgba(0,0,0,.07); }
+.dif-stat--purple.dif-stat--center{ box-shadow: 0 20px 48px -10px rgba(124,58,237,.40), 0 4px 12px rgba(0,0,0,.07); }
+.dif-stat--teal.dif-stat--center  { box-shadow: 0 20px 48px -10px rgba(8,145,178,.42),  0 4px 12px rgba(0,0,0,.07); }
 
 .dif-stat {
   display: flex;
