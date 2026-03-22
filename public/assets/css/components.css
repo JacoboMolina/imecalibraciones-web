@@ -2025,6 +2025,69 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
   flex-shrink: 0;
 }
 
+/* ── NOSOTROS — REDES SOCIALES ── */
+.nosotros-redes__layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: var(--space-12);
+  align-items: center;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.nosotros-redes__video .tiktok-embed {
+  margin: 0 !important;
+}
+.nosotros-redes__links p {
+  color: var(--color-muted);
+  margin-bottom: var(--space-6);
+  line-height: 1.7;
+}
+.nosotros-redes__icons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.nosotros-red {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink);
+  text-decoration: none;
+  transition: border-color .2s, background .2s, color .2s;
+}
+.nosotros-red:hover {
+  border-color: var(--color-primary);
+  background: rgba(6,61,115,.04);
+  color: var(--color-primary);
+}
+.nosotros-red__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-surface-2, #f0f4f8);
+  flex-shrink: 0;
+}
+.nosotros-red__icon svg { width: 16px; height: 16px; }
+.nosotros-red__label {
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+@media (max-width: 640px) {
+  .nosotros-redes__layout {
+    grid-template-columns: 1fr;
+  }
+  .nosotros-redes__video {
+    max-width: 340px;
+    margin: 0 auto;
+  }
+}
+
 
 /* ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ──
    CONTACTO HOME — formulario + mapa en portada
