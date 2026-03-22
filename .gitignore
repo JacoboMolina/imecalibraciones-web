@@ -12,5 +12,9 @@ Thumbs.db
 # Fonts (comerciales — no distribuir en repo público)
 assets/fonts/eras-bold-itc.*
 
+# Astro build output
+dist/
+.astro/
+
 # Env / secrets
 .env

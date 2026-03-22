@@ -1,0 +1,122 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/catalog.css';
+---
+
+<Base
+  title="Catálogo de Servicios de Calibración — IME Calibraciones | Acreditado EMA y PJLA"
+  description="Catálogo de servicios de calibración acreditados. Más de 150 tipos de instrumentos calibrados con trazabilidad CENAM/NIST. Acreditación EMA e internacional PJLA. Industria manufacturera, farmacéutica y automotriz."
+>
+  <script type="application/ld+json" slot="head">{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Catálogo de Servicios de Calibración — IME Calibraciones",
+    "description": "Servicios de calibración acreditados por EMA y PJLA para instrumentos de medición industrial.",
+    "url": "https://imecalibraciones.com/catalogo/"
+  }</script>
+
+  <script src="../../scripts/catalog.js"></script>
+
+  <main>
+
+    <!-- ===== CABECERA DEL CATÁLOGO ===== -->
+    <div class="catalog-header">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Ruta de navegación">
+          <ol>
+            <li><a href="/">Inicio</a></li>
+            <li aria-current="page">Catálogo</li>
+          </ol>
+        </nav>
+        <h1>Catálogo de Servicios de Calibración</h1>
+        <p class="catalog-header-sub">
+          Calibración acreditada para más de 150 tipos de instrumentos de medición.
+          Trazabilidad CENAM / NIST · Acreditación <strong>EMA</strong> e internacional <strong>PJLA</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== LAYOUT PRINCIPAL: FILTROS + RESULTADOS ===== -->
+    <div class="catalog-layout container">
+
+      <!-- ========== ASIDE: FILTROS ========== -->
+      <aside class="catalog-filters" aria-label="Filtros del catálogo">
+
+        <div class="filters-header">
+          <h3 class="filters-header__title">Filtros</h3>
+          <button
+            type="button"
+            id="filters-clear"
+            class="filters-clear"
+            aria-label="Limpiar todos los filtros"
+            hidden>
+            Limpiar todo
+          </button>
+        </div>
+
+        <!-- Barra de búsqueda -->
+        <div class="catalog-search-bar">
+          <svg class="catalog-search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-5.196-5.196m0 0A7.5 7.5 0 105.196 15.804 7.5 7.5 0 0015.804 15.804z"/>
+          </svg>
+          <input
+            type="search"
+            id="catalog-search"
+            placeholder="Buscar"
+            autocomplete="off"
+            aria-label="Buscar por instrumento o magnitud de calibración">
+        </div>
+
+        <!-- Filtro: Magnitud -->
+        <details class="filter-group" open>
+          <summary class="filter-group-title">Magnitud</summary>
+          <div class="filter-group__options" data-filter="magnitud">
+            <!-- Generado por catalog.js -->
+          </div>
+        </details>
+
+        <!-- Filtro: Acreditación -->
+        <details class="filter-group">
+          <summary class="filter-group-title">Acreditación</summary>
+          <div class="filter-group__options" data-filter="acreditacion">
+            <!-- Generado por catalog.js -->
+          </div>
+        </details>
+
+        <!-- Filtro: Categoría -->
+        <details class="filter-group">
+          <summary class="filter-group-title">Categoría</summary>
+          <div class="filter-group__options" data-filter="categoria">
+            <!-- Generado por catalog.js -->
+          </div>
+        </details>
+
+      </aside>
+
+      <!-- ========== MAIN: RESULTADOS ========== -->
+      <section class="catalog-results" aria-label="Resultados del catálogo">
+
+        <div class="catalog-results-header">
+          <span id="results-count" class="results-count" aria-live="polite" aria-atomic="true">
+            <!-- Generado por catalog.js -->
+          </span>
+          <div id="active-filters" class="active-filters" aria-label="Filtros activos">
+            <!-- Generado por catalog.js -->
+          </div>
+        </div>
+
+        <div
+          id="products-grid"
+          class="products-grid"
+          aria-live="polite"
+          aria-atomic="false"
+          aria-relevant="additions removals">
+          <!-- Generado por catalog.js -->
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+</Base>

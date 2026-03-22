@@ -1,0 +1,524 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import { clientes } from '../data/clientes';
+import slide1 from '../assets/images/hero/slide-1.png';
+import slide2 from '../assets/images/hero/slide-2.png';
+import slide3 from '../assets/images/hero/slide-3.png';
+---
+
+<Base
+  title="IME Calibraciones — Laboratorio Acreditado en Tlaxcala, México"
+  description="Calibración acreditada de instrumentos de medición. Trazabilidad nacional e internacional. Servicio para industria manufacturera, farmacéutica y automotriz en México."
+>
+
+  <!-- Preload del video hero para mejorar LCP -->
+  <link rel="preload" as="video" href="/assets/video/hero-lab.mp4" type="video/mp4" slot="head">
+
+  <!-- Schema JSON-LD específico del home -->
+  <script type="application/ld+json" slot="head">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://imecalibraciones.com/#organization",
+        "name": "IME Calibraciones",
+        "legalName": "Ingeniería y Metrología Certificada Para Calibración de Equipos de Control y Pruebas S.A. de C.V.",
+        "url": "https://imecalibraciones.com",
+        "logo": "https://imecalibraciones.com/assets/images/logo/logo-ime.svg",
+        "telephone": "+522461261782",
+        "email": "contacto@imecalibraciones.com",
+        "sameAs": [
+          "https://www.facebook.com/CalibracionIME",
+          "https://www.instagram.com/calibracionesime/",
+          "https://www.youtube.com/@CalibracionesIME",
+          "https://mx.linkedin.com/company/calibracionesime"
+        ]
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://imecalibraciones.com/#localbusiness",
+        "name": "IME Calibraciones",
+        "description": "Laboratorio de calibración acreditado por EMA bajo ISO/IEC 17025.",
+        "telephone": "+522461261782",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Tlaxcala",
+          "addressRegion": "Tlaxcala",
+          "addressCountry": "MX"
+        },
+        "url": "https://imecalibraciones.com",
+        "priceRange": "$$"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://imecalibraciones.com/#website",
+        "url": "https://imecalibraciones.com",
+        "name": "IME Calibraciones",
+        "publisher": { "@id": "https://imecalibraciones.com/#organization" }
+      }
+    ]
+  }
+  </script>
+
+  <main>
+
+    <!-- ══ SECCIÓN 1: HERO ══ -->
+    <section class="hero" id="hero" aria-label="Presentación IME Calibraciones">
+
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__carousel" id="heroCarousel">
+          <div class="hero__slide hero__slide--video hero__slide--active">
+            <video autoplay muted loop playsinline poster="/assets/images/hero/hero-poster.png" fetchpriority="high">
+              <source src="/assets/video/hero-lab.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="hero__slide">
+            <Image src={slide1} alt="Laboratorio de calibración IME" widths={[640,1024,1280,1920]} sizes="100vw" loading="eager" format="webp" quality={80} />
+          </div>
+          <div class="hero__slide">
+            <Image src={slide2} alt="Instrumentos de medición calibrados por IME" widths={[640,1024,1280,1920]} sizes="100vw" loading="eager" format="webp" quality={80} />
+          </div>
+          <div class="hero__slide">
+            <Image src={slide3} alt="Equipo de metrólogos certificados IME" widths={[640,1024,1280,1920]} sizes="100vw" loading="eager" format="webp" quality={80} />
+          </div>
+        </div>
+        <div class="hero__overlay"></div>
+        <div class="hero__bg-pattern"></div>
+      </div>
+
+      <div class="container">
+        <div class="hero__content">
+          <div class="hero__badges" aria-label="Acreditaciones">
+            <div class="hero__badge">
+              <svg class="hero__badge-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/>
+              </svg>
+              <span>EMA&nbsp;·&nbsp;ISO/IEC 17025</span>
+            </div>
+            <div class="hero__badge">
+              <svg class="hero__badge-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/>
+              </svg>
+              <span>PJLA No. 54194</span>
+            </div>
+          </div>
+
+          <div class="hero__text">
+            <h1 class="hero__title" id="heroTitle">
+              Laboratorio de Metrología<br>
+              <span class="hero__title-highlight">Acreditado ante EMA y PJLA</span>
+            </h1>
+
+            <p class="hero__subtitle" id="heroSubtitle">
+              Servicio de calibración acreditada en 32 Magnitudes ante PJLA y 7 más con EMA.
+            </p>
+          </div>
+
+          <div class="hero__actions">
+            <a href="/contacto/" class="btn btn-primary btn-lg hero__cta-primary">
+              Solicitar cotización
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/>
+              </svg>
+            </a>
+            <a href="/catalogo/" class="btn btn-outline-white btn-lg">Ver catálogo de instrumentos</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress bars estilo Instagram -->
+      <div class="hero__progress-bars" aria-hidden="true">
+        <div class="hero__progress-bar"><div class="hero__progress-fill"></div></div>
+        <div class="hero__progress-bar"><div class="hero__progress-fill"></div></div>
+        <div class="hero__progress-bar"><div class="hero__progress-fill"></div></div>
+        <div class="hero__progress-bar"><div class="hero__progress-fill"></div></div>
+      </div>
+
+      <div class="hero__trust" aria-label="Indicadores clave">
+        <ul class="hero__stats" role="list">
+          <li class="hero__stat">
+            <strong class="hero__stat-value">
+              <span class="counter" data-target="32" data-suffix="+">32+</span>
+            </strong>
+            <span class="hero__stat-label">Años de experiencia</span>
+          </li>
+          <li class="hero__stat">
+            <strong class="hero__stat-value">
+              <span class="counter" data-target="32">32</span>
+            </strong>
+            <span class="hero__stat-label">Magnitudes acreditadas ante PJLA</span>
+          </li>
+          <li class="hero__stat">
+            <strong class="hero__stat-value">
+              <span class="counter" data-target="7">7</span>
+            </strong>
+            <span class="hero__stat-label">Magnitudes acreditadas ante EMA</span>
+          </li>
+          <li class="hero__stat">
+            <strong class="hero__stat-value hero__stat-value--text">ISO/IEC 17025</strong>
+            <span class="hero__stat-label">Norma de acreditación vigente</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="hero__scroll-hint" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </div>
+
+      <!-- Tira de magnitudes -->
+      <div class="magnitudes-strip" id="magnitudes" aria-label="Magnitudes de calibración">
+        <div class="magnitudes-strip__track-wrap" aria-hidden="true">
+          <ul class="magnitudes-strip__track" role="list">
+            {['Longitud','Masa','Temperatura','Presión','Fuerza','Torque','Velocidad','Ángulo','Dureza','Rugosidad','Electricidad','Tiempo y Frecuencia','Volumen','Flujo','Humedad','pH','Viscosidad','Sonido','Vibración','Óptica','Radiación','Aceleración','Par de apriete','Densidad','Concentración','Caudal','Potencia','Energía','Resistencia eléctrica','Tensión eléctrica','Corriente eléctrica','Luminosidad'].flatMap(m => [m, m]).map((m, i) => (
+              <li aria-hidden={i >= 32 ? 'true' : undefined}>
+                <span class="magnitudes-strip__dot"></span>{m}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p class="sr-only">IME Calibraciones calibra 32 magnitudes: Longitud, Masa, Temperatura, Presión, Fuerza, Torque, Velocidad, Ángulo, Dureza, Rugosidad, Electricidad, Tiempo y Frecuencia, Volumen, Flujo, Humedad, pH, Viscosidad, Sonido, Vibración, Óptica, Radiación, Aceleración, Par de apriete, Densidad, Concentración, Caudal, Potencia, Energía, Resistencia eléctrica, Tensión eléctrica, Corriente eléctrica y Luminosidad.</p>
+      </div>
+
+    </section>
+
+    <!-- ══ SECCIÓN 3: CADENA DE VALOR ══ -->
+    <section class="section porque-ime" id="porque-ime">
+      <div class="container">
+        <header class="section__header text-center">
+          <p class="section__eyebrow">¿Por qué elegirnos?</p>
+          <h2 class="section-title">Lo que diferencia a IME</h2>
+          <p class="section__subtitle text-muted">6 razones por las que los líderes industriales de México confían su metrología a IME.</p>
+        </header>
+        <div class="diferenciadores-grid">
+
+          <article class="diferenciador-card animate-on-scroll">
+            <div class="diferenciador-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+            </div>
+            <div class="diferenciador-card__text">
+              <h3 class="diferenciador-card__title">Más acreditaciones que cualquier otro lab en México</h3>
+              <p class="diferenciador-card__body">Doble respaldo EMA + PJLA. Más alcance, más confianza en cada certificado.</p>
+              <a href="/acreditaciones/" class="diferenciador-card__link">Ver acreditaciones</a>
+            </div>
+          </article>
+
+          <article class="diferenciador-card animate-on-scroll">
+            <div class="diferenciador-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
+            </div>
+            <div class="diferenciador-card__text">
+              <h3 class="diferenciador-card__title">Métodos patentados — sin envíos al extranjero</h3>
+              <p class="diferenciador-card__body">Calibramos lo que antes salía del país. Ahorro real en tiempo y costo logístico.</p>
+              <a href="/servicios/" class="diferenciador-card__link">Ver servicios</a>
+            </div>
+          </article>
+
+          <article class="diferenciador-card animate-on-scroll">
+            <div class="diferenciador-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.25 5.337c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.036 1.007-1.875 2.25-1.875S15 2.34 15 3.375c0 .369-.128.713-.349 1.003-.215.283-.401.604-.401.959 0 .332.278.598.61.578 1.91-.114 3.79-.342 5.632-.676a.75.75 0 01.878.645 49.17 49.17 0 01.376 5.452.657.657 0 01-.66.664c-.354 0-.675-.186-.958-.401a1.647 1.647 0 00-1.003-.349c-1.035 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401.31 0 .557.262.534.571a48.774 48.774 0 01-.595 4.845.75.75 0 01-.61.61c-1.82.317-3.673.533-5.555.642a.58.58 0 01-.611-.581c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.035-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959a.641.641 0 01-.658.643 49.118 49.118 0 01-4.708-.36.75.75 0 01-.645-.878c.293-1.614.504-3.257.629-4.924A.53.53 0 005.337 15c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.036 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.369 0 .713.128 1.003.349.283.215.604.401.959.401a.656.656 0 00.659-.663 47.703 47.703 0 00-.31-4.82.75.75 0 01.83-.832c1.343.155 2.703.254 4.077.294a.64.64 0 00.657-.642z"/></svg>
+            </div>
+            <div class="diferenciador-card__text">
+              <h3 class="diferenciador-card__title">Capacidad para 24,000 equipos al año</h3>
+              <p class="diferenciador-card__body">Un solo proveedor para toda su planta, en todas las magnitudes que necesite.</p>
+              <a href="/servicios/" class="diferenciador-card__link">Ver catálogo</a>
+            </div>
+          </article>
+
+          <article class="diferenciador-card animate-on-scroll">
+            <div class="diferenciador-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clip-rule="evenodd"/></svg>
+            </div>
+            <div class="diferenciador-card__text">
+              <h3 class="diferenciador-card__title">Servicio 365 días en cualquier estado</h3>
+              <p class="diferenciador-card__body">Nos adaptamos a sus turnos y horarios donde su operación lo necesite.</p>
+              <a href="/contacto/" class="diferenciador-card__link">Agendar servicio</a>
+            </div>
+          </article>
+
+          <article class="diferenciador-card animate-on-scroll">
+            <div class="diferenciador-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25zM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h.375a3 3 0 116 0h3a.75.75 0 00.75-.75V15z"/><path d="M8.25 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0zM15.75 6.75a.75.75 0 00-.75.75v11.25c0 .087.015.17.042.248a3 3 0 015.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 00-3.732-10.104 1.837 1.837 0 00-1.47-.725H15.75z"/><path d="M19.5 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"/></svg>
+            </div>
+            <div class="diferenciador-card__text">
+              <h3 class="diferenciador-card__title">Recolección y entrega sin costo</h3>
+              <p class="diferenciador-card__body">Traslado gratuito en radio de 100 km, con seguro incluido. Sus equipos siempre protegidos.</p>
+              <a href="/contacto/" class="diferenciador-card__link">Solicitar servicio</a>
+            </div>
+          </article>
+
+          <article class="diferenciador-card animate-on-scroll">
+            <div class="diferenciador-card__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M8.25 10.875a2.625 2.625 0 115.25 0 2.625 2.625 0 01-5.25 0z"/><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.125 4.5a4.125 4.125 0 102.338 7.524l2.007 2.006a.75.75 0 101.06-1.06l-2.006-2.007a4.125 4.125 0 00-3.399-6.463z" clip-rule="evenodd"/></svg>
+            </div>
+            <div class="diferenciador-card__text">
+              <h3 class="diferenciador-card__title">Flota propia: 15 vehículos y 4 choferes</h3>
+              <p class="diferenciador-card__body">Sin terceros. Logística propia que garantiza cada recolección y entrega puntual.</p>
+              <a href="/contacto/" class="diferenciador-card__link">Conocer cobertura</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SECCIÓN 4: CLIENTES ══ -->
+    <section class="sectores-marquee" aria-label="Clientes por industria">
+      <div class="container">
+        <p class="sectores-marquee__label">Empresas líderes que confían en IME</p>
+        <div class="ind-nav" id="indNavMarquee" aria-label="Filtrar por industria">
+          <div class="ind-nav__track">
+            <span class="ind-nav__item">Automotriz</span>
+            <span class="ind-nav__item">Alimentaria</span>
+            <span class="ind-nav__item">Farmacéutica y Médica</span>
+            <span class="ind-nav__item">Energía</span>
+            <span class="ind-nav__item">Gobierno y Defensa</span>
+          </div>
+        </div>
+        <div class="logos-marquee" id="logosMarquee" aria-label="Clientes de IME Calibraciones">
+          <div class="logos-marquee__track">
+            <div class="logos-marquee__set">
+              {clientes.map(logo => (
+                <div class="logos-marquee__item" data-industry={logo.industry}>
+                  <Image src={logo.src} alt={logo.alt} width={200} loading="lazy" format="webp" quality={85} />
+                </div>
+              ))}
+            </div>
+            <div class="logos-marquee__set" aria-hidden="true">
+              {clientes.map(logo => (
+                <div class="logos-marquee__item" data-industry={logo.industry}>
+                  <Image src={logo.src} alt={logo.alt} width={200} loading="lazy" format="webp" quality={85} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SECCIÓN 5b: VIDEO INSTITUCIONAL ══ -->
+    <section class="section video-section" id="video-ime">
+      <div class="container">
+        <div class="video-section__layout">
+
+          <div class="video-section__media">
+            <div class="video-facade" id="videoFacade" data-video-id="I-yKBR_HJ9s" role="button" tabindex="0" aria-label="Reproducir video institucional de IME Calibraciones">
+              <img
+                class="video-facade__thumb"
+                src="https://img.youtube.com/vi/I-yKBR_HJ9s/maxresdefault.jpg"
+                alt="Video institucional IME Calibraciones — laboratorio de calibración"
+                width="1280" height="720"
+                loading="lazy"
+              >
+              <div class="video-facade__overlay" aria-hidden="true"></div>
+              <div class="video-facade__play" aria-hidden="true">
+                <div class="video-facade__play-ring"></div>
+                <div class="video-facade__play-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18a1 1 0 000-1.69L9.54 5.98A.998.998 0 008 6.82z"/>
+                  </svg>
+                </div>
+              </div>
+              <div class="video-facade__label" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                <span>Ver en YouTube</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="video-section__content animate-on-scroll">
+            <p class="section__eyebrow">Conózcanos</p>
+            <h2 class="section-title" style="text-align:left">Vea cómo trabajamos</h2>
+            <p>Recorra nuestras instalaciones y conozca los procesos de calibración que respaldan los certificados de miles de instrumentos cada año, con trazabilidad al CENAM y NIST.</p>
+            <ul class="video-section__bullets">
+              <li>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                Instalaciones de clase mundial en Tlaxcala
+              </li>
+              <li>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                Ingenieros metrólogos certificados por EMA y PJLA
+              </li>
+              <li>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                Más de 32 años calibrando la industria mexicana
+              </li>
+            </ul>
+            <a href="/contacto/" class="btn btn-primary">Solicitar cotización</a>
+          </div>
+
+        </div>
+      </div>
+
+      <h2 class="sr-only" id="stats-heading">Indicadores de IME Calibraciones</h2>
+      <div class="video-section__stats" id="stats">
+        <div class="hero-numeros__item animate-on-scroll">
+          <span class="hero-numeros__num"><span class="counter" data-target="32" data-suffix="+">32+</span></span>
+          <span class="hero-numeros__label-top">Años de experiencia</span>
+          <span class="hero-numeros__label-sub">calibrando la industria mexicana</span>
+        </div>
+        <div class="hero-numeros__item animate-on-scroll">
+          <span class="hero-numeros__num"><span class="counter" data-target="24000" data-suffix="+">24,000+</span></span>
+          <span class="hero-numeros__label-top">Equipos de capacidad</span>
+          <span class="hero-numeros__label-sub">anual en todas las magnitudes</span>
+        </div>
+        <div class="hero-numeros__item animate-on-scroll">
+          <span class="hero-numeros__num"><span class="counter" data-target="100">100</span><span class="hero-numeros__num-unit"> km</span></span>
+          <span class="hero-numeros__label-top">Radio de recolección</span>
+          <span class="hero-numeros__label-sub">gratuita con seguro incluido</span>
+        </div>
+        <div class="hero-numeros__item animate-on-scroll">
+          <span class="hero-numeros__num"><span class="counter" data-target="15">15</span></span>
+          <span class="hero-numeros__label-top">Vehículos propios</span>
+          <span class="hero-numeros__label-sub">sin depender de terceros</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SECCIÓN 7: CTA CATÁLOGO ══ -->
+    <section class="cta-catalogo" id="cta-catalogo" aria-labelledby="cta-catalogo-heading">
+      <div class="container">
+        <div class="cta-catalogo__inner">
+          <div class="cta-catalogo__text">
+            <h2 class="cta-catalogo__title" id="cta-catalogo-heading">¿Necesita calibrar un instrumento específico?</h2>
+            <p class="cta-catalogo__body">Consulte nuestro catálogo de más de 300 instrumentos — desde calibradores y manómetros hasta analizadores de gases y equipos de laboratorio.</p>
+          </div>
+          <div class="cta-catalogo__actions">
+            <a href="/catalogo/" class="btn btn-primary btn-lg">
+              Ver catálogo completo
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/></svg>
+            </a>
+            <a href="/contacto/" class="btn btn-outline-white btn-lg">Solicitar cotización</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SECCIÓN 8: SOBRE IME ══ -->
+    <section class="section sobre-ime" id="sobre-ime">
+      <div class="container">
+        <div class="sobre-ime__layout">
+          <div class="sobre-ime__media">
+            <div class="sobre-ime__image-wrap">
+              <video class="sobre-ime__video" src="/assets/video/logo-animado-white.mp4" autoplay muted playsinline aria-label="Logo animado IME Calibraciones"></video>
+            </div>
+            <div class="sobre-ime__acreds">
+              <div class="sobre-ime__acred">
+                <div class="sobre-ime__acred-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                </div>
+                <div><strong>EMA</strong><span>· ISO/IEC 17025</span></div>
+              </div>
+              <div class="sobre-ime__acred">
+                <div class="sobre-ime__acred-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                </div>
+                <div><strong>PJLA No. 54194</strong><span>· ISO/IEC 17025</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sobre-ime__content animate-on-scroll">
+            <p class="section__eyebrow">Quiénes somos</p>
+            <h2 class="section-title">El primer laboratorio de metrología en Tlaxcala</h2>
+            <p>Fundado el 23 de marzo de 1993 por Juan Bautista Canela Mulato, IME fue el primer laboratorio en el Estado de Tlaxcala en ofrecer servicios especializados en metrología. Más de 32 años después, seguimos siendo el referente de la industria mexicana en calibración acreditada.</p>
+            <p>Somos el único laboratorio en México con acreditación simultánea ante <strong>PJLA</strong> (No. 54194) y <strong>EMA</strong>, con ingenieros técnicos signatarios autorizados para firmar y aprobar certificados con validez nacional e internacional.</p>
+            <a href="/nosotros/" class="btn btn-secondary">Conocer la empresa</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ SECCIÓN 8b: BANDA DE MARCA ══ -->
+
+    <!-- ══ SECCIÓN 9: FORMULARIO + MAPA ══ -->
+    <section class="section section--alt contacto-home" id="contacto-home" aria-labelledby="contacto-home-heading">
+      <div class="container">
+        <header class="section__header text-center">
+          <p class="section__eyebrow">Contáctenos</p>
+          <h2 class="section-title" id="contacto-home-heading">¿Listo para calibrar?</h2>
+          <p class="section__subtitle text-muted">Si está interesado en algún producto o servicio, deje sus datos y nos contactaremos lo antes posible.</p>
+          <p class="contacto-home__tagline">Siempre cerca de ti&nbsp;&nbsp;·&nbsp;&nbsp;IME</p>
+        </header>
+        <div class="contacto-home__layout">
+          <div class="contacto-home__form-wrap">
+            <form class="contacto-form" id="contacto-home-form" action="/contacto/" method="GET" novalidate>
+              <div class="form-row form-row--two">
+                <div class="form-group">
+                  <label for="ch-nombre" class="form-label">Nombre <span aria-hidden="true">*</span></label>
+                  <input type="text" id="ch-nombre" name="nombre" class="form-input" placeholder="Su nombre" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                  <label for="ch-empresa" class="form-label">Empresa</label>
+                  <input type="text" id="ch-empresa" name="empresa" class="form-input" placeholder="Nombre de la empresa" autocomplete="organization">
+                </div>
+              </div>
+              <div class="form-row form-row--two">
+                <div class="form-group">
+                  <label for="ch-tel" class="form-label">Teléfono <span aria-hidden="true">*</span></label>
+                  <input type="tel" id="ch-tel" name="telefono" class="form-input" placeholder="+52 246 000 0000" required autocomplete="tel">
+                </div>
+                <div class="form-group">
+                  <label for="ch-email" class="form-label">Correo electrónico <span aria-hidden="true">*</span></label>
+                  <input type="email" id="ch-email" name="email" class="form-input" placeholder="correo@empresa.com" required autocomplete="email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="ch-mensaje" class="form-label">¿Qué desea calibrar?</label>
+                <textarea id="ch-mensaje" name="mensaje" class="form-textarea" rows="4" placeholder="Describa el instrumento o los servicios que necesita…"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">Enviar solicitud</button>
+              <p class="contacto-form__disclaimer">Al enviar acepta nuestro <a href="/aviso-de-privacidad/">aviso de privacidad</a>. Le respondemos en menos de 24 horas hábiles.</p>
+            </form>
+          </div>
+          <div class="contacto-home__info">
+            <div class="contacto-home__datos">
+              <div class="contacto-dato">
+                <div class="contacto-dato__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg>
+                </div>
+                <div>
+                  <p class="contacto-dato__label">Teléfono</p>
+                  <a href="tel:+522464667048" class="contacto-dato__value">+52 246 466 7048</a><br>
+                  <a href="tel:+522461261782" class="contacto-dato__value">+52 246 126 1782</a>
+                </div>
+              </div>
+              <div class="contacto-dato">
+                <div class="contacto-dato__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg>
+                </div>
+                <div>
+                  <p class="contacto-dato__label">Correo electrónico</p>
+                  <a href="mailto:contacto@imecalibraciones.com" class="contacto-dato__value">contacto@imecalibraciones.com</a>
+                </div>
+              </div>
+              <div class="contacto-dato">
+                <div class="contacto-dato__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.079 3.943-5.199 3.943-9.578 0-4.589-3.411-8-7.5-8S4.5 3.161 4.5 7.75c0 4.379 1.999 7.499 3.943 9.578a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 10.5a2.75 2.75 0 100-5.5 2.75 2.75 0 000 5.5z" clip-rule="evenodd"/></svg>
+                </div>
+                <div>
+                  <p class="contacto-dato__label">Ubicación</p>
+                  <p class="contacto-dato__value">Tlaxcala, México</p>
+                </div>
+              </div>
+            </div>
+            <div class="contacto-home__mapa">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.1482143808203!2d-98.22290882500359!3d19.31937378193593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfdecc97cbc803%3A0x5c4efdf088b73cae!2sIME%20Certificada!5e0!3m2!1ses-419!2smx!4v1773358152094!5m2!1ses-419!2smx"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="Ubicación de IME Calibraciones en Google Maps"
+                aria-label="Mapa de ubicación de IME Calibraciones">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</Base>

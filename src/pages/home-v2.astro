@@ -1,0 +1,998 @@
+---
+import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import { clientes } from '../data/clientes';
+import slide1 from '../assets/images/hero/slide-1.png';
+import slide2 from '../assets/images/hero/slide-2.png';
+import slide3 from '../assets/images/hero/slide-3.png';
+
+const magnitudesGrupos = [
+  { nombre: 'Dimensional y Geométrica', color: '#3b82f6', icon: 'M9 7.5l3 4.5m0 0l3-4.5M12 12v5.25M15 12H9m6 3H9m12-3a9 9 0 11-18 0 9 9 0 0118 0z', items: ['Longitud', 'Ángulo', 'Rugosidad', 'Velocidad', 'Aceleración', 'Par de apriete'] },
+  { nombre: 'Masa y Fuerza',            color: '#8b5cf6', icon: 'M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.352 5.988 5.988 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L18.75 4.97zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.352 5.989 5.989 0 01-2.031-.352c-.483-.174-.711-.703-.59-1.202L5.25 4.97z', items: ['Masa', 'Fuerza', 'Torque', 'Dureza'] },
+  { nombre: 'Térmica y Ambiental',      color: '#ef4444', icon: 'M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z', items: ['Temperatura', 'Humedad', 'Densidad'] },
+  { nombre: 'Presión y Flujo',          color: '#06b6d4', icon: 'M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15', items: ['Presión', 'Volumen', 'Flujo', 'Caudal', 'Viscosidad'] },
+  { nombre: 'Eléctrica y Frecuencia',   color: '#f59e0b', icon: 'M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z', items: ['Electricidad', 'Resistencia eléctrica', 'Tensión eléctrica', 'Corriente eléctrica', 'Potencia', 'Energía', 'Tiempo y Frecuencia'] },
+  { nombre: 'Química',                  color: '#10b981', icon: 'M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15m-15.6 0A2.25 2.25 0 004.2 18h15.6a2.25 2.25 0 002.25-2.25V15m-18 0a2.25 2.25 0 01-.659-1.591l-1.341-7.5m20.659 9.091A2.25 2.25 0 0121.75 15m-18 0A2.25 2.25 0 002.25 15', items: ['pH', 'Concentración'] },
+  { nombre: 'Acústica y Radiación',     color: '#ec4899', icon: 'M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z', items: ['Sonido', 'Vibración', 'Óptica', 'Radiación', 'Luminosidad'] },
+];
+---
+
+<Base
+  title="IME Calibraciones — Laboratorio Acreditado en Tlaxcala, México"
+  description="Calibración acreditada de instrumentos de medición. Trazabilidad nacional e internacional. Servicio para industria manufacturera, farmacéutica y automotriz en México."
+>
+  <link rel="preload" as="video" href="/assets/video/hero-lab.mp4" type="video/mp4" slot="head">
+
+  <main class="hv2">
+
+    <!-- ══ 1. HERO ══ -->
+    <section class="hv2-hero" id="hero" aria-label="Presentación IME Calibraciones">
+      <div class="hv2-hero__bg" aria-hidden="true">
+        <div class="hv2-hero__carousel" id="heroCarousel">
+          <div class="hv2-hero__slide hv2-hero__slide--video hv2-hero__slide--active">
+            <video autoplay muted loop playsinline poster="/assets/images/hero/hero-poster.png" fetchpriority="high">
+              <source src="/assets/video/hero-lab.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="hv2-hero__slide">
+            <Image src={slide1} alt="Laboratorio de calibración IME" widths={[640,1024,1280,1920]} sizes="100vw" loading="eager" format="webp" quality={80} />
+          </div>
+          <div class="hv2-hero__slide">
+            <Image src={slide2} alt="Instrumentos calibrados por IME" widths={[640,1024,1280,1920]} sizes="100vw" loading="eager" format="webp" quality={80} />
+          </div>
+          <div class="hv2-hero__slide">
+            <Image src={slide3} alt="Equipo de metrólogos IME" widths={[640,1024,1280,1920]} sizes="100vw" loading="eager" format="webp" quality={80} />
+          </div>
+        </div>
+        <div class="hv2-hero__overlay"></div>
+      </div>
+
+      <div class="hv2-hero__inner container">
+        <div class="hv2-hero__trust-badges" aria-label="Acreditaciones">
+          <span class="hv2-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+            EMA · ISO/IEC 17025
+          </span>
+          <span class="hv2-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+            PJLA No. 54194
+          </span>
+        </div>
+
+        <h1 class="hv2-hero__title" id="hv2HeroTitle">
+          Precisión que mueve<br>
+          <em>a la industria mexicana</em>
+        </h1>
+        <p class="hv2-hero__sub" id="hv2HeroSub">
+          Laboratorio de calibración con doble acreditación EMA y PJLA.<br>
+          32 magnitudes · Tlaxcala para todo México y Guatemala.
+        </p>
+        <div class="hv2-hero__actions">
+          <a href="/contacto/" class="btn btn-primary btn-lg">Solicitar cotización</a>
+          <a href="/servicios/" class="btn btn-outline-white btn-lg">Ver servicios</a>
+        </div>
+      </div>
+
+      <!-- Progress bars -->
+      <div class="hero__progress-bars" aria-hidden="true">
+        <div class="hero__progress-bar"><div class="hero__progress-fill"></div></div>
+        <div class="hero__progress-bar"><div class="hero__progress-fill"></div></div>
+        <div class="hero__progress-bar"><div class="hero__progress-fill"></div></div>
+        <div class="hero__progress-bar"><div class="hero__progress-fill"></div></div>
+      </div>
+
+      <div class="hv2-hero__scroll" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" width="22" height="22">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ══ 2. LOGOS — prueba social inmediata ══ -->
+    <section class="hv2-logos" aria-label="Clientes de IME Calibraciones">
+      <div class="container">
+        <p class="hv2-logos__label">Empresas líderes que confían en IME</p>
+        <div class="hv2-logos__nav" id="indNavMarquee" aria-label="Filtrar por industria">
+          <div class="ind-nav__track" style="justify-content:center;flex-wrap:wrap;">
+            <span class="ind-nav__item" style="opacity:.5;transition:opacity .6s ease,color .6s ease;">Automotriz</span>
+            <span class="ind-nav__item" style="opacity:.5;transition:opacity .6s ease,color .6s ease;">Alimentaria</span>
+            <span class="ind-nav__item" style="opacity:.5;transition:opacity .6s ease,color .6s ease;">Farmacéutica y Médica</span>
+            <span class="ind-nav__item" style="opacity:.5;transition:opacity .6s ease,color .6s ease;">Energía</span>
+            <span class="ind-nav__item" style="opacity:.5;transition:opacity .6s ease,color .6s ease;">Gobierno y Defensa</span>
+          </div>
+        </div>
+        <div class="logos-marquee" id="logosMarquee">
+          <div class="logos-marquee__track">
+            <div class="logos-marquee__set">
+              {clientes.map(logo => (
+                <div class="logos-marquee__item" data-industry={logo.industry}>
+                  <Image src={logo.src} alt={logo.alt} width={200} loading="lazy" format="webp" quality={85} />
+                </div>
+              ))}
+            </div>
+            <div class="logos-marquee__set" aria-hidden="true">
+              {clientes.map(logo => (
+                <div class="logos-marquee__item" data-industry={logo.industry}>
+                  <Image src={logo.src} alt={logo.alt} width={200} loading="lazy" format="webp" quality={85} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 3. PROBLEMA / SOLUCIÓN ══ -->
+    <section class="hv2-problema" aria-labelledby="problema-heading">
+      <div class="container">
+        <div class="hv2-problema__intro">
+          <p class="hv2-problema__eyebrow">El problema que resolvemos</p>
+          <h2 id="problema-heading" class="hv2-problema__title">
+            Su auditoría exige trazabilidad.<br>Su certificado debe valer en cualquier país.
+          </h2>
+        </div>
+        <div class="hv2-problema__filas">
+          <div class="hv2-problema__fila animate-on-scroll">
+            <div class="hv2-problema__problema">
+              <span class="hv2-problema__x" aria-hidden="true">✕</span>
+              <p>«Necesito certificados reconocidos en Estados Unidos y en toda Norteamérica»</p>
+            </div>
+            <div class="hv2-problema__flecha" aria-hidden="true">→</div>
+            <div class="hv2-problema__solucion">
+              <span class="hv2-problema__check" aria-hidden="true">✓</span>
+              <p><strong>PJLA No. 54194</strong> — acreditación con reconocimiento internacional aceptada en todo el continente.</p>
+            </div>
+          </div>
+          <div class="hv2-problema__fila animate-on-scroll">
+            <div class="hv2-problema__problema">
+              <span class="hv2-problema__x" aria-hidden="true">✕</span>
+              <p>«Mi instrumento no puede calibrarse en México, lo envío al extranjero»</p>
+            </div>
+            <div class="hv2-problema__flecha" aria-hidden="true">→</div>
+            <div class="hv2-problema__solucion">
+              <span class="hv2-problema__check" aria-hidden="true">✓</span>
+              <p><strong>Métodos patentados por IME</strong> — calibramos lo que antes obligaba envíos fuera del país.</p>
+            </div>
+          </div>
+          <div class="hv2-problema__fila animate-on-scroll">
+            <div class="hv2-problema__problema">
+              <span class="hv2-problema__x" aria-hidden="true">✕</span>
+              <p>«Tengo múltiples proveedores, cada uno cubre pocas magnitudes»</p>
+            </div>
+            <div class="hv2-problema__flecha" aria-hidden="true">→</div>
+            <div class="hv2-problema__solucion">
+              <span class="hv2-problema__check" aria-hidden="true">✓</span>
+              <p><strong>32 magnitudes acreditadas</strong> en un solo laboratorio — con capacidad para 24,000 equipos al año.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 4. NÚMEROS IMPACTO ══ -->
+    <section class="hv2-numeros" aria-labelledby="numeros-heading">
+      <h2 id="numeros-heading" class="sr-only">Indicadores de IME Calibraciones</h2>
+      <div class="container">
+        <div class="hv2-numeros__grid">
+          <div class="hv2-numeros__item animate-on-scroll">
+            <span class="hv2-numeros__num"><span class="counter" data-target="32" data-suffix="+">32+</span></span>
+            <span class="hv2-numeros__label-top">Años de experiencia</span>
+            <span class="hv2-numeros__label-sub">calibrando la industria mexicana</span>
+          </div>
+          <div class="hv2-numeros__item animate-on-scroll">
+            <span class="hv2-numeros__num"><span class="counter" data-target="32">32</span></span>
+            <span class="hv2-numeros__label-top">Magnitudes acreditadas</span>
+            <span class="hv2-numeros__label-sub">ante PJLA · ISO/IEC 17025</span>
+          </div>
+          <div class="hv2-numeros__item animate-on-scroll">
+            <span class="hv2-numeros__num"><span class="counter" data-target="24000" data-suffix="+">24,000+</span></span>
+            <span class="hv2-numeros__label-top">Equipos calibrados</span>
+            <span class="hv2-numeros__label-sub">al año en todas las magnitudes</span>
+          </div>
+          <div class="hv2-numeros__item animate-on-scroll">
+            <span class="hv2-numeros__num"><span class="counter" data-target="39">39</span></span>
+            <span class="hv2-numeros__label-top">Magnitudes totales</span>
+            <span class="hv2-numeros__label-sub">32 ante PJLA · 7 ante EMA</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 5. SERVICIOS ══ -->
+    <section class="section hv2-servicios" aria-labelledby="servicios-heading">
+      <div class="container">
+        <header class="section__header text-center">
+          <p class="section__eyebrow">Servicios</p>
+          <h2 class="section-title" id="servicios-heading">Calibramos lo que su proceso necesita</h2>
+          <p class="section__subtitle text-muted">Servicio en laboratorio y en campo, en toda la República Mexicana y Guatemala.</p>
+        </header>
+        <div class="hv2-servicios__grid">
+
+          <article class="hv2-servicio-card animate-on-scroll">
+            <div class="hv2-servicio-card__icon" style="--sc:#08529a;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15m-15.6 0A2.25 2.25 0 004.2 18h15.6a2.25 2.25 0 002.25-2.25V15m-18 0a2.25 2.25 0 01-.659-1.591l-1.341-7.5m20.659 9.091A2.25 2.25 0 0121.75 15m-18 0A2.25 2.25 0 012.25 15"/></svg>
+            </div>
+            <h3>Calibración en Laboratorio</h3>
+            <p>Recibimos sus instrumentos en nuestras instalaciones acreditadas en Tlaxcala. Recolección y entrega sin costo dentro de 100 km.</p>
+            <a href="/servicios/" class="hv2-servicio-card__link">Ver servicio →</a>
+          </article>
+
+          <article class="hv2-servicio-card animate-on-scroll">
+            <div class="hv2-servicio-card__icon" style="--sc:#3b82f6;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"/></svg>
+            </div>
+            <h3>Calibración On-Site</h3>
+            <p>Nuestros ingenieros se desplazan a su planta con equipo patrón certificado. Sin mover sus instrumentos críticos ni detener su producción.</p>
+            <a href="/servicios/" class="hv2-servicio-card__link">Ver servicio →</a>
+          </article>
+
+          <article class="hv2-servicio-card animate-on-scroll">
+            <div class="hv2-servicio-card__icon" style="--sc:#10b981;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"/></svg>
+            </div>
+            <h3>Mantenimiento Preventivo</h3>
+            <p>Programas de mantenimiento y calibración que extienden la vida útil de sus equipos y garantizan lecturas confiables en todo momento.</p>
+            <a href="/servicios/" class="hv2-servicio-card__link">Ver servicio →</a>
+          </article>
+
+          <article class="hv2-servicio-card animate-on-scroll">
+            <div class="hv2-servicio-card__icon" style="--sc:#f59e0b;">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+            </div>
+            <h3>Venta de Equipos</h3>
+            <p>Amplia gama de equipos de medición industrial de las mejores marcas. Asesoría especializada para elegir el instrumento correcto.</p>
+            <a href="/catalogo/" class="hv2-servicio-card__link">Ver catálogo →</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 6. 3 DIFERENCIADORES CLAVE ══ -->
+    <section class="section hv2-diferenciadores" aria-labelledby="dif-heading">
+      <div class="container">
+        <header class="section__header text-center">
+          <p class="section__eyebrow">¿Por qué IME?</p>
+          <h2 class="section-title" id="dif-heading">Lo que ningún otro laboratorio puede ofrecerle</h2>
+        </header>
+        <div class="hv2-dif__grid">
+
+          <div class="hv2-dif__card animate-on-scroll">
+            <div class="hv2-dif__num" aria-hidden="true">01</div>
+            <div class="hv2-dif__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3>Doble acreditación — único en México</h3>
+            <p>Somos el único laboratorio en el país con acreditación simultánea ante <strong>EMA</strong> (national) y <strong>PJLA No. 54194</strong> (internacional). Sus certificados son válidos ante auditorías IATF, FDA e ISO en cualquier continente.</p>
+          </div>
+
+          <div class="hv2-dif__card animate-on-scroll">
+            <div class="hv2-dif__num" aria-hidden="true">02</div>
+            <div class="hv2-dif__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
+            </div>
+            <h3>Métodos patentados — sin envíos al extranjero</h3>
+            <p>IME desarrolló y patentó métodos propios de calibración. Lo que antes obligaba enviar instrumentos a Europa o EE.UU., hoy lo resolvemos aquí, en menos tiempo y con menor costo para su empresa.</p>
+          </div>
+
+          <div class="hv2-dif__card animate-on-scroll">
+            <div class="hv2-dif__num" aria-hidden="true">03</div>
+            <div class="hv2-dif__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M8.161 2.58a1.875 1.875 0 011.678 0l4.993 2.498c.106.052.23.052.336 0l3.869-1.935A1.875 1.875 0 0121.75 4.82v12.485c0 .71-.401 1.36-1.037 1.677l-4.875 2.437a1.875 1.875 0 01-1.676 0l-4.994-2.497a.375.375 0 00-.336 0l-3.868 1.935A1.875 1.875 0 012.25 19.18V6.695c0-.71.401-1.36 1.036-1.677l4.875-2.437zM9 6a.75.75 0 01.75.75V15a.75.75 0 01-1.5 0V6.75A.75.75 0 019 6zm6.75 3a.75.75 0 00-1.5 0v8.25a.75.75 0 001.5 0V9z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3>Cobertura total: México y Guatemala</h3>
+            <p>15 vehículos propios, 4 choferes dedicados y servicio 365 días al año. Recolección y entrega sin costo en 100 km. Operamos en cualquier estado de la República y en Guatemala.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 7. VIDEO ══ -->
+    <section class="section hv2-video-section">
+      <div class="container">
+        <div class="video-section__layout">
+          <div class="video-section__media">
+            <div class="video-facade" id="videoFacade" data-video-id="Yn-4pxu_lRk" role="button" tabindex="0" aria-label="Reproducir video institucional">
+              <img class="video-facade__thumb" src="https://img.youtube.com/vi/Yn-4pxu_lRk/maxresdefault.jpg" alt="Video institucional IME Calibraciones" width="1280" height="720" loading="lazy">
+              <div class="video-facade__overlay" aria-hidden="true"></div>
+              <div class="video-facade__play" aria-hidden="true">
+                <div class="video-facade__play-ring"></div>
+                <div class="video-facade__play-btn">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18a1 1 0 000-1.69L9.54 5.98A.998.998 0 008 6.82z"/></svg>
+                </div>
+              </div>
+              <div class="video-facade__label" aria-hidden="true"><span>Ver en YouTube</span></div>
+            </div>
+          </div>
+          <div class="video-section__content animate-on-scroll">
+            <p class="section__eyebrow">Conózcanos</p>
+            <h2 class="section-title" style="text-align:left">Fundados en 1993.<br>Siempre cerca de ti.</h2>
+            <p>Juan Bautista Canela Mulato fundó IME el 23 de marzo de 1993 convirtiéndola en el primer laboratorio de metrología del Estado de Tlaxcala. Más de 32 años después, seguimos siendo el referente de precisión de la industria mexicana.</p>
+            <ul class="video-section__bullets">
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>Primer laboratorio de metrología en Tlaxcala</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>Ingenieros técnicos signatarios autorizados por EMA y PJLA</li>
+              <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>Imparcialidad y confidencialidad garantizadas en cada servicio</li>
+            </ul>
+            <a href="/nosotros/" class="btn btn-secondary">Conocer la empresa</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 9. CTA BAND ══ -->
+    <section class="hv2-cta-band" aria-labelledby="cta-heading">
+      <div class="container">
+        <div class="hv2-cta-band__inner">
+          <div class="hv2-cta-band__text">
+            <h2 id="cta-heading">¿Listo para calibrar?</h2>
+            <p>Siempre cerca de ti&nbsp;&nbsp;·&nbsp;&nbsp;IME</p>
+          </div>
+          <div class="hv2-cta-band__actions">
+            <a href="/contacto/" class="btn btn-primary btn-lg">Solicitar cotización</a>
+            <a href="/catalogo/" class="btn btn-outline-white btn-lg">Ver catálogo</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 10. CONTACTO ══ -->
+    <section class="section section--alt hv2-contacto" id="contacto-home" aria-labelledby="contacto-heading">
+      <div class="container">
+        <header class="section__header text-center">
+          <p class="section__eyebrow">Contáctenos</p>
+          <h2 class="section-title" id="contacto-heading">¿Necesita calibrar un instrumento?</h2>
+          <p class="section__subtitle text-muted">Si está interesado en algún producto o servicio, deje sus datos y nos contactaremos lo antes posible.</p>
+          <p style="font-size:.875rem;font-weight:600;color:#08529a;margin-top:.25rem;">Siempre cerca de ti&nbsp;&nbsp;·&nbsp;&nbsp;IME</p>
+        </header>
+        <div class="contacto-home__layout">
+          <div class="contacto-home__form-wrap">
+            <form class="contacto-form" action="/contacto/" method="GET" novalidate>
+              <div class="form-row form-row--two">
+                <div class="form-group">
+                  <label for="v2-nombre" class="form-label">Nombre <span aria-hidden="true">*</span></label>
+                  <input type="text" id="v2-nombre" name="nombre" class="form-input" placeholder="Su nombre" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                  <label for="v2-empresa" class="form-label">Empresa</label>
+                  <input type="text" id="v2-empresa" name="empresa" class="form-input" placeholder="Nombre de la empresa" autocomplete="organization">
+                </div>
+              </div>
+              <div class="form-row form-row--two">
+                <div class="form-group">
+                  <label for="v2-tel" class="form-label">Teléfono <span aria-hidden="true">*</span></label>
+                  <input type="tel" id="v2-tel" name="telefono" class="form-input" placeholder="+52 246 000 0000" required autocomplete="tel">
+                </div>
+                <div class="form-group">
+                  <label for="v2-email" class="form-label">Correo electrónico <span aria-hidden="true">*</span></label>
+                  <input type="email" id="v2-email" name="email" class="form-input" placeholder="correo@empresa.com" required autocomplete="email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="v2-mensaje" class="form-label">¿Qué desea calibrar?</label>
+                <textarea id="v2-mensaje" name="mensaje" class="form-textarea" rows="4" placeholder="Describa el instrumento o los servicios que necesita…"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">Enviar solicitud</button>
+              <p class="contacto-form__disclaimer">Al enviar acepta nuestro <a href="/aviso-de-privacidad/">aviso de privacidad</a>. Le respondemos en menos de 24 horas hábiles.</p>
+            </form>
+          </div>
+          <div class="contacto-home__info">
+            <div class="contacto-home__datos">
+              <div class="contacto-dato">
+                <div class="contacto-dato__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd"/></svg></div>
+                <div><p class="contacto-dato__label">Teléfono</p><a href="tel:+522464667048" class="contacto-dato__value">+52 246 466 7048</a><br><a href="tel:+522461261782" class="contacto-dato__value">+52 246 126 1782</a></div>
+              </div>
+              <div class="contacto-dato">
+                <div class="contacto-dato__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg></div>
+                <div><p class="contacto-dato__label">Correo</p><a href="mailto:contacto@imecalibraciones.com" class="contacto-dato__value">contacto@imecalibraciones.com</a></div>
+              </div>
+            </div>
+            <div class="contacto-home__mapa">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.1482143808203!2d-98.22290882500359!3d19.31937378193593!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfdecc97cbc803%3A0x5c4efdf088b73cae!2sIME%20Certificada!5e0!3m2!1ses-419!2smx!4v1773358152094!5m2!1ses-419!2smx" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación IME Calibraciones"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Base>
+
+<style>
+/* ═══ HOME V2 — estilos exclusivos de esta página ═══ */
+
+/* ── HERO ── */
+.hv2-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+}
+.hv2-hero__bg,
+.hv2-hero__carousel,
+.hv2-hero__slide {
+  position: absolute;
+  inset: 0;
+}
+.hv2-hero__slide {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.hv2-hero__slide--active { opacity: 1; }
+.hv2-hero__slide--video { background: #000; }
+.hv2-hero__slide video,
+.hv2-hero__slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.hv2-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(4,26,57,.72) 0%, rgba(8,52,120,.55) 100%);
+  z-index: 1;
+}
+.hv2-hero__inner {
+  position: relative;
+  z-index: 2;
+  padding-top: 48px;
+  padding-bottom: 80px;
+  text-align: center;
+}
+.hv2-hero__trust-badges {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.hv2-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,.15);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: .02em;
+}
+.hv2-hero__title {
+  font-size: clamp(2.2rem, 5.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  margin-bottom: 20px;
+  transition: opacity .18s ease;
+  min-height: 2.4em;
+}
+.hv2-hero__title :global(em) {
+  font-style: normal;
+  color: #93c5fd;
+}
+.hv2-hero__sub {
+  font-size: clamp(.95rem, 2vw, 1.125rem);
+  color: rgba(255,255,255,.82);
+  line-height: 1.7;
+  max-width: 560px;
+  margin: 0 auto 36px;
+  transition: opacity .24s ease;
+}
+.hv2-hero__actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hv2-hero__scroll {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: rgba(255,255,255,.5);
+  animation: hv2-bounce 2s ease-in-out infinite;
+}
+@keyframes hv2-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ── LOGOS ── */
+.hv2-logos {
+  padding: 28px 0 24px;
+  border-bottom: 1px solid var(--color-line);
+}
+.hv2-logos__label {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: 16px;
+}
+.hv2-logos .logos-marquee {
+  max-width: 940px;
+  margin: 0 auto;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%);
+  padding: 6px 0 0;
+}
+.hv2-logos .ind-nav__item--active { opacity: 1 !important; color: var(--color-primary); }
+
+/* ── PROBLEMA / SOLUCIÓN ── */
+.hv2-problema {
+  background: linear-gradient(135deg, #041a39 0%, #063d73 100%);
+  padding: 80px 0;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.hv2-problema::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+.hv2-problema::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, #041a39 100%);
+  pointer-events: none;
+}
+.hv2-problema .container {
+  position: relative;
+  z-index: 1;
+}
+.hv2-problema__intro {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.hv2-problema__eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #93c5fd;
+  margin-bottom: 16px;
+}
+.hv2-problema__title {
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+}
+.hv2-problema__filas {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hv2-problema__fila {
+  display: grid;
+  grid-template-columns: 1fr 48px 1fr;
+  gap: 0;
+  align-items: center;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.hv2-problema__fila:last-child { border-bottom: none; }
+.hv2-problema__problema,
+.hv2-problema__solucion {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 0 24px;
+}
+.hv2-problema__problema p { color: rgba(255,255,255,.6); font-size: .9375rem; line-height: 1.6; }
+.hv2-problema__solucion p { color: rgba(255,255,255,.9); font-size: .9375rem; line-height: 1.6; }
+.hv2-problema__x {
+  width: 26px; height: 26px; min-width: 26px;
+  background: rgba(239,68,68,.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #f87171;
+  margin-top: 1px;
+}
+.hv2-problema__check {
+  width: 26px; height: 26px; min-width: 26px;
+  background: rgba(34,197,94,.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #4ade80;
+  margin-top: 1px;
+}
+.hv2-problema__flecha {
+  text-align: center;
+  color: rgba(255,255,255,.25);
+  font-size: 1.25rem;
+}
+@media (max-width: 680px) {
+  .hv2-problema__fila { grid-template-columns: 1fr; gap: 12px; }
+  .hv2-problema__flecha { display: none; }
+  .hv2-problema__problema, .hv2-problema__solucion { padding: 0; }
+}
+
+/* ── NÚMEROS ── */
+.hv2-numeros {
+  background: var(--color-primary);
+  padding: 14px 0;
+}
+.hv2-numeros__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+@media (max-width: 768px) { .hv2-numeros__grid { grid-template-columns: repeat(2, 1fr); } }
+.hv2-numeros__item {
+  text-align: center;
+  padding: 6px 16px;
+  border-right: 1px solid rgba(255,255,255,.12);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.hv2-numeros__item:last-child { border-right: none; }
+.hv2-numeros__num {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+.hv2-numeros__label-top {
+  font-size: .8125rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.95);
+  line-height: 1.3;
+}
+.hv2-numeros__label-sub {
+  font-size: .7rem;
+  color: rgba(255,255,255,.55);
+  line-height: 1.3;
+}
+
+/* ── SERVICIOS ── */
+.hv2-servicios__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+@media (max-width: 900px) { .hv2-servicios__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px)  { .hv2-servicios__grid { grid-template-columns: 1fr; } }
+.hv2-servicio-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-line);
+  border-radius: 16px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: box-shadow .3s ease, transform .3s ease, border-color .3s ease;
+}
+.hv2-servicio-card:hover {
+  box-shadow: 0 12px 36px rgba(8,82,154,.1);
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+}
+.hv2-servicio-card__icon {
+  width: 52px; height: 52px;
+  background: color-mix(in srgb, var(--sc) 10%, white);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.hv2-servicio-card__icon svg { width: 26px; height: 26px; color: var(--sc); }
+.hv2-servicio-card h3 { font-size: 1rem; font-weight: 600; color: var(--color-ink); line-height: 1.3; }
+.hv2-servicio-card p  { font-size: .875rem; color: var(--color-muted); line-height: 1.7; flex: 1; }
+.hv2-servicio-card__link {
+  font-size: .8125rem; font-weight: 600; color: var(--color-primary);
+  text-decoration: none; margin-top: auto;
+  transition: gap .2s ease, color .2s ease;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.hv2-servicio-card__link:hover { color: var(--color-primary-dark); gap: 8px; }
+
+/* ── DIFERENCIADORES ── */
+.hv2-diferenciadores { background: linear-gradient(160deg, #f4f8ff 0%, #eef3fb 100%); }
+.hv2-dif__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+@media (max-width: 860px) { .hv2-dif__grid { grid-template-columns: 1fr; } }
+.hv2-dif__card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05), 0 8px 24px rgba(0,0,0,.04);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: box-shadow .3s ease, transform .3s ease;
+}
+.hv2-dif__card:hover {
+  box-shadow: 0 8px 32px rgba(8,82,154,.12);
+  transform: translateY(-4px);
+}
+.hv2-dif__num {
+  position: absolute;
+  top: -4px; right: 16px;
+  font-size: 80px; font-weight: 800;
+  color: rgba(8,82,154,.055);
+  line-height: 1;
+  letter-spacing: -3px;
+  pointer-events: none;
+  user-select: none;
+}
+.hv2-dif__icon {
+  width: 52px; height: 52px;
+  background: color-mix(in srgb, var(--color-primary) 11%, white);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.hv2-dif__icon svg { width: 26px; height: 26px; color: var(--color-primary); }
+.hv2-dif__card h3 { font-size: 1.0625rem; font-weight: 700; color: var(--color-ink); line-height: 1.3; }
+.hv2-dif__card p  { font-size: .875rem; color: var(--color-muted); line-height: 1.75; }
+
+/* ── MAGNITUDES ── */
+.hv2-mag__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media (max-width: 1000px) { .hv2-mag__grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px)  { .hv2-mag__grid { grid-template-columns: repeat(2, 1fr); } }
+.hv2-mag__card {
+  border: 1px solid var(--color-line);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: box-shadow .25s ease, transform .25s ease;
+}
+.hv2-mag__card:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,.08);
+  transform: translateY(-2px);
+}
+.hv2-mag__card-head {
+  background: color-mix(in srgb, var(--mg-color) 9%, white);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid color-mix(in srgb, var(--mg-color) 15%, transparent);
+}
+.hv2-mag__card-head svg {
+  width: 20px; height: 20px; flex-shrink: 0;
+  color: var(--mg-color);
+}
+.hv2-mag__card-head h3 {
+  font-size: .8rem; font-weight: 700;
+  color: color-mix(in srgb, var(--mg-color) 80%, #111);
+  line-height: 1.2;
+}
+.hv2-mag__items {
+  list-style: none;
+  padding: 14px 18px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.hv2-mag__items li {
+  font-size: .78rem;
+  color: var(--color-muted);
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.4;
+}
+.hv2-mag__items li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 6px;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--mg-color);
+  opacity: .6;
+}
+.hv2-mag__nota {
+  text-align: center;
+  font-size: .8125rem;
+  color: var(--color-muted);
+  margin-top: 28px;
+  padding: 14px 20px;
+  background: color-mix(in srgb, var(--color-primary) 5%, white);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 15%, transparent);
+  border-radius: 10px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── CTA BAND ── */
+.hv2-cta-band {
+  background: linear-gradient(135deg, #041a39 0%, #08529a 100%);
+  padding: 64px 0;
+}
+.hv2-cta-band__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.hv2-cta-band__text h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.hv2-cta-band__text p {
+  font-size: .875rem;
+  color: rgba(255,255,255,.6);
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.hv2-cta-band__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+@media (max-width: 640px) {
+  .hv2-cta-band__inner { flex-direction: column; text-align: center; }
+  .hv2-cta-band__actions { justify-content: center; }
+}
+</style>
+
+<script>
+  // ── Hero carousel con progress bars ──
+  (function() {
+    const carousel = document.querySelector('.hv2-hero__carousel');
+    if (!carousel) return;
+    const slides = carousel.querySelectorAll('.hv2-hero__slide');
+    if (slides.length < 2) return;
+    const bars = Array.from(document.querySelectorAll('.hero__progress-bar'));
+    const titleEl = document.getElementById('hv2HeroTitle');
+    const subEl   = document.getElementById('hv2HeroSub');
+    const INTERVAL = 6000;
+    let current = 0, timer;
+
+    const SLIDES_DATA = [
+      { title: 'Precisión que mueve<br><em>a la industria mexicana</em>',        sub: 'Laboratorio de calibración con doble acreditación EMA y PJLA.<br>32 magnitudes · Tlaxcala para todo México y Guatemala.' },
+      { title: 'Ingeniería y Metrología<br><em>Certificada</em>',                sub: 'Servicio de Mantenimiento Preventivo y Calibración para mantener sus equipos en óptimas condiciones.' },
+      { title: 'Venta de Equipos<br><em>de Medición Industrial</em>',            sub: 'Amplia gama de equipos de las mejores marcas. Asesoría especializada para cada industria.' },
+      { title: 'Cobertura Nacional<br><em>e Internacional</em>', sub: 'Presencia en toda la República Mexicana y Guatemala · 32+ años calibrando la industria.' },
+    ];
+
+    function updateText(i) {
+      const d = SLIDES_DATA[i % SLIDES_DATA.length];
+      if (titleEl) { titleEl.style.opacity='0'; setTimeout(()=>{ titleEl.innerHTML=d.title; titleEl.style.opacity='1'; },180); }
+      if (subEl)   { subEl.style.opacity='0';   setTimeout(()=>{ subEl.innerHTML=d.sub;     subEl.style.opacity='1'; },240); }
+    }
+
+    function updateBars(i) {
+      bars.forEach((bar, idx) => {
+        const fill = bar.querySelector('.hero__progress-fill');
+        bar.classList.remove('hero__progress-bar--active','hero__progress-bar--done');
+        if (fill) fill.style.animation = 'none';
+        if (idx < i) {
+          bar.classList.add('hero__progress-bar--done');
+          if (fill) fill.style.width = '100%';
+        } else if (idx === i) {
+          bar.classList.add('hero__progress-bar--active');
+          if (fill) { fill.style.width='0%'; void fill.offsetWidth; fill.style.animation=`hero-progress ${INTERVAL}ms linear forwards`; }
+        } else if (fill) { fill.style.width='0%'; }
+      });
+    }
+    function goTo(idx) {
+      const video = slides[current].querySelector('video');
+      if (video) video.pause();
+      slides[current].classList.remove('hv2-hero__slide--active');
+      current = (idx + slides.length) % slides.length;
+      slides[current].classList.add('hv2-hero__slide--active');
+      const v2 = slides[current].querySelector('video');
+      if (v2) v2.play().catch(()=>{});
+      updateBars(current);
+      updateText(current);
+    }
+    function reset() { clearInterval(timer); timer = setInterval(() => goTo(current+1), INTERVAL); }
+    // swipe
+    let tx = 0;
+    const heroEl = document.querySelector('.hv2-hero');
+    if (heroEl) {
+      heroEl.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, {passive:true});
+      heroEl.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx)>50){goTo(dx<0?current+1:current-1);reset();} }, {passive:true});
+    }
+    updateBars(0);
+    reset();
+  })();
+
+  // ── Video facade ──
+  (function() {
+    const facade = document.getElementById('videoFacade');
+    if (!facade) return;
+    function play() {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${facade.dataset.videoId}?autoplay=1&rel=0`;
+      iframe.title = 'Video institucional IME'; iframe.allowFullscreen = true;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      facade.innerHTML = ''; facade.appendChild(iframe); facade.style.cursor='default';
+    }
+    facade.addEventListener('click', play, {once:true});
+    facade.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){e.preventDefault();play();} }, {once:true});
+  })();
+
+  // ── Logos marquee ──
+  (function() {
+    const marquee = document.getElementById('logosMarquee');
+    const nav = document.getElementById('indNavMarquee');
+    if (!marquee) return;
+    const track = marquee.querySelector('.logos-marquee__track');
+    const origSet = marquee.querySelector('.logos-marquee__set');
+    if (!track || !origSet) return;
+    track.style.animation = 'none';
+    let pos=0, paused=false, currentInd=null, autoNavFn=null;
+    let itemData=[], setWidth=0, halfW=0;
+    function rebuild() {
+      itemData=[]; setWidth=origSet.offsetWidth; halfW=marquee.offsetWidth/2;
+      origSet.querySelectorAll('.logos-marquee__item').forEach(item => {
+        if(item.style.display==='none') return;
+        itemData.push({left:item.offsetLeft,right:item.offsetLeft+item.offsetWidth,industry:item.dataset.industry});
+      });
+    }
+    requestAnimationFrame(rebuild);
+    function tick() {
+      if(!paused){
+        pos+=1.3; if(pos>=setWidth&&setWidth) pos-=setWidth;
+        track.style.transform=`translateX(-${pos}px)`;
+        if(setWidth){ const c=(pos+halfW+200)%setWidth; for(const d of itemData){if(c>=d.left&&c<d.right){if(d.industry!==currentInd){currentInd=d.industry;autoNavFn?.(d.industry);} break;}} }
+      }
+      requestAnimationFrame(tick);
+    }
+    marquee.addEventListener('mouseenter',()=>{paused=true;});
+    marquee.addEventListener('mouseleave',()=>{paused=false;});
+    requestAnimationFrame(tick);
+    function swapFilter(fn){ marquee.style.transition='opacity .22s ease'; marquee.style.opacity='0'; setTimeout(()=>{fn();pos=0;rebuild();marquee.style.opacity='1';},230); }
+    const ctrl = {
+      goToIndustry(name){const d=itemData.find(x=>x.industry===name);if(d)pos=d.left;},
+      filterToIndustry(name){swapFilter(()=>track.querySelectorAll('.logos-marquee__item').forEach(i=>{i.style.display=i.dataset.industry===name?'':'none';}));},
+      clearFilter(){swapFilter(()=>track.querySelectorAll('.logos-marquee__item').forEach(i=>{i.style.display='';}));}
+    };
+    if(nav){
+      const navItems = Array.from(nav.querySelectorAll('.ind-nav__item'));
+      let filterActive=false;
+      autoNavFn = ind => {
+        if(filterActive) return;
+        navItems.forEach(i=>i.classList.remove('ind-nav__item--active'));
+        navItems.find(i=>i.textContent.trim()===ind)?.classList.add('ind-nav__item--active');
+      };
+      navItems.forEach(navItem => {
+        navItem.addEventListener('click',()=>{
+          const ind=navItem.textContent.trim();
+          if(filterActive&&navItem.classList.contains('ind-nav__item--active')){
+            filterActive=false; navItems.forEach(i=>i.classList.remove('ind-nav__item--active')); ctrl.clearFilter();
+          } else { filterActive=true; navItems.forEach(i=>i.classList.remove('ind-nav__item--active')); navItem.classList.add('ind-nav__item--active'); ctrl.goToIndustry(ind); ctrl.filterToIndustry(ind); }
+        });
+      });
+    }
+  })();
+</script>

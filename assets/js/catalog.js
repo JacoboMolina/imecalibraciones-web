@@ -1,6 +1,6 @@
 /* ============================================================
-   IME Calibraciones — Catálogo
-   Lógica de filtros, búsqueda y renderizado de productos.
+   IME Calibraciones — Catálogo de Servicios de Calibración
+   Lógica de filtros, búsqueda y renderizado.
    Fuente de verdad: /data/productos.json
    ============================================================ */
 
@@ -9,11 +9,19 @@ let allProducts = [];
 const state = {
   busqueda: '',
   filtros: {
-    magnitud:  new Set(),
-    marca:     new Set(),
-    categoria: new Set(),
+    magnitud:     new Set(),
+    acreditacion: new Set(),
+    categoria:    new Set(),
   }
 };
+
+/* Normaliza texto: quita acentos y pasa a minúsculas para búsqueda tolerante */
+function normalize(str) {
+  return (str || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
+}
 
 /* ── Cargar datos ── */
 async function loadProducts() {
@@ -34,21 +42,21 @@ async function loadProducts() {
 
 /* ── Filtrado ── */
 function filterProducts() {
+  const q = normalize(state.busqueda);
+
   return allProducts.filter(p => {
-    const q = state.busqueda.toLowerCase();
     const matchBusqueda = !q ||
-      [p.nombre, p.marca, p.modelo, ...(p.tags || [])]
-        .join(' ').toLowerCase().includes(q);
+      normalize([p.nombre, p.alcance, p.descripcion_corta, ...(p.tags || [])].join(' ')).includes(q);
 
-    const matchMagnitud  = state.filtros.magnitud.size === 0  || state.filtros.magnitud.has(p.magnitud);
-    const matchMarca     = state.filtros.marca.size === 0     || state.filtros.marca.has(p.marca);
-    const matchCategoria = state.filtros.categoria.size === 0 || state.filtros.categoria.has(p.categoria);
+    const matchMagnitud     = state.filtros.magnitud.size === 0     || state.filtros.magnitud.has(p.magnitud);
+    const matchAcreditacion = state.filtros.acreditacion.size === 0 || state.filtros.acreditacion.has(p.acreditacion);
+    const matchCategoria    = state.filtros.categoria.size === 0    || state.filtros.categoria.has(p.categoria);
 
-    return matchBusqueda && matchMagnitud && matchMarca && matchCategoria;
+    return matchBusqueda && matchMagnitud && matchAcreditacion && matchCategoria;
   });
 }
 
-/* Orden por defecto: magnitud A-Z, luego nombre A-Z */
+/* Orden: magnitud A-Z, luego nombre A-Z */
 function sortProducts(products) {
   return [...products].sort((a, b) => {
     const magCmp = (a.magnitud || '').localeCompare(b.magnitud || '', 'es');
@@ -69,12 +77,10 @@ function render() {
 function renderGrid(products) {
   const grid = document.getElementById('products-grid');
   if (!grid) return;
-
   if (products.length === 0) {
     grid.innerHTML = emptyStateHTML();
     return;
   }
-
   grid.innerHTML = products.map(p => productCardHTML(p)).join('');
 }
 
@@ -83,28 +89,23 @@ function productCardHTML(p) {
     ? `/assets/images/productos/${p.imagenes[0]}`
     : '/assets/images/productos/placeholder.webp';
 
-  const specs = (p.especificaciones || []).slice(0, 3);
+  const badges = [];
+  if (p.acreditacion_pjla) badges.push(`<span class="badge badge-pjla">PJLA ${p.acreditacion_pjla}</span>`);
+  if (p.acreditacion_ema)  badges.push(`<span class="badge badge-ema">EMA ${p.acreditacion_ema}</span>`);
 
   return `
-    <a class="product-card animate-on-scroll" href="/catalogo/${p.slug}/">
+    <a class="product-card" href="/catalogo/${p.slug}/">
       <div class="product-card-image">
         <img src="${img}" alt="${p.nombre}" width="400" height="400" loading="lazy">
       </div>
       <div class="product-card-body">
         <div class="product-magnitud">${p.magnitud || ''}</div>
         <div class="product-card-name">${p.nombre}</div>
-        <div class="product-card-brand">${p.marca}${p.modelo ? ' · ' + p.modelo : ''}</div>
-        ${specs.length ? `
-          <ul class="product-specs-preview">
-            ${specs.map(s => `
-              <li>
-                <span class="spec-key">${s.campo}</span>
-                <span>${s.valor}</span>
-              </li>`).join('')}
-          </ul>` : ''}
+        <div class="product-card-alcance">${p.alcance || ''}</div>
+        ${badges.length ? `<div class="product-card-badges">${badges.join('')}</div>` : ''}
       </div>
       <div class="product-card-footer">
-        <span class="btn btn-primary">Ver detalle</span>
+        <span class="btn btn-primary">Ver detalles</span>
       </div>
     </a>`;
 }
@@ -116,7 +117,7 @@ function emptyStateHTML() {
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
           d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 15.803 7.5 7.5 0 0015.803 15.803z"/>
       </svg>
-      <h3>No encontramos productos con esos filtros</h3>
+      <h3>No encontramos servicios con esos filtros</h3>
       <p>Intenta con otros criterios o contáctanos — podemos ayudarte.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         <button class="btn btn-secondary" onclick="clearAllFilters()">Limpiar filtros</button>
@@ -128,7 +129,7 @@ function emptyStateHTML() {
 function renderResultsHeader(count) {
   const el = document.getElementById('results-count');
   if (!el) return;
-  el.innerHTML = `Mostrando <strong>${count}</strong> de <strong>${allProducts.length}</strong> productos`;
+  el.innerHTML = `Mostrando <strong>${count}</strong> de <strong>${allProducts.length}</strong> servicios`;
 }
 
 function renderActiveChips() {
@@ -153,13 +154,14 @@ function renderActiveChips() {
 
 /* ── Construir sidebar de filtros ── */
 function buildFilters() {
-  buildFilterGroup('magnitud', 'Magnitud');
-  buildFilterGroup('marca', 'Marca');
-  buildFilterGroup('categoria', 'Categoría');
+  buildFilterGroup('magnitud',     'Magnitud');
+  buildFilterGroup('acreditacion', 'Acreditación');
+  buildFilterGroup('categoria',    'Categoría');
 }
 
-function buildFilterGroup(field, label) {
-  const container = document.getElementById(`filter-${field}`);
+function buildFilterGroup(field) {
+  /* El HTML tiene <div data-filter="magnitud"> etc. dentro del aside */
+  const container = document.querySelector(`[data-filter="${field}"]`);
   if (!container) return;
 
   const counts = {};
@@ -169,6 +171,11 @@ function buildFilterGroup(field, label) {
   });
 
   const sorted = Object.entries(counts).sort(([a], [b]) => a.localeCompare(b, 'es'));
+
+  if (sorted.length === 0) {
+    container.closest('.filter-group')?.style.setProperty('display', 'none');
+    return;
+  }
 
   container.innerHTML = sorted.map(([val, count]) => `
     <label class="filter-option">
@@ -191,7 +198,6 @@ function toggleFilter(field, value, checked) {
 
 function removeFilter(field, value) {
   state.filtros[field].delete(value);
-  // Desmarcar el checkbox correspondiente
   const cb = document.querySelector(`input[data-field="${field}"][value="${value}"]`);
   if (cb) cb.checked = false;
   render();
@@ -277,7 +283,6 @@ function showError() {
 document.addEventListener('DOMContentLoaded', () => {
   initSearch();
   loadProducts();
-  // Re-run scroll animations después del render dinámico
   setTimeout(() => {
     if (typeof initScrollAnimations === 'function') initScrollAnimations();
   }, 300);

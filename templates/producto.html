@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{nombre}} — {{marca}} {{modelo}} | IME Calibraciones</title>
+  <meta name="description" content="{{descripcion_corta}} Calibración acreditada por EMA. IME Calibraciones, Tlaxcala, México.">
+  <link rel="canonical" href="https://imecalibraciones.com/catalogo/{{slug}}/">
+  <meta property="og:title" content="{{nombre}} — {{marca}} | IME Calibraciones">
+  <meta property="og:description" content="{{descripcion_corta}}">
+  <meta property="og:type" content="product">
+  <meta property="og:url" content="https://imecalibraciones.com/catalogo/{{slug}}/">
+  <meta property="og:image" content="{{img_primaria}}">
+  <meta property="og:locale" content="es_MX">
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logo/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/logo/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/catalog.css">
+
+  <script type="application/ld+json">{{schema_product}}</script>
+  <script type="application/ld+json">{{schema_breadcrumb}}</script>
+</head>
+<body>
+  <div id="site-header"></div>
+
+  <main>
+
+    <!-- ===== BREADCRUMB + CABECERA ===== -->
+    <div class="catalog-header">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Ruta de navegación">
+          <ol>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/catalogo/">Catálogo</a></li>
+            <li aria-current="page">{{nombre}}</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <!-- ===== DETALLE DEL PRODUCTO ===== -->
+    <div class="container">
+      <div class="product-detail-layout">
+
+        <!-- COLUMNA IZQUIERDA: Galería -->
+        <div class="product-gallery">
+          <!-- Cabecera de impresión — solo visible al imprimir -->
+          <div class="print-header" aria-hidden="true">
+            <img src="/assets/images/logo/logo-ime.svg" alt="IME Calibraciones">
+            <span>imecalibraciones.com · +52 246 126 1782</span>
+          </div>
+
+          <div class="product-gallery-main">
+            <img
+              id="main-product-image"
+              src="{{img_primaria}}"
+              alt="{{nombre}}"
+              width="600" height="600">
+          </div>
+
+          <div class="product-gallery-thumbs">
+            {{thumbs}}
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: Info del producto -->
+        <div class="product-info">
+          <div class="product-magnitud">{{magnitud}}</div>
+          <h1>{{nombre}}</h1>
+          <p class="product-brand">{{marca}}{{modelo}}</p>
+
+          <p class="product-description">{{descripcion_larga}}</p>
+
+          <!-- Tabla de especificaciones técnicas -->
+          <table class="spec-table" aria-label="Especificaciones técnicas">
+            <thead class="sr-only">
+              <tr>
+                <th scope="col">Parámetro</th>
+                <th scope="col">Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{specs}}
+            </tbody>
+          </table>
+
+          <!-- Acciones -->
+          <div class="product-actions">
+            <!-- TODO: el script/link del widget de WhatsApp lo provee el cliente -->
+            <a href="/contacto/" class="btn btn-primary btn-lg">
+              Solicitar calibración
+            </a>
+            {{pdf_button}}
+          </div>
+
+          <!-- Magnitud -->
+          <p class="text-sm text-muted">
+            Magnitud: <strong>{{magnitud}}</strong> ·
+            <a href="/catalogo/?magnitud={{magnitud}}">Ver todos los instrumentos de {{magnitud}}</a>
+          </p>
+        </div>
+
+      </div>
+
+      <!-- ===== PRODUCTOS RELACIONADOS ===== -->
+      <section class="related-products" aria-label="Productos relacionados">
+        <h2>Otros instrumentos de {{magnitud}}</h2>
+        <div id="related-grid" class="related-grid">
+          <!-- Cargado vía JS desde catalog-related.js -->
+        </div>
+        <p class="text-center" style="margin-top: var(--space-4);">
+          <a href="/catalogo/?magnitud={{magnitud}}" class="btn btn-secondary">
+            Ver todos los instrumentos de {{magnitud}}
+          </a>
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+  <div id="whatsapp-widget" class="no-print"></div>
+
+  <script src="/assets/js/utils.js" defer></script>
+  <script defer>
+    /** Galería: cambia la imagen principal al hacer click en un thumbnail */
+    function setMainImage(thumb, src) {
+      document.getElementById('main-product-image').src = src;
+      document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    }
+
+    /** Carga productos relacionados (misma magnitud) desde productos.json */
+    (function loadRelated() {
+      const magnitud = '{{magnitud}}';
+      const slugActual = '{{slug}}';
+      const grid = document.getElementById('related-grid');
+      if (!grid || !magnitud) return;
+
+      fetch('/data/productos.json')
+        .then(r => r.json())
+        .then(data => {
+          const related = data.productos
+            .filter(p => p.activo !== false && p.magnitud === magnitud && p.slug !== slugActual)
+            .slice(0, 4);
+
+          if (related.length === 0) {
+            grid.closest('.related-products').hidden = true;
+            return;
+          }
+
+          grid.innerHTML = related.map(p => {
+            const img = p.imagenes?.[0]
+              ? '/assets/images/productos/' + p.imagenes[0]
+              : '/assets/images/productos/placeholder.webp';
+            return '<a class="product-card" href="/catalogo/' + p.slug + '/">'
+              + '<div class="product-card-image"><img src="' + img + '" alt="' + p.nombre + '" loading="lazy"></div>'
+              + '<div class="product-card-body">'
+              + '<div class="product-magnitud">' + (p.magnitud || '') + '</div>'
+              + '<div class="product-card-name">' + p.nombre + '</div>'
+              + '<div class="product-card-brand">' + p.marca + '</div>'
+              + '</div>'
+              + '<div class="product-card-footer"><span class="btn btn-primary">Ver detalle</span></div>'
+              + '</a>';
+          }).join('');
+        })
+        .catch(() => {
+          if (grid) grid.closest('.related-products').hidden = true;
+        });
+    }());
+  </script>
+</body>
+</html>

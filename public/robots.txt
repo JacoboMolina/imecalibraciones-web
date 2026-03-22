@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+Disallow: /data/
+Disallow: /scripts/
+Disallow: /templates/
+Disallow: /components/
+
+Sitemap: https://imecalibraciones.com/sitemap.xml

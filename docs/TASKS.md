@@ -143,6 +143,7 @@
 
 ## FASE 2 — Catálogo de productos
 > No empezar hasta que Fase 1 esté completa y publicada.
+> **Antes de empezar Fase 2: evaluar migración a Astro** (ver nota al final de este archivo).
 
 ### Tarea 12 — Data
 - [ ] Confirmar lista definitiva de 32 magnitudes con IME
@@ -204,6 +205,27 @@
 1. Reemplazar el archivo en `assets/pdfs/`
 2. Si el nombre del archivo cambia, actualizar la referencia en el HTML correspondiente
 3. `git push`
+
+---
+
+## Migración a Astro (evaluar antes de Fase 2)
+
+Con 150 productos, mantener HTML vanilla se vuelve impráctico. Astro resuelve esto generando HTML estático desde templates — compatible 100% con GitHub Pages y gratuito.
+
+**Por qué Astro para el catálogo:**
+- Un solo template `[producto].astro` genera las 150 páginas de producto
+- Header/footer son componentes reales (sin `fetch()`, sin flash)
+- Los datos vienen de `productos.json` — mismo esquema que ya tenemos
+- El output es HTML puro estático → GitHub Pages lo sirve idéntico
+- GitHub Actions hace el build automático en cada push (configurar una sola vez)
+
+**Costo de migración:**
+- El CSS vanilla existente se reutiliza íntegro (no hay nada que romper)
+- Las páginas HTML actuales se convierten a `.astro` — es básicamente HTML con frontmatter
+- ~1-2 días de configuración inicial (Astro + GitHub Actions workflow)
+
+**Decisión:** Terminar Fase 1 en vanilla. Al iniciar Fase 2, migrar a Astro antes de construir el catálogo.
+Condición del usuario: solo si sigue siendo gratuito (GitHub Pages + GitHub Actions = gratis para repos públicos).
 
 ---
 

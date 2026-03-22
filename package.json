@@ -1,0 +1,19 @@
+{
+  "name": "imecalibraciones-web",
+  "version": "1.0.0",
+  "description": "Sitio web + catálogo de IME Calibraciones. Desplegado en GitHub Pages.",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "generate": "node scripts/generate-catalog.js"
+  },
+  "dependencies": {
+    "@fontsource/poppins": "^5.2.7",
+    "astro": "6.0.4"
+  }
+}

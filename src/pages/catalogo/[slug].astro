@@ -1,0 +1,223 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/catalog.css';
+import productosData from '../../../public/data/productos.json';
+
+export function getStaticPaths() {
+  return productosData.productos
+    .filter(p => p.activo !== false)
+    .map(p => ({
+      params: { slug: p.slug },
+      props:  { producto: p },
+    }));
+}
+
+const { producto: p } = Astro.props;
+
+/* Productos relacionados: misma magnitud, excluyendo el actual */
+const relacionados = productosData.productos
+  .filter(r => r.activo !== false && r.magnitud === p.magnitud && r.slug !== p.slug)
+  .slice(0, 4);
+
+const imgSrc = p.imagenes?.[0]
+  ? `/assets/images/productos/${p.imagenes[0]}`
+  : '/assets/images/productos/placeholder.webp';
+
+/* Badges de acreditación */
+const badges = [];
+if (p.acreditacion_pjla) badges.push({ label: `PJLA ${p.acreditacion_pjla}`, tipo: 'pjla' });
+if (p.acreditacion_ema)  badges.push({ label: `EMA ${p.acreditacion_ema}`,   tipo: 'ema' });
+
+/* Schema JSON-LD */
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `Calibración de ${p.nombre}`,
+  description: p.descripcion_corta,
+  serviceType: 'Calibración de instrumentos de medición',
+  provider: {
+    '@type': 'Organization',
+    name: 'IME Calibraciones',
+    url: 'https://imecalibraciones.com',
+  },
+  areaServed: { '@type': 'Country', name: 'México' },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio',   item: 'https://imecalibraciones.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Catálogo', item: 'https://imecalibraciones.com/catalogo/' },
+    { '@type': 'ListItem', position: 3, name: p.nombre },
+  ],
+};
+
+const whatsappMsg = encodeURIComponent(
+  `Hola IME, me interesa el servicio de calibración de *${p.nombre}* (${p.alcance}). ¿Podrían enviarme información y cotización?`
+);
+const whatsappHref = `https://wa.me/522461261782?text=${whatsappMsg}`;
+---
+
+<Base
+  title={`Calibración de ${p.nombre} — IME Calibraciones`}
+  description={p.descripcion_corta}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
+
+  <main>
+
+    <!-- ===== BREADCRUMB ===== -->
+    <div class="container" style="padding-top: var(--space-6);">
+      <nav class="breadcrumb" aria-label="Ruta de navegación">
+        <ol>
+          <li><a href="/">Inicio</a></li>
+          <li><a href="/catalogo/">Catálogo</a></li>
+          <li><a href={`/catalogo/?magnitud=${encodeURIComponent(p.magnitud)}`}>{p.magnitud}</a></li>
+          <li aria-current="page">{p.nombre}</li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- ===== DETALLE DEL SERVICIO ===== -->
+    <div class="container">
+      <div class="product-detail-layout">
+
+        <!-- Columna izquierda: imagen -->
+        <div class="product-gallery">
+          <div class="product-gallery-main">
+            <!-- FOTO REAL: instrumento sobre fondo blanco, centrado, luz uniforme, sin fondo colorido -->
+            <img
+              src={imgSrc}
+              alt={`Instrumento para calibración: ${p.nombre}`}
+              width="600"
+              height="600"
+            />
+          </div>
+          {p.imagenes?.length > 1 && (
+            <div class="product-gallery-thumbs">
+              {p.imagenes.map((img, i) => (
+                <button
+                  class={`product-thumb ${i === 0 ? 'active' : ''}`}
+                  onclick={`switchImage('/assets/images/productos/${img}', this)`}
+                  aria-label={`Ver imagen ${i + 1} de ${p.nombre}`}
+                >
+                  <img src={`/assets/images/productos/${img}`} alt="" width="72" height="72" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- Columna derecha: información -->
+        <div class="product-info">
+
+          <!-- Etiqueta de magnitud -->
+          <div class="product-magnitud" style="margin-bottom: var(--space-3);">{p.magnitud}</div>
+
+          <h1>{p.nombre}</h1>
+
+          <!-- Badges de acreditación -->
+          {badges.length > 0 && (
+            <div class="product-badges" style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-4);">
+              {badges.map(b => (
+                <span class={`badge badge-${b.tipo}`}>{b.label}</span>
+              ))}
+              <span class="badge badge-trazabilidad">Trazable CENAM / NIST</span>
+            </div>
+          )}
+
+          <!-- Descripción -->
+          <p class="product-description">{p.descripcion_larga}</p>
+
+          <!-- CTAs -->
+          <div class="product-actions">
+            <a
+              href={whatsappHref}
+              class="btn btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Solicitar cotización de calibración de ${p.nombre} por WhatsApp`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="flex-shrink:0">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.13 1.534 5.875L.057 23.998l6.304-1.654A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.791 9.791 0 01-5.006-1.375l-.36-.214-3.732.978.999-3.648-.234-.374A9.792 9.792 0 012.182 12C2.182 6.577 6.577 2.182 12 2.182S21.818 6.577 21.818 12 17.423 21.818 12 21.818z"/>
+              </svg>
+              Solicitar cotización
+            </a>
+            <a href="/contacto/" class="btn btn-secondary">
+              Más información
+            </a>
+          </div>
+
+          <!-- Print header oculto, visible solo al imprimir -->
+          <div class="print-header">
+            <img src="/assets/images/logo/logo-principal.svg" alt="IME Calibraciones" />
+            <span>imecalibraciones.com · Tel. +52 246 126 1782</span>
+          </div>
+
+        </div><!-- /product-info -->
+
+      </div><!-- /product-detail-layout -->
+
+      <!-- ===== ESPECIFICACIONES: 2 columnas, ancho completo ===== -->
+      {p.especificaciones?.length > 0 && (
+        <div class="product-specs-section">
+          <h2 class="specs-heading">Especificaciones del servicio</h2>
+          <dl class="specs-grid">
+            {p.especificaciones.map(s => (
+              <div class="spec-item">
+                <dt>{s.campo}</dt>
+                <dd>{s.valor}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+
+    </div><!-- /container -->
+
+    <!-- ===== SERVICIOS RELACIONADOS ===== -->
+    {relacionados.length > 0 && (
+      <div class="container">
+        <section class="related-products">
+          <h2>Más servicios de calibración en {p.magnitud}</h2>
+          <div class="related-grid">
+            {relacionados.map(r => {
+              const rImg = r.imagenes?.[0]
+                ? `/assets/images/productos/${r.imagenes[0]}`
+                : '/assets/images/productos/placeholder.webp';
+              return (
+                <a class="product-card" href={`/catalogo/${r.slug}/`}>
+                  <div class="product-card-image">
+                    <img src={rImg} alt={r.nombre} width="300" height="300" loading="lazy" />
+                  </div>
+                  <div class="product-card-body">
+                    <div class="product-magnitud">{r.magnitud}</div>
+                    <div class="product-card-name">{r.nombre}</div>
+                    <div class="product-card-alcance">{r.alcance}</div>
+                  </div>
+                  <div class="product-card-footer">
+                    <span class="btn btn-primary" style="width:100%;justify-content:center;">Ver detalles</span>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      </div>
+    )}
+
+  </main>
+
+  <!-- Script de galería de imágenes -->
+  <script slot="scripts">
+    function switchImage(src, btn) {
+      const mainImg = document.querySelector('.product-gallery-main img');
+      if (mainImg) mainImg.src = src;
+      document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+</Base>

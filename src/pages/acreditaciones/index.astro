@@ -1,0 +1,445 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Acreditaciones — IME Calibraciones | EMA · PJLA ISO/IEC 17025"
+  description="Laboratorio de calibración con doble acreditación: EMA (México) y PJLA No. 54194 (EUA) bajo ISO/IEC 17025. Trazabilidad a CENAM y NIST."
+>
+  <script type="application/ld+json" slot="head">{JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "IME Calibraciones",
+    "url": "https://imecalibraciones.com",
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Acreditación",
+        "name": "Acreditación EMA ISO/IEC 17025",
+        "recognizedBy": { "@type": "Organization", "name": "Entidad Mexicana de Acreditación (EMA)", "url": "https://www.ema.org.mx" }
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "Acreditación",
+        "name": "Acreditación PJLA No. 54194 ISO/IEC 17025",
+        "recognizedBy": { "@type": "Organization", "name": "Perry Johnson Laboratory Accreditation (PJLA)", "url": "https://www.pjlabs.com" }
+      }
+    ]
+  })}</script>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="page-hero acred-hero">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="Ruta de navegación">
+          <ol>
+            <li><a href="/">Inicio</a></li>
+            <li aria-current="page">Acreditaciones</li>
+          </ol>
+        </nav>
+        <h1>Acreditaciones y Certificaciones</h1>
+        <p class="page-hero__subtitle">
+          IME Calibraciones cuenta con doble acreditación internacional bajo la norma ISO/IEC 17025,
+          reconocida por organismos reguladores, clientes y auditores en México y el extranjero.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== ACREDITACIONES ===== -->
+    <section class="section">
+      <div class="container">
+        <div class="acred-grid">
+
+        <!-- EMA -->
+        <div class="acred-card" id="ema">
+          <div class="acred-card__header">
+            <div class="acred-card__org">
+              <div class="acred-card__org-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <h2>Acreditación EMA</h2>
+                <p>Entidad Mexicana de Acreditación · ISO/IEC 17025</p>
+              </div>
+            </div>
+            <a href="/assets/pdfs/acreditacion-ema.pdf" class="btn btn-secondary acred-card__download" download aria-label="Descargar certificado EMA">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z"/><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z"/></svg>
+              Descargar
+            </a>
+          </div>
+          <div class="acred-card__meta">
+            <div class="acred-card__meta-item">
+              <span>Organismo</span>
+              <strong>EMA — Entidad Mexicana de Acreditación</strong>
+            </div>
+            <div class="acred-card__meta-item">
+              <span>Norma</span>
+              <strong>ISO/IEC 17025:2017</strong>
+            </div>
+            <div class="acred-card__meta-item">
+              <span>Alcance</span>
+              <strong>7 magnitudes acreditadas</strong>
+            </div>
+            <div class="acred-card__meta-item">
+              <span>Reconocimiento</span>
+              <strong>Nacional (México)</strong>
+            </div>
+          </div>
+          <div class="acred-card__viewer">
+            <iframe
+              src="/assets/pdfs/acreditacion-ema.pdf"
+              title="Certificado de Acreditación EMA — IME Calibraciones"
+              class="pdf-embed"
+              loading="lazy">
+              <p>Tu navegador no puede mostrar PDFs. <a href="/assets/pdfs/acreditacion-ema.pdf" download>Descarga el certificado aquí</a>.</p>
+            </iframe>
+          </div>
+        </div>
+
+        <!-- PJLA -->
+        <div class="acred-card acred-card--pjla" id="pjla">
+          <div class="acred-card__header">
+            <div class="acred-card__org">
+              <div class="acred-card__org-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <h2>Acreditación PJLA</h2>
+                <p>Perry Johnson Laboratory Accreditation · No. 54194</p>
+              </div>
+            </div>
+            <a href="/assets/pdfs/acreditacion-pjla.pdf" class="btn btn-secondary acred-card__download" download aria-label="Descargar certificado PJLA">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z"/><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z"/></svg>
+              Descargar
+            </a>
+          </div>
+          <div class="acred-card__meta">
+            <div class="acred-card__meta-item">
+              <span>Organismo</span>
+              <strong>PJLA — Perry Johnson Laboratory Accreditation</strong>
+            </div>
+            <div class="acred-card__meta-item">
+              <span>Norma</span>
+              <strong>ISO/IEC 17025:2017</strong>
+            </div>
+            <div class="acred-card__meta-item">
+              <span>Número</span>
+              <strong>54194</strong>
+            </div>
+            <div class="acred-card__meta-item">
+              <span>Reconocimiento</span>
+              <strong>Internacional (ILAC / MRA)</strong>
+            </div>
+          </div>
+          <div class="acred-card__viewer">
+            <iframe
+              src="/assets/pdfs/acreditacion-pjla.pdf"
+              title="Certificado de Acreditación PJLA No. 54194 — IME Calibraciones"
+              class="pdf-embed"
+              loading="lazy">
+              <p>Tu navegador no puede mostrar PDFs. <a href="/assets/pdfs/acreditacion-pjla.pdf" download>Descarga el certificado aquí</a>.</p>
+            </iframe>
+          </div>
+        </div>
+
+        </div><!-- /acred-grid -->
+      </div>
+    </section>
+
+    <!-- ===== TRAZABILIDAD ===== -->
+    <section class="section section--alt">
+      <div class="container">
+        <header class="section__header text-center">
+          <p class="section__eyebrow">Cadena de trazabilidad</p>
+          <h2 class="section-title">Trazabilidad Metrológica</h2>
+          <p class="section__subtitle text-muted">Nuestros patrones de referencia están calibrados y trazados a los institutos nacionales e internacionales de metrología.</p>
+        </header>
+        <div class="trazabilidad-chain">
+          <div class="trazabilidad-level">
+            <span class="trazabilidad-level__label">Internacional</span>
+            <div class="trazabilidad-level__items">
+              <div class="trazabilidad-item">
+                <strong>NIST</strong>
+                <span>National Institute of Standards and Technology (EUA)</span>
+              </div>
+              <div class="trazabilidad-item">
+                <strong>BIPM</strong>
+                <span>Bureau International des Poids et Mesures</span>
+              </div>
+            </div>
+          </div>
+          <div class="trazabilidad-level">
+            <span class="trazabilidad-level__label">Nacional</span>
+            <div class="trazabilidad-level__items">
+              <div class="trazabilidad-item">
+                <strong>CENAM</strong>
+                <span>Centro Nacional de Metrología (México)</span>
+              </div>
+            </div>
+          </div>
+          <div class="trazabilidad-level trazabilidad-level--ime">
+            <span class="trazabilidad-level__label">IME Calibraciones</span>
+            <div class="trazabilidad-level__items">
+              <div class="trazabilidad-item">
+                <strong>Laboratorio acreditado EMA · PJLA</strong>
+                <span>Tlaxcala, México · 32 magnitudes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ¿QUÉ SIGNIFICA? ===== -->
+    <section class="section">
+      <div class="container">
+        <header class="section__header text-center">
+          <p class="section__eyebrow">Valor para su empresa</p>
+          <h2 class="section-title">¿Qué significa para usted?</h2>
+        </header>
+        <div class="acred-benefits">
+          <div class="acred-benefit">
+            <div class="acred-benefit__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3>Cumplimiento normativo</h3>
+            <p>Certificados reconocidos por auditores ISO, reguladores y clientes nacionales e internacionales.</p>
+          </div>
+          <div class="acred-benefit">
+            <div class="acred-benefit__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"/></svg>
+            </div>
+            <h3>Decisiones con datos confiables</h3>
+            <p>Una calibración trazable reduce rechazos, desperdicios y costos por no conformidades.</p>
+          </div>
+          <div class="acred-benefit">
+            <div class="acred-benefit__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM6.262 6.072a8.25 8.25 0 1010.562-.766 4.5 4.5 0 01-1.318 1.357L14.25 7.5l.165.33a.809.809 0 01-1.086 1.085l-.604-.302a1.125 1.125 0 00-1.298.21l-.132.131c-.439.44-.439 1.152 0 1.591l.296.296c.256.257.622.374.98.314l1.17-.195c.323-.054.654.036.905.245l1.33 1.108c.32.267.46.694.358 1.1a8.7 8.7 0 01-2.288 4.04l-.723.724a1.125 1.125 0 01-1.298.21l-.153-.076a1.125 1.125 0 01-.622-1.006v-1.089c0-.298-.119-.585-.33-.796l-1.347-1.347a1.125 1.125 0 01-.21-1.298L9.75 12l-1.64-1.64a6 6 0 01-1.676-3.257l-.172-1.03z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3>Validez internacional</h3>
+            <p>La acreditación PJLA bajo ILAC/MRA garantiza el reconocimiento de sus mediciones en más de 100 países.</p>
+          </div>
+          <div class="acred-benefit">
+            <div class="acred-benefit__icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.99 2.243a4.49 4.49 0 00-3.398 1.55 4.49 4.49 0 00-3.497 1.306 4.491 4.491 0 00-1.306 3.497 4.49 4.49 0 00-1.55 3.397c0 1.357.601 2.573 1.55 3.397a4.491 4.491 0 001.306 3.497 4.49 4.49 0 003.497 1.307 4.49 4.49 0 003.397 1.549 4.49 4.49 0 003.397-1.549 4.49 4.49 0 003.497-1.307 4.491 4.491 0 001.306-3.497 4.49 4.49 0 001.55-3.397 4.49 4.49 0 00-1.55-3.397 4.491 4.491 0 00-1.306-3.497 4.49 4.49 0 00-3.497-1.306 4.49 4.49 0 00-3.398-1.55zm3.11 7.858a.75.75 0 10-1.22-.872l-3.236 4.53-1.643-1.643a.75.75 0 10-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.77-5.25-.001-.001z" clip-rule="evenodd"/></svg>
+            </div>
+            <h3>Incertidumbre declarada</h3>
+            <p>Cada certificado incluye la incertidumbre calculada conforme a la GUM, esencial para análisis de capabilidad y SPC.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="section section--cta">
+      <div class="container container--narrow text-center">
+        <h2>¿Necesita un certificado con validez oficial?</h2>
+        <p>Solicite su calibración acreditada y obtenga documentación reconocida por auditores, clientes y reguladores.</p>
+        <div class="cta-actions">
+          <a href="/contacto/" class="btn btn-primary">Solicitar calibración</a>
+          <a href="/servicios/" class="btn btn-secondary">Ver servicios</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Base>
+
+<style>
+/* Hero compacto */
+section.page-hero {
+  padding: var(--space-5) 0 var(--space-6);
+}
+section.page-hero h1 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-2);
+}
+section.page-hero :global(.breadcrumb) {
+  padding-bottom: var(--space-2);
+}
+section.page-hero :global(.page-hero__subtitle) {
+  font-size: var(--text-base);
+}
+
+/* Hero badges */
+.acred-hero__badges {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.acred-hero__badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+.acred-hero__badge svg {
+  width: 20px; height: 20px;
+  color: #f0d060;
+  flex-shrink: 0;
+}
+.acred-hero__badge strong {
+  display: block;
+  font-size: .875rem;
+  font-weight: 700;
+}
+.acred-hero__badge span {
+  font-size: .75rem;
+  color: rgba(255,255,255,.7);
+}
+
+/* Grid 2 columnas */
+.acred-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* Tarjetas de acreditación */
+.acred-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.acred-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-8);
+  background: linear-gradient(135deg, #041a39 0%, #063d73 100%);
+  color: #fff;
+  flex-wrap: wrap;
+}
+.acred-card--pjla .acred-card__header {
+  background: linear-gradient(135deg, #1a0433 0%, #3d0663 100%);
+}
+
+.acred-card__org {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.acred-card__org-icon {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, #c8a840, #f0d060);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(200,168,64,.4);
+}
+.acred-card__org-icon svg { width: 22px; height: 22px; color: #fff; }
+.acred-card__org h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 2px;
+}
+.acred-card__org p {
+  font-size: .8125rem;
+  color: rgba(255,255,255,.65);
+  margin: 0;
+}
+
+.acred-card__download {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.acred-card__meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--color-border);
+}
+.acred-card__meta-item {
+  padding: var(--space-3) var(--space-4);
+  border-right: 1px solid var(--color-border);
+}
+.acred-card__meta-item:last-child { border-right: none; }
+.acred-card__meta-item span {
+  display: block;
+  font-size: .625rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 2px;
+}
+.acred-card__meta-item strong {
+  font-size: .75rem;
+  color: var(--color-ink);
+}
+
+.acred-card__viewer {
+  background: #f8f9fa;
+}
+.pdf-embed {
+  width: 100%;
+  height: 560px;
+  border: none;
+  display: block;
+}
+
+/* Beneficios */
+.acred-benefits {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+.acred-benefit {
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+.acred-benefit__icon {
+  width: 40px; height: 40px;
+  background: rgba(6,61,115,.08);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: var(--space-4);
+}
+.acred-benefit__icon svg { width: 20px; height: 20px; color: var(--color-primary); }
+.acred-benefit h3 {
+  font-size: .9375rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-bottom: var(--space-2);
+}
+.acred-benefit p {
+  font-size: .8125rem;
+  color: var(--color-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .acred-grid { grid-template-columns: 1fr; }
+  .acred-card__meta { grid-template-columns: repeat(2, 1fr); }
+  .acred-card__meta-item:nth-child(2) { border-right: none; }
+  .acred-card__meta-item:nth-child(1),
+  .acred-card__meta-item:nth-child(2) { border-bottom: 1px solid var(--color-border); }
+  .acred-benefits { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .acred-card__header { padding: var(--space-5); }
+  .acred-card__meta { grid-template-columns: 1fr 1fr; }
+  .acred-benefits { grid-template-columns: 1fr; }
+  .pdf-embed { height: 420px; }
+}
+</style>

@@ -1,0 +1,49 @@
+---
+const navLinks = [
+  { href: '/',                label: 'Inicio' },
+  { href: '/servicios/',      label: 'Servicios' },
+  { href: '/acreditaciones/', label: 'Acreditaciones' },
+  { href: '/catalogo/',       label: 'Catálogo' },
+  { href: '/nosotros/',       label: 'Nosotros' },
+  { href: '/contacto/',       label: 'Contacto' },
+];
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header class="site-header" role="banner">
+  <div class="container">
+    <a class="site-logo" href="/" aria-label="IME Calibraciones — Inicio">
+      <img src="/assets/images/logo/logo-principal.png"
+           alt="IME Calibraciones"
+           width="160" height="48">
+    </a>
+
+    <button class="nav-toggle no-print" aria-label="Abrir menú" aria-expanded="false">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <nav class="site-nav" role="navigation" aria-label="Navegación principal">
+      {navLinks.map(link => (
+        <a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
+          {link.label}
+        </a>
+      ))}
+
+      <a href="https://calibracionesime.com.mx"
+         target="_blank"
+         rel="noopener noreferrer">
+        Inicia sesión
+      </a>
+
+      <a href="/contacto/#contacto-form" class="nav-cta">Cotizar</a>
+    </nav>
+  </div>
+</header>
