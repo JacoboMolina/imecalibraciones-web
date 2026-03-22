@@ -1486,6 +1486,28 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
   margin: 0;
 }
 
+/* Variantes de color */
+.dif-stat--gold  { border-top: 3px solid #c8a840; }
+.dif-stat--blue  { border-top: 3px solid #063d73; }
+.dif-stat--green { border-top: 3px solid #16a34a; }
+.dif-stat--orange{ border-top: 3px solid #ea580c; }
+
+.dif-stat--gold  .dif-stat__icon { background: rgba(200,168,64,.12); }
+.dif-stat--blue  .dif-stat__icon { background: rgba(6,61,115,.10); }
+.dif-stat--green .dif-stat__icon { background: rgba(22,163,74,.10); }
+.dif-stat--orange.dif-stat__icon { background: rgba(234,88,12,.10); }
+.dif-stat--orange .dif-stat__icon{ background: rgba(234,88,12,.10); }
+
+.dif-stat--gold  .dif-stat__icon svg { color: #b8941e; }
+.dif-stat--blue  .dif-stat__icon svg { color: #063d73; }
+.dif-stat--green .dif-stat__icon svg { color: #16a34a; }
+.dif-stat--orange .dif-stat__icon svg{ color: #ea580c; }
+
+.dif-stat--gold  .dif-stat__value { color: #a07810; }
+.dif-stat--blue  .dif-stat__value { color: #063d73; }
+.dif-stat--green .dif-stat__value { color: #15803d; }
+.dif-stat--orange .dif-stat__value{ color: #c2410c; }
+
 
 /* ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ──
    IND-NAV — carrusel de industrias: prev · active · next
