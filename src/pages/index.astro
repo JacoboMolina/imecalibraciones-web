@@ -107,7 +107,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
           </div>
 
           <div class="hero__text">
-            <h1 class="hero__title" id="heroTitle">
+            <h1 class="hero__title hero__title--long" id="heroTitle">
               Ingeniería y Metrología <span class="hero__title-highlight">Certificada</span><br>
               Para <span class="hero__title-highlight">Calibración</span>
             </h1>
@@ -538,7 +538,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 </Base>
 
 <script>
-  // ── Diferenciadores carousel ──────────────────────────────────────────────
+  // ── Diferenciadores carousel — infinito ──────────────────────────────────
   (function () {
     const track    = document.querySelector<HTMLElement>('.dif-carousel__track')!;
     const viewport = document.querySelector<HTMLElement>('.dif-carousel__viewport')!;
@@ -547,11 +547,11 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     const dotsWrap = document.querySelector<HTMLElement>('.dif-carousel__dots')!;
     const cards    = Array.from(track.querySelectorAll<HTMLElement>('.dif-stat'));
 
-    const GAP   = 16;
-    const TOTAL = cards.length;
-    const MIN_CARD = 200; // minimum readable card width in px
-    let current = 0;
-    let vw = 0; // set by ResizeObserver — always accurate
+    const GAP      = 16;
+    const TOTAL    = cards.length;
+    const MIN_CARD = 200;
+    let current    = 0;
+    let vw         = 0;
 
     function visibleCount() {
       if (vw >= MIN_CARD * 3 + GAP * 2) return 3;
@@ -584,21 +584,37 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     }
 
     function updateCenter() {
-      const vis = visibleCount();
+      const vis  = visibleCount();
+      const maxI = maxIndex();
       cards.forEach((c, i) => {
-        const isCenter = vis === 3
-          ? i === current + 1
-          : (i >= current && i < current + vis);
+        let isCenter: boolean;
+        if (vis === 1) {
+          isCenter = i === current;
+        } else if (vis === 2) {
+          isCenter = i >= current && i < current + vis;
+        } else {
+          // vis === 3: en los extremos el primero/último visible es el centro
+          if (current === 0)      isCenter = i === 0;
+          else if (current >= maxI) isCenter = i === TOTAL - 1;
+          else                    isCenter = i === current + 1;
+        }
         c.classList.toggle('dif-stat--center', isCenter);
       });
     }
 
-    function goTo(index: number) {
+    function moveTo(index: number, animate: boolean) {
       const cardW = setWidths();
-      current = Math.max(0, Math.min(index, maxIndex()));
-      track.style.transform = `translateX(-${current * (cardW + GAP)}px)`;
-      prevBtn.disabled = current === 0;
-      nextBtn.disabled = current >= maxIndex();
+      track.style.transition = animate ? 'transform 0.35s ease' : 'none';
+      track.style.transform  = `translateX(-${index * (cardW + GAP)}px)`;
+    }
+
+    function goTo(index: number) {
+      const maxI = maxIndex();
+      // Loop infinito: wrap en los extremos
+      if (index < 0)    index = maxI;
+      if (index > maxI) index = 0;
+      current = index;
+      moveTo(current, true);
       updateDots();
       updateCenter();
     }
@@ -606,14 +622,14 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     prevBtn.addEventListener('click', () => goTo(current - 1));
     nextBtn.addEventListener('click', () => goTo(current + 1));
 
-    // ResizeObserver fires with the real element size — no window.innerWidth guessing
     new ResizeObserver(entries => {
       const newVw = entries[0].contentRect.width;
       if (newVw === vw) return;
       vw = newVw;
       current = Math.min(current, maxIndex());
       renderDots();
-      goTo(current);
+      moveTo(current, false);
+      updateCenter();
     }).observe(viewport);
   })();
 </script>

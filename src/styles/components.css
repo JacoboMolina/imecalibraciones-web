@@ -1155,8 +1155,8 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
   white-space: nowrap;
 }
 .hero__title--long {
-  font-size: clamp(1.4rem, 2.8vw, 2.35rem);
-  line-height: 1.28;
+  font-size: clamp(1.6rem, 3.2vw, 2.7rem);
+  line-height: 1.2;
 }
 .hero__title-legal {
   font-size: 0.48em;
