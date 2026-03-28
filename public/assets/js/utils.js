@@ -150,7 +150,6 @@ function initHeroCarousel() {
   // Texto por slide (orden coincide con el HTML: 0=video, 1-3=fotos)
   const SLIDES_DATA = [
     { html: 'Ingeniería y Metrología <span class="hero__title-highlight">Certificada</span><br>Para <span class="hero__title-highlight">Calibración</span>',
-      longTitle: true,
       subtitle: 'de Equipos de Control y Pruebas S.A. de C.V.' },
     { title: 'Calibración y',                     highlight: 'Venta de Suministros',
       subtitle: '24,000 instrumentos dentro de nuestro alcance a calibrar — todo con un solo proveedor.' },
