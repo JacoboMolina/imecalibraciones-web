@@ -107,13 +107,13 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
           </div>
 
           <div class="hero__text">
-            <h1 class="hero__title" id="heroTitle">
-              Laboratorio de Metrología<br>
-              <span class="hero__title-highlight">Acreditado ante EMA y PJLA</span>
+            <h1 class="hero__title hero__title--long" id="heroTitle">
+              Ingeniería y Metrología <span class="hero__title-highlight">Certificada</span><br>
+              Para <span class="hero__title-highlight">Calibración</span>
             </h1>
 
             <p class="hero__subtitle" id="heroSubtitle">
-              Servicio de calibración acreditada en 32 Magnitudes ante PJLA y 7 más con EMA.
+              de Equipos de Control y Pruebas S.A. de C.V.
             </p>
           </div>
 
@@ -141,25 +141,25 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
         <ul class="hero__stats" role="list">
           <li class="hero__stat">
             <strong class="hero__stat-value">
-              <span class="counter" data-target="32" data-suffix="+">32+</span>
+              <span class="counter" data-target="30" data-suffix="+">30+</span>
             </strong>
-            <span class="hero__stat-label">Años de experiencia</span>
+            <span class="hero__stat-label">Años de<br>experiencia</span>
           </li>
           <li class="hero__stat">
             <strong class="hero__stat-value">
               <span class="counter" data-target="32">32</span>
             </strong>
-            <span class="hero__stat-label">Magnitudes acreditadas ante PJLA</span>
+            <span class="hero__stat-label">Magnitudes acreditadas<br>ante PJLA</span>
           </li>
           <li class="hero__stat">
             <strong class="hero__stat-value">
               <span class="counter" data-target="7">7</span>
             </strong>
-            <span class="hero__stat-label">Magnitudes acreditadas ante EMA</span>
+            <span class="hero__stat-label">Magnitudes acreditadas<br>ante EMA</span>
           </li>
           <li class="hero__stat">
             <strong class="hero__stat-value hero__stat-value--text">ISO/IEC 17025</strong>
-            <span class="hero__stat-label">Norma de acreditación vigente</span>
+            <span class="hero__stat-label">Norma de<br>acreditación vigente</span>
           </li>
         </ul>
       </div>
@@ -174,14 +174,14 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="magnitudes-strip" id="magnitudes" aria-label="Magnitudes de calibración">
         <div class="magnitudes-strip__track-wrap" aria-hidden="true">
           <ul class="magnitudes-strip__track" role="list">
-            {(m => [...m, ...m])(['Dimensional','Eléctrica','pH','Conductividad','Óptica','Densidad','Químicos','Temperatura','Humedad Relativa','Frecuencia','Velocidad Angular','Tiempo','Masa','Fuerza','Dureza Shore','Dureza Rockwell','Presión','Velocidad del Aire','Velocidad Lineal','Tensión Superficial','Torque','Oxígeno Disuelto','Vibración','Biomédicos','Flujo Volumétrico','Flujo Másico','Viscosidad Dinámica','Viscosidad Cinemática','Volumen','Acústica','Flujo Luminoso','Mediciones Especiales']).map((m, i) => (
+            {(m => [...m, ...m])(['Eléctrica','Presión','Temperatura termodinámica','%H.R.','Óptica','Turbidez','Tiempo','Acústica','Masa','Fuerza','Tensión','Velocidad del aire','Velocidad Lineal','Tensión Superficial','Torque','Dureza','Volumen','Densidad','Concentración de Alcohol','Vibración','Flujo','Viscosidad','pH','Conductividad','Cloro','Oxígeno Disuelto','Dimensional','Mediciones especiales','%Humedad','Frecuencia','Coeficiente de Fricción','Ondas de Radio']).map((m, i) => (
               <li aria-hidden={i >= 32 ? 'true' : undefined}>
                 <span class="magnitudes-strip__dot"></span>{m}
               </li>
             ))}
           </ul>
         </div>
-        <p class="sr-only">IME Calibraciones calibra 32 magnitudes: Dimensional, Eléctrica, pH, Conductividad, Óptica, Densidad, Químicos, Temperatura, Humedad Relativa, Frecuencia, Velocidad Angular, Tiempo, Masa, Fuerza, Dureza Shore, Dureza Rockwell, Presión, Velocidad del Aire, Velocidad Lineal, Tensión Superficial, Torque, Oxígeno Disuelto, Vibración, Biomédicos, Flujo Volumétrico, Flujo Másico, Viscosidad Dinámica, Viscosidad Cinemática, Volumen, Acústica, Flujo Luminoso y Mediciones Especiales.</p>
+        <p class="sr-only">IME Calibraciones calibra 32 magnitudes: Eléctrica, Presión, Temperatura termodinámica, %H.R., Óptica, Turbidez, Tiempo, Acústica, Masa, Fuerza, Tensión, Velocidad del aire, Velocidad Lineal, Tensión Superficial, Torque, Dureza, Volumen, Densidad, Concentración de Alcohol, Vibración, Flujo, Viscosidad, pH, Conductividad, Cloro, Oxígeno Disuelto, Dimensional, Mediciones especiales, %Humedad, Frecuencia, Coeficiente de Fricción y Ondas de Radio.</p>
       </div>
 
     </section>
@@ -342,7 +342,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
               </li>
               <li>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-                Más de 32 años calibrando la industria mexicana
+                Más de 30 años calibrando la industria mexicana
               </li>
             </ul>
             <a href={`${b}/contacto/`} class="btn btn-primary">Solicitar cotización</a>

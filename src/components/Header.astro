@@ -2,8 +2,8 @@
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const navLinks = [
-  { href: `${b}/catalogo/`,       label: 'Catálogo' },
   { href: `${b}/servicios/`,      label: 'Servicios' },
+  { href: `${b}/catalogo/`,       label: 'Catálogo' },
   { href: `${b}/acreditaciones/`, label: 'Acreditaciones' },
   { href: `${b}/nosotros/`,       label: 'Nosotros' },
 ];
@@ -39,6 +39,8 @@ const contactoActive = contactoLinks.some(l => isActive(l.href));
     </button>
 
     <nav class="site-nav" role="navigation" aria-label="Navegación principal">
+      <a href={`${b}/`} aria-current={isActive(`${b}/`) ? 'page' : undefined}>Inicio</a>
+      <a href="https://calibracionesime.com.mx" target="_blank" rel="noopener noreferrer">Iniciar Sesión</a>
       {navLinks.map(link => (
         <a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
           {link.label}
@@ -63,12 +65,6 @@ const contactoActive = contactoLinks.some(l => isActive(l.href));
           ))}
         </ul>
       </div>
-
-      <a href="https://calibracionesime.com.mx"
-         target="_blank"
-         rel="noopener noreferrer">
-        Inicia sesión
-      </a>
 
       <a href={`${b}/contacto/#contacto-form`} class="nav-cta">Cotizar</a>
     </nav>

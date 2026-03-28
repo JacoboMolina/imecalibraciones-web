@@ -149,14 +149,15 @@ function initHeroCarousel() {
 
   // Texto por slide (orden coincide con el HTML: 0=video, 1-3=fotos)
   const SLIDES_DATA = [
-    { title: 'Laboratorio de Metrología',        highlight: 'Acreditado ante EMA y PJLA',
-      subtitle: 'Servicio de calibración acreditada en 32 Magnitudes ante PJLA y 7 más con EMA.' },
-    { title: 'Ingeniería y Metrología',           highlight: 'Certificada',
-      subtitle: 'Servicio de Mantenimiento Preventivo y Calibración.' },
-    { title: 'Venta de Equipos',                  highlight: 'de Medición Industrial',
-      subtitle: 'Amplia gama de equipos de las mejores marcas para su industria.' },
-    { title: 'Cobertura Nacional',                highlight: 'e Internacional',
-      subtitle: 'Presencia en toda la República Mexicana y Guatemala · 32+ años calibrando la industria.' },
+    { html: 'Ingeniería y Metrología <span class="hero__title-highlight">Certificada</span><br>Para <span class="hero__title-highlight">Calibración</span>',
+      longTitle: true,
+      subtitle: 'de Equipos de Control y Pruebas S.A. de C.V.' },
+    { title: 'Calibración y',                     highlight: 'Venta de Suministros',
+      subtitle: '24,000 instrumentos dentro de nuestro alcance a calibrar — todo con un solo proveedor.' },
+    { title: 'Trabajamos los',                    highlight: '365 días del año',
+      subtitle: 'Programa de recalibración: evitas olvidos y mantienes el control de tus equipos. ¡Nosotros te avisamos!' },
+    { title: 'Presencia en toda la',              highlight: 'República Mexicana y Guatemala',
+      subtitle: '3 décadas brindando soluciones metrológicas a las industrias.' },
   ];
 
   const titleEl    = document.getElementById('heroTitle');
@@ -189,7 +190,10 @@ function initHeroCarousel() {
     titleEl.style.opacity = '0';
     if (subtitleEl) subtitleEl.style.opacity = '0';
     setTimeout(() => {
-      titleEl.innerHTML = data.title + '<br><span class="hero__title-highlight">' + data.highlight + '</span>';
+      titleEl.innerHTML = data.html
+        ? data.html
+        : data.title + '<br><span class="hero__title-highlight">' + data.highlight + '</span>';
+      titleEl.classList.toggle('hero__title--long', !!data.longTitle);
       titleEl.style.opacity = '1';
     }, 180);
     if (subtitleEl) setTimeout(() => {
