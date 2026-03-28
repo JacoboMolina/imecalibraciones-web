@@ -170,16 +170,17 @@ function initHeroCarousel() {
       if (fill) fill.style.animation = 'none';
       if (i < index) {
         bar.classList.add('hero__progress-bar--done');
-        if (fill) fill.style.width = '100%';
+        if (fill) { fill.style.animation = 'none'; fill.style.transform = 'scaleX(1)'; }
       } else if (i === index) {
         bar.classList.add('hero__progress-bar--active');
         if (fill) {
-          fill.style.width = '0%';
-          void fill.offsetWidth; // reflow para reiniciar animación
+          fill.style.animation = 'none';
+          fill.style.transform = 'scaleX(0)';
+          void fill.offsetWidth; // reflow solo en cambio de slide (cada 6s), no en cada frame
           fill.style.animation = `hero-progress ${INTERVAL}ms linear forwards`;
         }
       } else {
-        if (fill) fill.style.width = '0%';
+        if (fill) { fill.style.animation = 'none'; fill.style.transform = 'scaleX(0)'; }
       }
     });
   }
@@ -491,6 +492,8 @@ function initLogosMarquee(onIndustryChange) {
 
   requestAnimationFrame(rebuildItemData);
 
+  let _rafFrame = 0;
+
   function getIndustryAtCenter() {
     if (!setWidth) return null;
     // LEAD: detectar un poco antes de que el logo llegue al centro exacto
@@ -508,11 +511,13 @@ function initLogosMarquee(onIndustryChange) {
       if (pos >= setWidth && setWidth) pos -= setWidth;
       track.style.transform = `translateX(-${pos}px)`;
 
-      // Notificar cambio de industria — solo aritmética, sin queries al DOM
-      const ind = getIndustryAtCenter();
-      if (ind && ind !== currentIndustry) {
-        currentIndustry = ind;
-        onIndustryChange?.(ind);
+      // Detectar industria cada 8 frames (~7.5 veces/s) en lugar de 60fps
+      if ((++_rafFrame & 7) === 0) {
+        const ind = getIndustryAtCenter();
+        if (ind && ind !== currentIndustry) {
+          currentIndustry = ind;
+          onIndustryChange?.(ind);
+        }
       }
     }
     requestAnimationFrame(tick);
