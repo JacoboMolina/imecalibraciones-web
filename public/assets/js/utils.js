@@ -175,8 +175,8 @@ function initHeroCarousel() {
         bar.classList.add('hero__progress-bar--active');
         if (fill) {
           fill.style.animation = 'none';
-          fill.style.transform = 'scaleX(0)';
-          void fill.offsetWidth; // reflow solo en cambio de slide (cada 6s), no en cada frame
+          fill.style.transform = ''; // limpiar inline — deja que el CSS defina scaleX(0) como inicio
+          void fill.offsetWidth;
           fill.style.animation = `hero-progress ${INTERVAL}ms linear forwards`;
         }
       } else {
