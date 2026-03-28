@@ -1415,6 +1415,11 @@ details[open] > .faq-item__question::after { transform: rotate(45deg); }
   color: var(--color-primary);
   margin-bottom: var(--space-3);
 }
+.porque-ime .section__eyebrow {
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  letter-spacing: .5px;
+  margin-bottom: var(--space-6);
+}
 .section__header {
   margin-bottom: var(--space-12);
 }
