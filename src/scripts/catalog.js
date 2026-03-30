@@ -10,6 +10,7 @@ let allProducts = [];
 
 const state = {
   busqueda: '',
+  orden: 'magnitud',
   filtros: {
     magnitud:     new Set(),
     acreditacion: new Set(),
@@ -51,16 +52,22 @@ function filterProducts() {
       normalize([p.nombre, p.alcance, p.descripcion_corta, ...(p.tags || [])].join(' ')).includes(q);
 
     const matchMagnitud     = state.filtros.magnitud.size === 0     || state.filtros.magnitud.has(p.magnitud);
-    const matchAcreditacion = state.filtros.acreditacion.size === 0 || state.filtros.acreditacion.has(p.acreditacion);
+    const matchAcreditacion = state.filtros.acreditacion.size === 0 ||
+      (!state.filtros.acreditacion.has('PJLA') || !!p.acreditacion_pjla) &&
+      (!state.filtros.acreditacion.has('EMA')  || !!p.acreditacion_ema);
     const matchCategoria    = state.filtros.categoria.size === 0    || state.filtros.categoria.has(p.categoria);
 
     return matchBusqueda && matchMagnitud && matchAcreditacion && matchCategoria;
   });
 }
 
-/* Orden: magnitud A-Z, luego nombre A-Z */
 function sortProducts(products) {
   return [...products].sort((a, b) => {
+    if (state.orden === 'nombre-az')
+      return (a.nombre || '').localeCompare(b.nombre || '', 'es');
+    if (state.orden === 'nombre-za')
+      return (b.nombre || '').localeCompare(a.nombre || '', 'es');
+    // magnitud (default): magnitud A-Z, luego nombre A-Z
     const magCmp = (a.magnitud || '').localeCompare(b.magnitud || '', 'es');
     if (magCmp !== 0) return magCmp;
     return (a.nombre || '').localeCompare(b.nombre || '', 'es');
@@ -157,8 +164,27 @@ function renderActiveChips() {
 /* ── Construir sidebar de filtros ── */
 function buildFilters() {
   buildFilterGroup('magnitud');
-  buildFilterGroup('acreditacion');
+  buildAcreditacionFilter();
   buildFilterGroup('categoria');
+}
+
+function buildAcreditacionFilter() {
+  const container = document.querySelector('[data-filter="acreditacion"]');
+  if (!container) return;
+
+  const pjlaCount = allProducts.filter(p => p.acreditacion_pjla).length;
+  const emaCount  = allProducts.filter(p => p.acreditacion_ema).length;
+
+  container.innerHTML = [
+    { val: 'EMA',  count: emaCount },
+    { val: 'PJLA', count: pjlaCount },
+  ].map(({ val, count }) => `
+    <label class="filter-option">
+      <input type="checkbox" value="${val}" data-field="acreditacion"
+             onchange="toggleFilter('acreditacion', '${val}', this.checked)">
+      <span>${val}</span>
+      <span class="filter-count">${count}</span>
+    </label>`).join('');
 }
 
 function buildFilterGroup(field) {
@@ -231,6 +257,7 @@ function initSearch() {
 function updateURL() {
   const params = new URLSearchParams();
   if (state.busqueda) params.set('q', state.busqueda);
+  if (state.orden !== 'magnitud') params.set('orden', state.orden);
   for (const [key, set] of Object.entries(state.filtros)) {
     set.forEach(val => params.append(key, val));
   }
@@ -243,8 +270,11 @@ function updateURL() {
 function applyStateFromURL() {
   const params = new URLSearchParams(window.location.search);
   state.busqueda = params.get('q') || '';
+  state.orden = params.get('orden') || 'magnitud';
   const searchInput = document.getElementById('catalog-search');
   if (searchInput && state.busqueda) searchInput.value = state.busqueda;
+  const sortSelect = document.getElementById('catalog-sort');
+  if (sortSelect) sortSelect.value = state.orden;
 
   for (const key of Object.keys(state.filtros)) {
     params.getAll(key).forEach(val => {
@@ -280,9 +310,20 @@ function showError() {
     </div>`;
 }
 
+/* ── Ordenamiento ── */
+function initSort() {
+  const select = document.getElementById('catalog-sort');
+  if (!select) return;
+  select.addEventListener('change', () => {
+    state.orden = select.value;
+    render();
+  });
+}
+
 /* ── Init ── */
 document.addEventListener('DOMContentLoaded', () => {
   initSearch();
+  initSort();
   loadProducts();
   const clearBtn = document.getElementById('filters-clear');
   if (clearBtn) clearBtn.addEventListener('click', clearAllFilters);

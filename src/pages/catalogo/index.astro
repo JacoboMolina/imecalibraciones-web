@@ -102,9 +102,17 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
           <span id="results-count" class="results-count" aria-live="polite" aria-atomic="true">
             <!-- Generado por catalog.js -->
           </span>
-          <div id="active-filters" class="active-filters" aria-label="Filtros activos">
-            <!-- Generado por catalog.js -->
-          </div>
+          <label class="sort-label">
+            Ordenar:
+            <select id="catalog-sort" class="sort-select">
+              <option value="magnitud">Magnitud</option>
+              <option value="nombre-az">Nombre A–Z</option>
+              <option value="nombre-za">Nombre Z–A</option>
+            </select>
+          </label>
+        </div>
+        <div id="active-filters" class="active-filters" aria-label="Filtros activos">
+          <!-- Generado por catalog.js -->
         </div>
 
         <div

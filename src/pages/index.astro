@@ -68,6 +68,13 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     <!-- ══ SECCIÓN 1: HERO ══ -->
     <section class="hero" id="hero" aria-label="Presentación IME Calibraciones">
 
+      <button class="hero__nav hero__nav--prev" aria-label="Diapositiva anterior">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M11.78 5.22a.75.75 0 010 1.06L8.06 10l3.72 3.72a.75.75 0 11-1.06 1.06l-4.25-4.25a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0z" clip-rule="evenodd"/></svg>
+      </button>
+      <button class="hero__nav hero__nav--next" aria-label="Siguiente diapositiva">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
+      </button>
+
       <div class="hero__bg" aria-hidden="true">
         <div class="hero__carousel" id="heroCarousel">
           <div class="hero__slide hero__slide--video hero__slide--active">
@@ -108,12 +115,12 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
           <div class="hero__text">
             <h1 class="hero__title hero__title--long" id="heroTitle">
-              Ingeniería y Metrología<br>
-              <span class="hero__title-highlight">Certificada</span> · Para <span class="hero__title-highlight">Calibración</span>
+              IME<br>
+              <span class="hero__title-highlight">CERTIFICADA</span>
             </h1>
 
             <p class="hero__subtitle" id="heroSubtitle">
-              de Equipos de Control y Pruebas S.A. de C.V.
+              Ingeniería y Metrología Certificada para Equipos de Control y Pruebas S.A. de C.V.
             </p>
           </div>
 
@@ -140,26 +147,34 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="hero__trust" aria-label="Indicadores clave">
         <ul class="hero__stats" role="list">
           <li class="hero__stat">
-            <strong class="hero__stat-value">
-              <span class="counter" data-target="30" data-suffix="+">30+</span>
-            </strong>
-            <span class="hero__stat-label">Años de<br>experiencia</span>
+            <a href={`${b}/nosotros/`} class="hero__stat-link">
+              <strong class="hero__stat-value">
+                <span class="counter" data-target="30" data-suffix="+">30+</span>
+              </strong>
+              <span class="hero__stat-label">Años de<br>experiencia</span>
+            </a>
           </li>
           <li class="hero__stat">
-            <strong class="hero__stat-value">
-              <span class="counter" data-target="32">32</span>
-            </strong>
-            <span class="hero__stat-label">Magnitudes acreditadas<br>ante PJLA</span>
+            <a href={`${b}/catalogo/?acreditacion=PJLA`} class="hero__stat-link">
+              <strong class="hero__stat-value">
+                <span class="counter" data-target="32">32</span>
+              </strong>
+              <span class="hero__stat-label">Magnitudes acreditadas<br>ante PJLA</span>
+            </a>
           </li>
           <li class="hero__stat">
-            <strong class="hero__stat-value">
-              <span class="counter" data-target="7">7</span>
-            </strong>
-            <span class="hero__stat-label">Magnitudes acreditadas<br>ante EMA</span>
+            <a href={`${b}/catalogo/?acreditacion=EMA`} class="hero__stat-link">
+              <strong class="hero__stat-value">
+                <span class="counter" data-target="7">7</span>
+              </strong>
+              <span class="hero__stat-label">Magnitudes acreditadas<br>ante EMA</span>
+            </a>
           </li>
           <li class="hero__stat">
-            <strong class="hero__stat-value hero__stat-value--text">ISO/IEC 17025</strong>
-            <span class="hero__stat-label">Norma de<br>acreditación vigente</span>
+            <a href={`${b}/acreditaciones/`} class="hero__stat-link">
+              <strong class="hero__stat-value hero__stat-value--text">ISO/IEC 17025</strong>
+              <span class="hero__stat-label">Norma de<br>acreditación vigente</span>
+            </a>
           </li>
         </ul>
       </div>
@@ -187,93 +202,97 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     </section>
 
     <!-- ══ SECCIÓN 3: CADENA DE VALOR ══ -->
-    <section class="section porque-ime" id="porque-ime">
+    <section class="cv-section" id="cadena-valor">
       <div class="container">
-        <header class="section__header text-center">
-          <p class="section__eyebrow">Cadena de Valor</p>
-        </header>
-        <div class="dif-carousel">
-          <button class="dif-carousel__arrow dif-carousel__arrow--prev" aria-label="Anterior" disabled>
+        <div class="section__header text-center">
+          <p class="section__eyebrow">Por qué elegirnos</p>
+          <h2 class="section-title">Cadena de Valor</h2>
+        </div>
+        <div class="cv-carousel">
+          <button class="cv-arrow cv-arrow--prev" aria-label="Anterior" disabled>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.78 5.22a.75.75 0 010 1.06L8.06 10l3.72 3.72a.75.75 0 11-1.06 1.06l-4.25-4.25a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 0z" clip-rule="evenodd"/></svg>
           </button>
+          <div class="cv-viewport">
+            <div class="cv-track">
 
-          <div class="dif-carousel__viewport">
-            <div class="dif-carousel__track diferenciadores-grid">
-
-              <article class="dif-stat dif-stat--gold">
-                <div class="dif-stat__icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.25 4.533A9.707 9.707 0 006 3a9.735 9.735 0 00-3.25.555.75.75 0 00-.5.707v14.25a.75.75 0 001 .707A8.237 8.237 0 016 18.75c1.995 0 3.823.707 5.25 1.886V4.533zM12.75 20.636A8.214 8.214 0 0118 18.75c.966 0 1.89.166 2.75.47a.75.75 0 001-.708V4.262a.75.75 0 00-.5-.707A9.735 9.735 0 0018 3a9.707 9.707 0 00-5.25 1.533v16.103z"/></svg>
+              <article class="cv-card">
+                <div class="cv-card__body">
+                                    <h3 class="cv-card__title">Levantamiento</h3>
+                  <p class="cv-card__desc">Asistimos a planta a realizar el levantamiento de tus equipos, asegurando información clara y guía metrológica de tu calibración.</p>
+                  <svg class="cv-card__bg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><path d="M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2" /><path d="M9 12l.01 0" /><path d="M13 12l2 0" /><path d="M9 16l.01 0" /><path d="M13 16l2 0" /></svg>
                 </div>
-                <div class="dif-stat__value">Levantamiento</div>
-                <p class="dif-stat__label">Asistimos a planta a relevar tus equipos con guía metrológica clara desde el inicio.</p>
               </article>
 
-              <article class="dif-stat dif-stat--blue">
-                <div class="dif-stat__icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+              <article class="cv-card">
+                <div class="cv-card__body">
+
+                  <h3 class="cv-card__title">Técnicos Signatarios Acreditados</h3>
+                  <p class="cv-card__desc">No solo calibramos, te acompañamos antes, durante y después del servicio con asesoría técnica sin costo.</p>
+                  <svg class="cv-card__bg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M13 17.5v4.5l2 -1.5l2 1.5v-4.5" /><path d="M10 19h-5a2 2 0 0 1 -2 -2v-10c0 -1.1 .9 -2 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -1 1.73" /><path d="M6 9l12 0" /><path d="M6 12l3 0" /><path d="M6 15l2 0" /></svg>
                 </div>
-                <div class="dif-stat__value">Técnicos Acreditados</div>
-                <p class="dif-stat__label">No solo calibramos — te acompañamos antes, durante y después con asesoría técnica sin costo.</p>
               </article>
 
-              <article class="dif-stat dif-stat--orange">
-                <div class="dif-stat__icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25zM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h.375a3 3 0 116 0h3a.75.75 0 00.75-.75V15z"/><path d="M8.25 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0zM15.75 6.75a.75.75 0 00-.75.75v11.25c0 .087.015.17.042.248a3 3 0 015.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 00-3.732-10.104 1.837 1.837 0 00-1.47-.725H15.75z"/><path d="M19.5 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"/></svg>
+              <article class="cv-card">
+                <div class="cv-card__body">
+
+                  <h3 class="cv-card__title">Recolección y Entrega</h3>
+                  <p class="cv-card__desc">Sin costo adicional en un radio de 100 km de IME Certificada, o bien calibración en sitio si lo necesitas.</p>
+                  <svg class="cv-card__bg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M15 17a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" /><path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" /><path d="M3 9l4 0" /></svg>
                 </div>
-                <div class="dif-stat__value">Recolección y Entrega</div>
-                <p class="dif-stat__label">Sin costo adicional en radio de 100 km, o calibración en sitio si lo necesitas.</p>
               </article>
 
-              <article class="dif-stat dif-stat--green">
-                <div class="dif-stat__icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clip-rule="evenodd"/></svg>
+              <article class="cv-card">
+                <div class="cv-card__body">
+
+                  <h3 class="cv-card__title">Programa de Recalibración</h3>
+                  <p class="cv-card__desc">Evitas olvidos y mantienes el control de tus equipos. ¡Nosotros te avisamos!</p>
+                  <svg class="cv-card__bg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" /><path d="M18 14v4h4" /><path d="M14 18a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" /><path d="M15 3v4" /><path d="M7 3v4" /><path d="M3 11h16" /></svg>
                 </div>
-                <div class="dif-stat__value">Programa de Recalibración</div>
-                <p class="dif-stat__label">Evitas olvidos y mantienes el control de tus equipos. ¡Nosotros te avisamos!</p>
               </article>
 
-              <article class="dif-stat dif-stat--purple">
-                <div class="dif-stat__icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/></svg>
+              <article class="cv-card">
+                <div class="cv-card__body">
+
+                  <h3 class="cv-card__title">Conformidad en Auditorías</h3>
+                  <p class="cv-card__desc">Te ayudamos a estar listo para auditorías con informes claros, trazables y alineados a normativas.</p>
+                  <svg class="cv-card__bg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2" /><path d="M9 15l2 2l4 -4" /></svg>
                 </div>
-                <div class="dif-stat__value">Conformidad en Auditorías</div>
-                <p class="dif-stat__label">Te ayudamos a estar listo para auditorías con informes claros, trazables y alineados a normativas.</p>
               </article>
 
-              <article class="dif-stat dif-stat--teal">
-                <div class="dif-stat__icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12.516 2.17a.75.75 0 00-1.032 0 11.209 11.209 0 01-7.877 3.08.75.75 0 00-.722.515A12.74 12.74 0 002.25 9.75c0 5.942 4.064 10.933 9.563 12.348a.75.75 0 00.374 0c5.499-1.415 9.563-6.406 9.563-12.348 0-1.39-.223-2.73-.635-3.985a.75.75 0 00-.722-.516l-.143.001c-2.996 0-5.717-1.17-7.734-3.08zm3.094 8.016a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+              <article class="cv-card">
+                <div class="cv-card__body">
+
+                  <h3 class="cv-card__title">Seguridad de tus Equipos</h3>
+                  <p class="cv-card__desc">Tus equipos están protegidos con seguro durante el traslado. Cobertura ante siniestros garantizada.</p>
+                  <svg class="cv-card__bg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11.46 20.846a12 12 0 0 1 -7.96 -14.846a12 12 0 0 0 8.5 -3a12 12 0 0 0 8.5 3a12 12 0 0 1 -.09 7.06" /><path d="M15 19l2 2l4 -4" /></svg>
                 </div>
-                <div class="dif-stat__value">Seguridad de tus Equipos</div>
-                <p class="dif-stat__label">Tus equipos están protegidos con seguro durante el traslado ante cualquier siniestro.</p>
               </article>
 
-              <article class="dif-stat dif-stat--blue">
-                <div class="dif-stat__icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.7 2.805a.75.75 0 01.6 0A60.65 60.65 0 0122.83 8.72a.75.75 0 01-.231 1.337 49.949 49.949 0 00-9.902 3.912l-.003.002-.34.18a.75.75 0 01-.707 0A50.009 50.009 0 007.5 12.174v-.224c0-.131.067-.248.172-.311a54.614 54.614 0 014.653-2.52.75.75 0 00-.65-1.352 56.129 56.129 0 00-4.78 2.589 1.858 1.858 0 00-.859 1.228 49.803 49.803 0 00-4.634-1.527.75.75 0 01-.231-1.337A60.653 60.653 0 0111.7 2.805z"/><path d="M13.06 15.473a48.45 48.45 0 017.666-3.282c.134 1.414.22 2.843.255 4.285a.75.75 0 01-.46.71 47.878 47.878 0 00-8.105 4.342.75.75 0 01-.832 0 47.877 47.877 0 00-8.104-4.342.75.75 0 01-.461-.71c.035-1.442.121-2.87.255-4.286A48.4 48.4 0 016 13.18v1.27a1.5 1.5 0 00-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.661a6.729 6.729 0 00.551-1.608 1.5 1.5 0 00.14-2.67v-.645a48.549 48.549 0 013.44 1.668 2.25 2.25 0 002.12 0z"/><path d="M4.462 19.462c.42-.419.753-.89 1-1.394.453.213.902.434 1.347.661a6.743 6.743 0 01-1.286 1.794.75.75 0 11-1.06-1.06z"/></svg>
+              <article class="cv-card">
+                <div class="cv-card__body">
+
+                  <h3 class="cv-card__title">Cursos Gratuitos</h3>
+                  <p class="cv-card__desc">2 cursos gratuitos para mejorar el uso e interpretación de resultados de calibración.</p>
+                  <svg class="cv-card__bg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 9l-10 -4l-10 4l10 4l10 -4v6" /><path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4" /></svg>
                 </div>
-                <div class="dif-stat__value">Cursos Gratuitos</div>
-                <p class="dif-stat__label">2 cursos sin costo para mejorar el uso e interpretación de resultados de calibración.</p>
               </article>
 
-              <article class="dif-stat dif-stat--gold">
-                <div class="dif-stat__icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.75a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.913-.143z" clip-rule="evenodd"/></svg>
+              <article class="cv-card">
+                <div class="cv-card__body">
+
+                  <h3 class="cv-card__title">Urgencia</h3>
+                  <p class="cv-card__desc">Servicio de urgencia con entrega en 3 días. Tus informes disponibles en plataforma para descargar cuando los necesites.</p>
+                  <svg class="cv-card__bg-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 7v5l3 3" /></svg>
                 </div>
-                <div class="dif-stat__value">Servicio de Urgencia</div>
-                <p class="dif-stat__label">Entrega en 3 días. Informes disponibles al instante en nuestra plataforma, las veces que los necesites.</p>
               </article>
 
             </div>
           </div>
-
-          <button class="dif-carousel__arrow dif-carousel__arrow--next" aria-label="Siguiente">
+          <button class="cv-arrow cv-arrow--next" aria-label="Siguiente">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
           </button>
         </div>
-
-        <!-- Dots — rendered by JS based on visible count -->
-        <div class="dif-carousel__dots" aria-hidden="true"></div>
+        <div class="cv-dots"></div>
       </div>
     </section>
 
@@ -327,36 +346,31 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
               >
               <div class="video-facade__overlay" aria-hidden="true"></div>
               <div class="video-facade__play" aria-hidden="true">
-                <div class="video-facade__play-ring"></div>
-                <div class="video-facade__play-btn">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18a1 1 0 000-1.69L9.54 5.98A.998.998 0 008 6.82z"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="video-facade__label" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                <span>Ver en YouTube</span>
+                <!-- Botón oficial de YouTube -->
+                <svg class="video-facade__yt-btn" viewBox="0 0 68 48" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M66.52 7.74a8.55 8.55 0 00-6.01-6.07C55.79.13 34 0 34 0S12.21.13 7.49 1.67A8.55 8.55 0 001.48 7.74C.06 13.05 0 24 0 24s.06 10.95 1.48 16.26a8.55 8.55 0 006.01 6.07C12.21 47.87 34 48 34 48s21.79-.13 26.51-1.67a8.55 8.55 0 006.01-6.07C67.94 34.95 68 24 68 24s-.06-10.95-1.48-16.26z" fill="#ff0000"/>
+                  <path d="M27 34l18-10-18-10z" fill="#fff"/>
+                </svg>
               </div>
             </div>
           </div>
 
           <div class="video-section__content animate-on-scroll">
             <p class="section__eyebrow">Conózcanos</p>
-            <h2 class="section-title" style="text-align:left">Vea cómo trabajamos</h2>
+            <h2 class="section-title" style="text-align:left">Conoce nuestra trayectoria</h2>
             <p>Recorra nuestras instalaciones y conozca los procesos de calibración que respaldan los certificados de miles de instrumentos cada año, con trazabilidad al CENAM y NIST.</p>
             <ul class="video-section__bullets">
               <li>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-                Instalaciones de clase mundial en Tlaxcala
+                El mejor aliado para tu industria
               </li>
               <li>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-                Ingenieros metrólogos certificados por EMA y PJLA
+                Nuestro objetivo es que tu operación no se detenga
               </li>
               <li>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-                Más de 30 años calibrando la industria mexicana
+                Reducimos tiempos muertos con atención ágil y soluciones rápidas
               </li>
             </ul>
             <a href={`${b}/contacto/`} class="btn btn-primary">Solicitar cotización</a>
@@ -395,8 +409,8 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="container">
         <div class="cta-catalogo__inner">
           <div class="cta-catalogo__text">
-            <h2 class="cta-catalogo__title" id="cta-catalogo-heading">¿Necesita calibrar un instrumento específico?</h2>
-            <p class="cta-catalogo__body">Consulte nuestro catálogo de más de 300 instrumentos — desde calibradores y manómetros hasta analizadores de gases y equipos de laboratorio.</p>
+            <h2 class="cta-catalogo__title" id="cta-catalogo-heading">¿Necesitas calibrar?</h2>
+            <p class="cta-catalogo__body">Calibra con quienes hacen la diferencia.</p>
           </div>
           <div class="cta-catalogo__actions">
             <a href={`${b}/catalogo/`} class="btn btn-primary btn-lg">
@@ -422,22 +436,23 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
                 <div class="sobre-ime__acred-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
                 </div>
-                <div><strong>EMA</strong><span>· ISO/IEC 17025</span></div>
+                <div><strong>EMA</strong></div>
               </div>
               <div class="sobre-ime__acred">
                 <div class="sobre-ime__acred-icon">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
                 </div>
-                <div><strong>PJLA No. 54194</strong><span>· ISO/IEC 17025</span></div>
+                <div><strong>PJLA No. 54194</strong></div>
               </div>
             </div>
           </div>
 
           <div class="sobre-ime__content animate-on-scroll">
             <p class="section__eyebrow">Quiénes somos</p>
-            <h2 class="section-title">El primer laboratorio de metrología en Tlaxcala</h2>
-            <p>Fundado el 23 de marzo de 1993 por Juan Bautista Canela Mulato, IME fue el primer laboratorio en el Estado de Tlaxcala en ofrecer servicios especializados en metrología. Más de 32 años después, seguimos siendo el referente de la industria mexicana en calibración acreditada.</p>
-            <p>Somos el único laboratorio en México con acreditación simultánea ante <strong>PJLA</strong> (No. 54194) y <strong>EMA</strong>, con ingenieros técnicos signatarios autorizados para firmar y aprobar certificados con validez nacional e internacional.</p>
+            <h2 class="section-title">Somos Desarrolladores</h2>
+            <p>En IME transformamos necesidades en soluciones. Si tu equipo requiere un método específico, lo desarrollamos, con respaldo técnico y enfoque en tu operación.</p>
+            <p>Evita traslados al extranjero, reduce tiempos de espera y mantén la continuidad de tus procesos.</p>
+            <p><strong>Tu equipo se queda. La solución la creamos nosotros.</strong></p>
             <a href={`${b}/nosotros/`} class="btn btn-secondary">Conocer la empresa</a>
           </div>
         </div>
@@ -536,98 +551,97 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 </Base>
 
 <script>
-  // ── Diferenciadores carousel — infinito ──────────────────────────────────
+  // ── Cadena de Valor — carrusel 3 en desktop, 1 en móvil ──────────────────
   (function () {
-    const track    = document.querySelector<HTMLElement>('.dif-carousel__track')!;
-    const viewport = document.querySelector<HTMLElement>('.dif-carousel__viewport')!;
-    const prevBtn  = document.querySelector<HTMLButtonElement>('.dif-carousel__arrow--prev')!;
-    const nextBtn  = document.querySelector<HTMLButtonElement>('.dif-carousel__arrow--next')!;
-    const dotsWrap = document.querySelector<HTMLElement>('.dif-carousel__dots')!;
-    const cards    = Array.from(track.querySelectorAll<HTMLElement>('.dif-stat'));
+    const viewport = document.querySelector<HTMLElement>('.cv-viewport')!;
+    const track    = document.querySelector<HTMLElement>('.cv-track')!;
+    const cards    = Array.from(track.querySelectorAll<HTMLElement>('.cv-card'));
+    const prevBtn  = document.querySelector<HTMLButtonElement>('.cv-arrow--prev')!;
+    const nextBtn  = document.querySelector<HTMLButtonElement>('.cv-arrow--next')!;
+    const dotsWrap = document.querySelector<HTMLElement>('.cv-dots')!;
 
-    const GAP      = 16;
-    const TOTAL    = cards.length;
-    const MIN_CARD = 200;
-    let current    = 0;
-    let vw         = 0;
+    const GAP   = 20;
+    const TOTAL = cards.length;
+    let current = 0;
 
-    function visibleCount() {
-      if (vw >= MIN_CARD * 3 + GAP * 2) return 3;
-      if (vw >= MIN_CARD * 2 + GAP)     return 2;
+    function vis() {
+      const w = window.innerWidth;
+      if (w >= 1024) return 3;
+      if (w >= 600)  return 2;
       return 1;
     }
 
-    function maxIndex() { return TOTAL - visibleCount(); }
+    function maxIdx() { return TOTAL - vis(); }
 
-    function setWidths() {
-      const vis   = visibleCount();
-      const cardW = (vw - GAP * (vis - 1)) / vis;
-      cards.forEach(c => { c.style.flex = `0 0 ${cardW}px`; });
-      return cardW;
+    function layout() {
+      const v    = vis();
+      const cardW = (viewport.offsetWidth - GAP * (v - 1)) / v;
+      cards.forEach(c => { c.style.width = cardW + 'px'; });
+      current = Math.min(current, maxIdx());
+      buildDots();
+      move(false);
+      updateButtons();
     }
 
-    function renderDots() {
+    function move(animate: boolean) {
+      const cardW = cards[0].offsetWidth;
+      track.style.transition = animate ? 'transform .35s ease' : 'none';
+      track.style.transform  = `translateX(-${current * (cardW + GAP)}px)`;
+    }
+
+    function buildDots() {
       dotsWrap.innerHTML = '';
-      for (let i = 0; i <= maxIndex(); i++) {
-        const d = document.createElement('span');
-        d.className = 'dif-carousel__dot' + (i === current ? ' dif-carousel__dot--active' : '');
+      for (let i = 0; i <= maxIdx(); i++) {
+        const d = document.createElement('button');
+        d.className = 'cv-dot' + (i === current ? ' cv-dot--active' : '');
+        d.setAttribute('aria-label', `Paso ${i + 1}`);
         d.addEventListener('click', () => goTo(i));
         dotsWrap.appendChild(d);
       }
     }
 
     function updateDots() {
-      dotsWrap.querySelectorAll('.dif-carousel__dot').forEach((d, i) =>
-        d.classList.toggle('dif-carousel__dot--active', i === current));
+      dotsWrap.querySelectorAll('.cv-dot').forEach((d, i) =>
+        d.classList.toggle('cv-dot--active', i === current));
     }
 
-    function updateCenter() {
-      const vis  = visibleCount();
-      const maxI = maxIndex();
-      cards.forEach((c, i) => {
-        let isCenter: boolean;
-        if (vis === 1) {
-          isCenter = i === current;
-        } else if (vis === 2) {
-          isCenter = i >= current && i < current + vis;
-        } else {
-          // vis === 3: en los extremos el primero/último visible es el centro
-          if (current === 0)      isCenter = i === 0;
-          else if (current >= maxI) isCenter = i === TOTAL - 1;
-          else                    isCenter = i === current + 1;
-        }
-        c.classList.toggle('dif-stat--center', isCenter);
-      });
+    function updateButtons() {
+      prevBtn.disabled = current === 0;
+      nextBtn.disabled = current >= maxIdx();
     }
 
-    function moveTo(index: number, animate: boolean) {
-      const cardW = setWidths();
-      track.style.transition = animate ? 'transform 0.35s ease' : 'none';
-      track.style.transform  = `translateX(-${index * (cardW + GAP)}px)`;
-    }
-
-    function goTo(index: number) {
-      const maxI = maxIndex();
-      // Loop infinito: wrap en los extremos
-      if (index < 0)    index = maxI;
-      if (index > maxI) index = 0;
-      current = index;
-      moveTo(current, true);
+    function goTo(i: number) {
+      current = Math.max(0, Math.min(i, maxIdx()));
+      move(true);
       updateDots();
-      updateCenter();
+      updateButtons();
     }
 
-    prevBtn.addEventListener('click', () => goTo(current - 1));
-    nextBtn.addEventListener('click', () => goTo(current + 1));
+    // Auto-avance
+    let autoTimer: ReturnType<typeof setInterval> | null = null;
 
-    new ResizeObserver(entries => {
-      const newVw = entries[0].contentRect.width;
-      if (newVw === vw) return;
-      vw = newVw;
-      current = Math.min(current, maxIndex());
-      renderDots();
-      moveTo(current, false);
-      updateCenter();
-    }).observe(viewport);
+    function startAuto() {
+      autoTimer = setInterval(() => goTo(current >= maxIdx() ? 0 : current + 1), 4000);
+    }
+    function stopAuto() {
+      if (autoTimer !== null) { clearInterval(autoTimer); autoTimer = null; }
+    }
+
+    prevBtn.addEventListener('click', () => { goTo(current - 1); stopAuto(); startAuto(); });
+    nextBtn.addEventListener('click', () => { goTo(current + 1); stopAuto(); startAuto(); });
+
+    // Pausa al hacer hover
+    viewport.addEventListener('mouseenter', stopAuto);
+    viewport.addEventListener('mouseleave', startAuto);
+
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(layout, 120);
+    });
+
+    layout();
+    startAuto();
   })();
 </script>
+

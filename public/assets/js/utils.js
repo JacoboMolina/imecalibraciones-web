@@ -137,63 +137,72 @@ function initHeroCarousel() {
   const carousel = document.getElementById('heroCarousel');
   if (!carousel) return;
 
-  const slides = carousel.querySelectorAll('.hero__slide');
+  const slides = Array.from(carousel.querySelectorAll('.hero__slide'));
   if (slides.length < 2) return;
 
-  const INTERVAL = 6000;
+  const DURATION = 6000;
   let current = 0;
-  let timer;
+  let timer    = null;
+  let paused   = false;
 
-  // Progress bars
-  const bars = Array.from(document.querySelectorAll('.hero__progress-bar'));
-
-  // Texto por slide (orden coincide con el HTML: 0=video, 1-3=fotos)
-  const SLIDES_DATA = [
-    { html: 'Ingeniería y Metrología<br><span class="hero__title-highlight">Certificada</span> · Para <span class="hero__title-highlight">Calibración</span>',
-      longTitle: true,
-      subtitle: 'de Equipos de Control y Pruebas S.A. de C.V.' },
-    { title: 'Calibración y',                     highlight: 'Venta de Suministros',
-      subtitle: '24,000 instrumentos dentro de nuestro alcance a calibrar — todo con un solo proveedor.' },
-    { title: 'Trabajamos los',                    highlight: '365 días del año',
-      subtitle: 'Programa de recalibración: evitas olvidos y mantienes el control de tus equipos. ¡Nosotros te avisamos!' },
-    { title: 'Presencia en toda la',              highlight: 'República Mexicana y Guatemala',
-      subtitle: '3 décadas brindando soluciones metrológicas a las industrias.' },
-  ];
+  const bars  = Array.from(document.querySelectorAll('.hero__progress-bar'));
+  const fills = bars.map(b => b.querySelector('.hero__progress-fill'));
 
   const titleEl    = document.getElementById('heroTitle');
   const subtitleEl = document.getElementById('heroSubtitle');
+  const prevBtn    = document.querySelector('.hero__nav--prev');
+  const nextBtn    = document.querySelector('.hero__nav--next');
 
-  function updateBars(index) {
+  // Texto por slide (orden coincide con el HTML: 0=video, 1-3=fotos)
+  const SLIDES_DATA = [
+    { html: 'IME<br><span class="hero__title-highlight">CERTIFICADA</span>',
+      longTitle: true,
+      subtitle: 'Ingeniería y Metrología Certificada para Equipos de Control y Pruebas S.A. de C.V.' },
+    { title: 'Calibración y',        highlight: 'Venta de Suministros',
+      subtitle: '24,000 instrumentos dentro de nuestro alcance a calibrar — todo con un solo proveedor.' },
+    { title: 'Trabajamos los',       highlight: '365 días del año',
+      subtitle: 'Programa de recalibración: evitas olvidos y mantienes el control de tus equipos. ¡Nosotros te avisamos!' },
+    { title: 'Presencia en toda la', highlight: 'República Mexicana y Guatemala',
+      subtitle: '3 décadas brindando soluciones metrológicas a las industrias.' },
+  ];
+
+  // ── Progress bars ──────────────────────────────────────────────────────────
+  // Usa clases CSS exclusivamente. Sin inline styles de transición/animación.
+  // Pasados: --done (CSS pinta scaleX(1) sin animación)
+  // Actual:  --run  (CSS @keyframes; void offsetWidth reinicia la animación)
+  // Futuros: sin clase (CSS default: scaleX(0))
+  function updateBars(idx) {
     bars.forEach((bar, i) => {
-      const fill = bar.querySelector('.hero__progress-fill');
-      bar.classList.remove('hero__progress-bar--active', 'hero__progress-bar--done');
-      if (fill) fill.style.animation = 'none';
-      if (i < index) {
-        bar.classList.add('hero__progress-bar--done');
-        if (fill) { fill.style.animation = 'none'; fill.style.transform = 'scaleX(1)'; }
-      } else if (i === index) {
-        bar.classList.add('hero__progress-bar--active');
-        if (fill) {
-          fill.style.animation = 'none';
-          fill.style.transform = ''; // limpiar inline — deja que el CSS defina scaleX(0) como inicio
-          void fill.offsetWidth;
-          fill.style.animation = `hero-progress ${INTERVAL}ms linear forwards`;
-        }
-      } else {
-        if (fill) { fill.style.animation = 'none'; fill.style.transform = 'scaleX(0)'; }
+      const fill = fills[i];
+      bar.classList.toggle('hero__progress-bar--done', i < idx);
+      if (!fill) return;
+      fill.classList.remove('hero__progress-fill--run');
+      if (i === idx) {
+        void fill.offsetWidth; // fuerza reflow → reinicia @keyframes
+        fill.classList.add('hero__progress-fill--run');
       }
     });
   }
 
-  function updateText(index) {
-    const data = SLIDES_DATA[index];
+  // ── Texto por slide ────────────────────────────────────────────────────────
+  function updateText(idx, immediate) {
+    const data = SLIDES_DATA[idx];
     if (!data || !titleEl) return;
+    const html = data.html
+      ? data.html
+      : data.title + '<br><span class="hero__title-highlight">' + data.highlight + '</span>';
+
+    if (immediate) {
+      titleEl.innerHTML = html;
+      titleEl.classList.toggle('hero__title--long', !!data.longTitle);
+      if (subtitleEl) subtitleEl.textContent = data.subtitle;
+      return;
+    }
+
     titleEl.style.opacity = '0';
     if (subtitleEl) subtitleEl.style.opacity = '0';
     setTimeout(() => {
-      titleEl.innerHTML = data.html
-        ? data.html
-        : data.title + '<br><span class="hero__title-highlight">' + data.highlight + '</span>';
+      titleEl.innerHTML = html;
       titleEl.classList.toggle('hero__title--long', !!data.longTitle);
       titleEl.style.opacity = '1';
     }, 180);
@@ -203,40 +212,59 @@ function initHeroCarousel() {
     }, 240);
   }
 
-  function setVideoState(slide, playing) {
-    const video = slide.querySelector('video');
+  // ── Video (slide 0) ────────────────────────────────────────────────────────
+  function setVideoState(idx, playing) {
+    const video = slides[idx].querySelector('video');
     if (!video) return;
     playing ? video.play().catch(() => {}) : video.pause();
   }
 
-  function goTo(index) {
-    setVideoState(slides[current], false);
+  // ── Navegación ─────────────────────────────────────────────────────────────
+  function goTo(idx) {
+    setVideoState(current, false);
     slides[current].classList.remove('hero__slide--active');
-    current = (index + slides.length) % slides.length;
+    current = (idx + slides.length) % slides.length;
     slides[current].classList.add('hero__slide--active');
-    setVideoState(slides[current], true);
+    setVideoState(current, true);
     updateBars(current);
-    updateText(current);
+    updateText(current, false);
+
+    if (timer) clearTimeout(timer);
+    if (!paused) timer = setTimeout(() => goTo(current + 1), DURATION);
   }
 
-  function resetTimer() {
-    clearInterval(timer);
-    timer = setInterval(() => goTo(current + 1), INTERVAL);
-  }
+  // Botones prev / next
+  if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+  if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
 
-  // Swipe en móvil
-  let touchStartX = 0;
+  // Pausa al hacer hover (desktop)
   const hero = document.getElementById('hero');
   if (hero) {
+    hero.addEventListener('mouseenter', () => {
+      paused = true;
+      if (timer) clearTimeout(timer);
+    });
+    hero.addEventListener('mouseleave', () => {
+      paused = false;
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => goTo(current + 1), DURATION);
+    });
+
+    // Swipe en móvil
+    let touchStartX = 0;
     hero.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
     hero.addEventListener('touchend', e => {
       const dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dx) > 50) { goTo(dx < 0 ? current + 1 : current - 1); resetTimer(); }
+      if (Math.abs(dx) > 50) goTo(dx < 0 ? current + 1 : current - 1);
     }, { passive: true });
   }
 
+  // ── Init ───────────────────────────────────────────────────────────────────
+  // updateText con immediate=true: sin fade, el HTML ya es el estado inicial correcto.
+  // updateBars arranca la animación de la barra 0.
+  updateText(0, true);
   updateBars(0);
-  resetTimer();
+  timer = setTimeout(() => goTo(1), DURATION);
 }
 
 /**

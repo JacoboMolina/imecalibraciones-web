@@ -221,6 +221,24 @@
 .results-count { font-size: var(--text-sm); color: var(--color-muted); }
 .results-count strong { color: var(--color-ink); }
 
+.sort-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+.sort-select {
+  padding: 4px 8px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  background: var(--color-bg);
+  cursor: pointer;
+}
+.sort-select:focus { outline: 2px solid var(--color-primary); outline-offset: 1px; }
+
 .active-filters {
   display: flex;
   gap: var(--space-2);
