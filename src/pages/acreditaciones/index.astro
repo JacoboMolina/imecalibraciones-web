@@ -86,11 +86,11 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
         <!-- Tabs -->
         <div class="acred-tabs" role="tablist" aria-label="Certificados de acreditación">
-          <button class="acred-tab acred-tab--active" role="tab" aria-selected="true" aria-controls="panel-ema" data-tab="ema">
+          <button id="tab-ema" class="acred-tab acred-tab--active" role="tab" aria-selected="true" aria-controls="panel-ema" data-tab="ema">
             <span class="acred-tab__dot acred-tab__dot--blue"></span>
             Acreditación EMA
           </button>
-          <button class="acred-tab" role="tab" aria-selected="false" aria-controls="panel-pjla" data-tab="pjla">
+          <button id="tab-pjla" class="acred-tab" role="tab" aria-selected="false" aria-controls="panel-pjla" data-tab="pjla">
             <span class="acred-tab__dot acred-tab__dot--purple"></span>
             Acreditación PJLA · No. 54194
           </button>
@@ -611,18 +611,30 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 <script>
   const tabs = document.querySelectorAll<HTMLButtonElement>('.acred-tab');
+
+  function activateTab(tabId: string) {
+    tabs.forEach(t => {
+      const isTarget = t.dataset.tab === tabId;
+      t.classList.toggle('acred-tab--active', isTarget);
+      t.setAttribute('aria-selected', String(isTarget));
+    });
+    document.querySelectorAll<HTMLElement>('.acred-card').forEach(panel => {
+      panel.hidden = panel.id !== `panel-${tabId}`;
+    });
+  }
+
+  // Activar tab según el hash de la URL al cargar
+  const hash = window.location.hash.replace('#tab-', '');
+  if (hash === 'ema' || hash === 'pjla') {
+    activateTab(hash);
+    document.getElementById(`tab-${hash}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
-      const target = tab.dataset.tab;
-      tabs.forEach(t => {
-        t.classList.remove('acred-tab--active');
-        t.setAttribute('aria-selected', 'false');
-      });
-      document.querySelectorAll<HTMLElement>('.acred-card').forEach(panel => {
-        panel.hidden = panel.id !== `panel-${target}`;
-      });
-      tab.classList.add('acred-tab--active');
-      tab.setAttribute('aria-selected', 'true');
+      const target = tab.dataset.tab!;
+      activateTab(target);
+      history.replaceState(null, '', `#tab-${target}`);
     });
   });
 </script>
