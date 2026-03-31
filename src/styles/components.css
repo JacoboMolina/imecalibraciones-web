@@ -31,7 +31,7 @@
   height: 100%;
 }
 .site-logo { display: flex; align-items: center; }
-.site-logo img { height: 44px; width: auto; }
+.site-logo img { height: 52px; width: auto; }
 
 .site-nav {
   display: flex;
