@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cotización Fase 2 — IME Calibraciones</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: #111;
+      background: #fff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── PAGE WRAPPER ── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 0;
+      background: #fff;
+      page-break-after: always;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: #111;
+      color: #fff;
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .header-left h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .header-left p {
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 4px;
+    }
+    .header-right {
+      text-align: right;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .header-right strong {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* ── META SECTION ── */
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      padding: 24px 40px 20px;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .meta-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .meta-left p {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .meta-left strong {
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .meta-right {
+      text-align: right;
+    }
+    .meta-right table {
+      margin-left: auto;
+      font-size: 13px;
+      border-collapse: collapse;
+    }
+    .meta-right td {
+      padding: 2px 0 2px 20px;
+      line-height: 1.7;
+    }
+    .meta-right td:first-child {
+      color: #666;
+      padding-left: 0;
+    }
+    .meta-right td:last-child {
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      padding: 20px 40px 10px;
+      font-size: 16px;
+      font-weight: 700;
+      border-bottom: 2px solid #111;
+      display: inline-block;
+      margin: 0 40px;
+    }
+    .section-wrapper {
+      padding: 0 40px;
+    }
+
+    /* ── TABLE ── */
+    .quote-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+    .quote-table thead tr {
+      border-bottom: 1px solid #ddd;
+    }
+    .quote-table thead th {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #999;
+      text-transform: uppercase;
+      padding: 8px 0;
+      text-align: left;
+    }
+    .quote-table thead th:last-child {
+      text-align: right;
+    }
+    .quote-table tbody tr {
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .quote-table tbody td {
+      padding: 16px 0;
+      vertical-align: top;
+    }
+    .quote-table .num {
+      color: #999;
+      font-size: 12px;
+      width: 28px;
+      padding-right: 8px;
+    }
+    .quote-table .concept h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .quote-table .concept p {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.55;
+      max-width: 520px;
+    }
+    .quote-table .amount {
+      text-align: right;
+      font-weight: 700;
+      font-size: 14px;
+      white-space: nowrap;
+      padding-left: 16px;
+    }
+
+    /* ── TOTALS ── */
+    .totals {
+      margin-top: 8px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .totals table {
+      font-size: 13px;
+      border-collapse: collapse;
+    }
+    .totals td {
+      padding: 5px 0 5px 32px;
+    }
+    .totals td:first-child {
+      color: #555;
+      text-align: right;
+    }
+    .totals td:last-child {
+      font-weight: 600;
+      text-align: right;
+      min-width: 100px;
+    }
+    .totals .total-row {
+      background: #111;
+      color: #fff;
+    }
+    .totals .total-row td {
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+    .totals .total-row td:first-child {
+      color: #fff;
+      border-radius: 4px 0 0 4px;
+    }
+    .totals .total-row td:last-child {
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* ── SAVINGS BADGE ── */
+    .savings-badge {
+      margin: 20px 40px;
+      background: #f0faf4;
+      border: 1px solid #b7e4c7;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 12.5px;
+      color: #1a7f3c;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .savings-badge .icon {
+      font-size: 16px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── BAJO DEMANDA ── */
+    .bajo-demanda {
+      margin: 0 40px;
+    }
+    .bajo-demanda thead th.badge {
+      background: #e8e8e8;
+      color: #444;
+      font-size: 9px;
+      letter-spacing: 1px;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-weight: 600;
+      text-transform: uppercase;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+    .badge-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ── CONDITIONS ── */
+    .conditions {
+      margin: 16px 40px 24px;
+      border-top: 1px solid #e5e5e5;
+      padding-top: 14px;
+    }
+    .conditions h4 {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #999;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .conditions ul {
+      list-style: none;
+      padding: 0;
+    }
+    .conditions ul li {
+      font-size: 12px;
+      color: #444;
+      line-height: 1.7;
+      padding-left: 16px;
+      position: relative;
+    }
+    .conditions ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #bbb;
+    }
+
+    /* ── FOOTER ── */
+    .doc-footer {
+      padding: 16px 40px;
+      border-top: 1px solid #e5e5e5;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 11px;
+      color: #888;
+    }
+    .signature-line {
+      width: 180px;
+      border-top: 1px solid #aaa;
+      text-align: right;
+      padding-top: 4px;
+      font-size: 11px;
+      color: #888;
+    }
+
+    /* ══════════════════════════════
+       PAGE 2
+    ══════════════════════════════ */
+    .page2-header {
+      background: #111;
+      color: #fff;
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .page2-header h2 {
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .page2-header p {
+      font-size: 13px;
+      color: #aaa;
+      margin-top: 4px;
+    }
+    .page2-header .folio {
+      text-align: right;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 24px 40px;
+    }
+    .benefit-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 6px;
+      padding: 16px 18px;
+    }
+    .benefit-card h4 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    .benefit-card p {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.55;
+    }
+
+    .info-section {
+      padding: 0 40px 20px;
+    }
+    .info-section h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #e5e5e5;
+      padding-bottom: 6px;
+    }
+    .info-section p {
+      font-size: 12.5px;
+      color: #444;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .info-section ul {
+      padding-left: 18px;
+      font-size: 12.5px;
+      color: #444;
+      line-height: 1.8;
+    }
+    .info-section .highlight-box {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 12.5px;
+      color: #5a4500;
+      margin-top: 10px;
+    }
+    .info-section .highlight-box strong {
+      font-weight: 700;
+    }
+
+    @media print {
+      .page { margin: 0; width: 100%; }
+      body { background: #fff; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ PAGE 1 ═══════════════ -->
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Cotización</h1>
+      <p>Catálogo Digital de Servicios — IME Calibraciones</p>
+    </div>
+    <div class="header-right">
+      <strong>Ignacio Jacobo Molina Miranda</strong><br>
+      Desarrollador Software<br>
+      RFC: MOMI0005036BA<br>
+      Tel: 246 216 8367<br>
+      najajacobomolina@gmail.com
+    </div>
+  </div>
+
+  <!-- META -->
+  <div class="meta">
+    <div class="meta-left">
+      <div class="meta-label">Para</div>
+      <strong>IME Calibraciones</strong>
+      <p>IME CERTIFICADA<br>
+      Ingeniería y Metrología Certificada Para Calibración de Equipos de Control y Pruebas S.A. de C.V.</p>
+    </div>
+    <div class="meta-right">
+      <div class="meta-label">Detalles</div>
+      <table>
+        <tr><td>Fecha:</td><td>25 de marzo de 2026</td></tr>
+        <tr><td>Vigencia:</td><td>60 días</td></tr>
+        <tr><td>Folio:</td><td>COT-2026-002</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- PRESUPUESTO -->
+  <div style="padding: 20px 40px 0;">
+    <h2 style="font-size: 16px; font-weight: 700; display: inline-block; border-bottom: 2px solid #111; padding-bottom: 4px;">Presupuesto</h2>
+  </div>
+
+  <div class="section-wrapper">
+    <table class="quote-table">
+      <thead>
+        <tr>
+          <th style="width:28px;">#</th>
+          <th>Concepto</th>
+          <th style="text-align:right;">Importe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td class="concept">
+            <h3>Catálogo digital de servicios de calibración</h3>
+            <p>Diseño y desarrollo del catálogo completo desde cero, con 160+ servicios. Cada instrumento que IME calibra tiene su propia página, con imagen y toda la información relevante. Y si en el futuro agregan servicios, el catálogo se actualiza sin complicaciones.</p>
+          </td>
+          <td class="amount">$12,000.00</td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td class="concept">
+            <h3>Filtros avanzados y búsqueda</h3>
+            <p>El catálogo incluye filtros que ayudan a los visitantes a encontrar rápidamente el servicio que buscan, sin tener que revisar toda la lista. Funciona en cualquier dispositivo.</p>
+          </td>
+          <td class="amount">$3,000.00</td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td class="concept">
+            <h3>Posicionamiento en Google (SEO del catálogo)</h3>
+            <p>Cada servicio se configura para aparecer en búsquedas específicas, como "calibración de manómetros en Tlaxcala". Cuantos más servicios tenga el catálogo, más oportunidades tiene IME de aparecer cuando alguien busca exactamente lo que ofrecen.</p>
+          </td>
+          <td class="amount">$2,000.00</td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td class="concept">
+            <h3>Imágenes profesionales para el catálogo</h3>
+            <p>Más de 150 imágenes generadas con la mejor calidad disponible, con el estilo limpio y profesional que merece un catálogo de calibración industrial. Cada imagen representa fielmente el instrumento correspondiente.</p>
+          </td>
+          <td class="amount">$1,000.00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- TOTALS -->
+    <div class="totals">
+      <table>
+        <tr>
+          <td>Subtotal</td>
+          <td>$18,000.00</td>
+        </tr>
+        <tr>
+          <td>IVA (16%)</td>
+          <td>$2,880.00</td>
+        </tr>
+        <tr class="total-row">
+          <td>Total</td>
+          <td>$20,880.00 MXN</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- SAVINGS BADGE -->
+  <div class="savings-badge">
+    <span class="icon">$</span>
+    <span><strong>Sin costos recurrentes:</strong> El catálogo no tiene costo de hosting, ni suscripciones, ni licencias. Una vez publicado, funciona solo. Cualquier actualización futura tiene un costo mínimo por solicitud.</span>
+  </div>
+
+  <!-- BAJO DEMANDA -->
+  <div class="bajo-demanda">
+    <table class="quote-table">
+      <thead>
+        <tr>
+          <th style="width:28px;">#</th>
+          <th>
+            <div class="badge-cell">
+              <span>Concepto</span>
+              <span style="background:#e8e8e8;color:#444;font-size:9px;letter-spacing:1px;padding:3px 8px;border-radius:3px;font-weight:600;">BAJO DEMANDA</span>
+            </div>
+          </th>
+          <th style="text-align:right;">Importe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">6</td>
+          <td class="concept">
+            <h3>Actualización del catálogo</h3>
+            <p>Agregar nuevos servicios, actualizar información existente o cambiar imágenes. Cosas sencillas como corregir un teléfono o un texto breve, sin costo. <em>Nuevas secciones o funcionalidades se cotizan por separado.</em></p>
+          </td>
+          <td class="amount" style="white-space:nowrap;">$500.00 + IVA<br><span style="font-weight:400;font-size:11px;color:#888;">por solicitud</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CONDITIONS -->
+  <div class="conditions">
+    <h4>Condiciones</h4>
+    <ul>
+      <li>50% de anticipo para iniciar el proyecto, 50% contra entrega del catálogo en producción</li>
+      <li>Se incluyen hasta 2 rondas de revisión sobre el catálogo</li>
+      <li>La lista completa de servicios de calibración debe ser entregada por IME antes de iniciar</li>
+      <li>Las fotografías pueden ser proporcionadas por IME o generadas digitalmente (incluido en el costo)</li>
+    </ul>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div>
+      Ignacio Jacobo Molina Miranda<br>
+      RFC: MOMI0005036BA · Tel: 246 216 8367<br>
+      najajacobomolina@gmail.com
+    </div>
+    <div class="signature-line">Firma de aceptación</div>
+  </div>
+
+</div><!-- /page 1 -->
+
+
+<!-- ═══════════════ PAGE 2 ═══════════════ -->
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="page2-header">
+    <div>
+      <h2>¿Qué obtienen con el catálogo completo?</h2>
+      <p>Todo lo que incluye este proyecto</p>
+    </div>
+    <div class="folio">
+      COT-2026-002<br>
+      25 de marzo de 2026
+    </div>
+  </div>
+
+  <!-- BENEFITS GRID -->
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <h4>Un catálogo que los posiciona</h4>
+      <p>Cada servicio tiene su propia página optimizada para Google. Sus clientes llegan directamente a lo que buscan, sin pasar por la competencia.</p>
+    </div>
+    <div class="benefit-card">
+      <h4>Fácil de actualizar</h4>
+      <p>¿IME suma nuevos servicios de calibración? Se agregan al catálogo sin complicaciones, sin depender de nadie más, y sin pagar una nueva versión del sitio.</p>
+    </div>
+    <div class="benefit-card">
+      <h4>Filtros que facilitan la búsqueda</h4>
+      <p>Con 160+ servicios, los filtros son esenciales. Sus clientes llegan al instrumento que necesitan en segundos, sin revisar toda la lista.</p>
+    </div>
+    <div class="benefit-card">
+      <h4>Siempre disponible, sin fallas</h4>
+      <p>El catálogo funciona con disponibilidad del 99.9%, sin costos de servidor ni mantenimiento mensual.</p>
+    </div>
+    <div class="benefit-card">
+      <h4>El catálogo es 100% suyo</h4>
+      <p>Reciben el código completo. Sin suscripciones, sin licencias, sin depender de ninguna plataforma. Si en el futuro quieren que otro desarrollador lo modifique, pueden hacerlo sin restricciones.</p>
+    </div>
+    <div class="benefit-card">
+      <h4>Imágenes profesionales incluidas</h4>
+      <p>Más de 150 imágenes generadas y optimizadas para el catálogo. Cada una representa fielmente el instrumento, con el estilo visual que merece una empresa de calibración certificada.</p>
+    </div>
+  </div>
+
+  <!-- ADICIONAL -->
+  <div class="info-section">
+    <h3>Alcance del catálogo</h3>
+    <p>El objetivo es que IME tenga el catálogo de servicios de calibración más completo y profesional de su segmento. No solo en diseño — sino en estructura, velocidad, y la forma en que aparece ante un cliente potencial. Cada servicio bien presentado, con imagen, información clara y posicionamiento en Google, es una oportunidad de venta que hoy no existe. Este catálogo cambia eso.</p>
+
+    <h3 style="margin-top:16px;">Lo que necesitamos de su parte</h3>
+    <ul>
+      <li>Lista completa de los servicios de calibración que ofrece IME</li>
+      <li>Textos e información para las páginas del sitio: historia de la empresa, descripción de servicios, datos de contacto, y cualquier mensaje que quieran comunicar a sus clientes</li>
+      <li>Fotografías de los instrumentos, o confirmación para generarlas digitalmente</li>
+      <li>Confirmación de cómo desean organizar y clasificar sus servicios en el catálogo</li>
+    </ul>
+
+    <div class="highlight-box" style="margin-top:16px;">
+      Con el sitio listo, IME tiene presencia en línea. Con este catálogo, tiene una herramienta de ventas activa. Un cliente que busca "laboratorio de calibración en Tlaxcala" va a encontrarlos, ver exactamente qué calibran, y contactarlos — sin tener que hacer una llamada para preguntar si tienen el servicio.
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer" style="margin-top:auto;">
+    <div>
+      Ignacio Jacobo Molina Miranda · RFC: MOMI0005036BA<br>
+      Tel: 246 216 8367 · najajacobomolina@gmail.com
+    </div>
+    <div style="font-size:11px;color:#bbb;">Página 2 de 2</div>
+  </div>
+
+</div><!-- /page 2 -->
+
+</body>
+</html>

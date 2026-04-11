@@ -1,0 +1,135 @@
+---
+/**
+ * PageHeader — header compacto reutilizable para páginas internas.
+ * Misma estructura visual que srv-page-header de Servicios.
+ * Media: video (por defecto) o imagen estática vía prop `image`.
+ */
+interface Props {
+  /** aria-label para el <section> */
+  label?: string;
+  /** Migas de pan: todos menos el último llevan href */
+  breadcrumb: Array<{ label: string; href?: string }>;
+  /** Título principal (texto plano) */
+  title: string;
+  /** Fragmento de título en color dorado, se muestra inline después del title */
+  titleAccent?: string;
+  /** Subtítulo descriptivo */
+  subtitle?: string;
+  /** Chips de navegación ancla a secciones de la misma página */
+  anchors?: Array<{ label: string; href: string }>;
+  /** Ruta al video de fondo (.mp4) */
+  video?: string;
+  /** Poster para el video */
+  poster?: string;
+  /** Ruta a imagen de fondo (alternativa al video) */
+  image?: string;
+  /** Alt text cuando se usa imagen */
+  imageAlt?: string;
+  /** Override del object-position del media (por defecto "center 30%") */
+  mediaPosition?: string;
+  /**
+   * Modo de encuadre del media:
+   *   - "cover"   (default): clásico object-fit cover sobre todo el hero.
+   *   - "contain": muestra el video más grande, posicionado a la derecha,
+   *                con una capa de fondo borrosa del mismo video rellenando
+   *                los lados para que no se vean cortes.
+   */
+  mediaFit?: 'cover' | 'contain';
+}
+
+const {
+  label,
+  breadcrumb,
+  title,
+  titleAccent,
+  subtitle,
+  anchors,
+  video,
+  poster,
+  image,
+  imageAlt = '',
+  mediaPosition,
+  mediaFit,
+} = Astro.props;
+
+const isFocusMode = mediaFit === 'contain';
+
+// En modo focus el object-fit lo controla el CSS del modificador,
+// así que sólo pasamos object-position inline si viene del consumidor.
+const mediaStyleParts = [];
+if (mediaPosition)            mediaStyleParts.push(`object-position: ${mediaPosition}`);
+if (mediaFit && !isFocusMode) mediaStyleParts.push(`object-fit: ${mediaFit}`);
+const mediaStyle = mediaStyleParts.length ? mediaStyleParts.join('; ') + ';' : undefined;
+
+const mainMediaClass = `srv-page-header__video${isFocusMode ? ' srv-page-header__video--focus' : ''}`;
+---
+
+<section class="srv-page-header" aria-label={label}>
+
+  <div class="srv-page-header__bg" aria-hidden="true">
+
+    {/* Capa borrosa de fondo — solo en modo focus */}
+    {isFocusMode && (video || image) && (
+      <div class="srv-page-header__bg-blur" aria-hidden="true">
+        {video
+          ? <video autoplay muted loop playsinline poster={poster}>
+              <source src={video} type="video/mp4" />
+            </video>
+          : <img src={image} alt="" />
+        }
+      </div>
+    )}
+
+    {/* Capa principal nítida */}
+    {video
+      ? <video
+          class={mainMediaClass}
+          autoplay muted loop playsinline
+          poster={poster}
+          style={mediaStyle}
+        >
+          <source src={video} type="video/mp4" />
+        </video>
+      : image
+        ? <img class={mainMediaClass} src={image} alt={imageAlt} style={mediaStyle} />
+        : null
+    }
+
+    <div class="srv-page-header__overlay"></div>
+  </div>
+
+  <div class="container">
+    <div class="srv-page-header__content">
+
+      <nav class="srv-page-header__breadcrumb" aria-label="Ruta de navegación">
+        {breadcrumb.map((item, i) => (
+          i < breadcrumb.length - 1
+            ? <>
+                <a href={item.href}>{item.label}</a>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L9.19 8 6.22 5.03a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/>
+                </svg>
+              </>
+            : <span aria-current="page">{item.label}</span>
+        ))}
+      </nav>
+
+      <h1 class="srv-page-header__title">
+        {title}{titleAccent && <> <span class="srv-page-header__title-accent">{titleAccent}</span></>}
+      </h1>
+
+      {subtitle && (
+        <p class="srv-page-header__subtitle">{subtitle}</p>
+      )}
+
+      {anchors && anchors.length > 0 && (
+        <nav class="srv-page-header__anchors" aria-label="Ir a sección">
+          {anchors.map(a => <a href={a.href}>{a.label}</a>)}
+        </nav>
+      )}
+
+    </div>
+  </div>
+
+</section>
+<div class="srv-accent-band" aria-hidden="true"></div>

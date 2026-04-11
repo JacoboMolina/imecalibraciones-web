@@ -243,10 +243,14 @@ function initHeroCarousel() {
     hero.addEventListener('mouseenter', () => {
       paused = true;
       if (timer) clearTimeout(timer);
+      // Pausar la animación CSS de la barra actual para que no llegue al final sin avanzar
+      if (fills[current]) fills[current].style.animationPlayState = 'paused';
     });
     hero.addEventListener('mouseleave', () => {
       paused = false;
       if (timer) clearTimeout(timer);
+      // Reiniciar la barra actual desde cero y sincronizar con el nuevo timer
+      updateBars(current);
       timer = setTimeout(() => goTo(current + 1), DURATION);
     });
 

@@ -1,6 +1,48 @@
 ---
 import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { Image } from 'astro:assets';
+import slide1 from '../../assets/images/hero/slide-1.png';
+import slide2 from '../../assets/images/hero/slide-2.png';
+import slide3 from '../../assets/images/hero/slide-3.png';
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// 32 Magnitudes con íconos SVG específicos para cada una.
+// Estilo: outline stroke-width 1.75, viewBox 24, currentColor.
+const magnitudes = [
+  { name: 'Eléctrica',                 svg: '<path d="M13 2 L4 14 h7 l-1 8 10-14 h-7 l1-6 z"/>' },
+  { name: 'Presión',                   svg: '<path d="M3 17a9 9 0 1 1 18 0"/><path d="M12 17l5-4"/><circle cx="12" cy="17" r="1.3"/><path d="M6 17h1M17 17h1M12 11v1"/>' },
+  { name: 'Temperatura termodinámica', svg: '<path d="M10 4a2 2 0 1 1 4 0v10.5a4 4 0 1 1-4 0V4z"/><path d="M12 8v8"/><circle cx="12" cy="18" r="1.4" fill="currentColor"/>' },
+  { name: '%H.R.',                     svg: '<path d="M12 3C8 9 6 13 6 16a6 6 0 0 0 12 0c0-3-2-7-6-13z"/><circle cx="10.5" cy="14.5" r="1"/><circle cx="14" cy="18" r="1"/><path d="M15 13.5l-5 5.5"/>' },
+  { name: 'Óptica',                    svg: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>' },
+  { name: 'Turbidez',                  svg: '<path d="M7 3h10l-1 17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2L7 3z"/><path d="M7.5 9h9"/><circle cx="10" cy="13" r=".8"/><circle cx="14" cy="16" r=".8"/><circle cx="12" cy="11" r=".6"/><circle cx="13" cy="19" r=".5"/>' },
+  { name: 'Tiempo',                    svg: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2.5"/>' },
+  { name: 'Acústica',                  svg: '<path d="M3 9v6h4l5 4V5L7 9H3z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/>' },
+  { name: 'Masa',                      svg: '<path d="M12 4v17"/><path d="M6 21h12"/><path d="M6 8h12"/><circle cx="12" cy="5.5" r="1.2"/><path d="M6 8l-3 6a3 3 0 0 0 6 0L6 8z"/><path d="M18 8l-3 6a3 3 0 0 0 6 0l-3-6z"/>' },
+  { name: 'Fuerza',                    svg: '<rect x="13" y="6" width="8" height="12" rx="1"/><path d="M2 12h10"/><path d="M8 8l4 4-4 4"/>' },
+  { name: 'Tensión',                   svg: '<path d="M3 4v16M21 4v16"/><path d="M3 12l3-3 2 6 2-6 2 6 2-6 2 6 2-6 3 3"/>' },
+  { name: 'Velocidad del aire',        svg: '<path d="M3 8h11a2 2 0 1 0-2-2"/><path d="M3 14h16a2 2 0 1 1-2 2"/><path d="M3 20h8a1.5 1.5 0 1 0-1.5-1.5"/>' },
+  { name: 'Velocidad Lineal',          svg: '<path d="M3 16a9 9 0 1 1 18 0"/><path d="M12 16l5-5"/><circle cx="12" cy="16" r="1.4"/><path d="M6 16h1M17 16h1"/>' },
+  { name: 'Tensión Superficial',       svg: '<path d="M12 4C9 8 7 11 7 14a5 5 0 0 0 10 0c0-3-2-6-5-10z"/><path d="M3 20h18"/><path d="M5 20l-1 2M9 20l-1 2M13 20l-1 2M17 20l-1 2M21 20l-1 2"/>' },
+  { name: 'Torque',                    svg: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>' },
+  { name: 'Dureza',                    svg: '<path d="M6 3h12l3 5-9 13-9-13z"/><path d="M3 8h18"/><path d="M9 3l3 5 3-5"/><path d="M9 8l3 13M15 8l-3 13"/>' },
+  { name: 'Volumen',                   svg: '<path d="M12 3l9 5v8l-9 5-9-5V8z"/><path d="M12 13l9-5M12 13L3 8M12 13v8"/>' },
+  { name: 'Densidad',                  svg: '<rect x="4" y="4" width="16" height="16" rx="1"/><circle cx="9" cy="9" r="1" fill="currentColor"/><circle cx="15" cy="9" r="1" fill="currentColor"/><circle cx="9" cy="15" r="1" fill="currentColor"/><circle cx="15" cy="15" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/>' },
+  { name: 'Concentración de Alcohol',  svg: '<path d="M9 3h6"/><path d="M10 3v5L5 19a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3L14 8V3"/><circle cx="10" cy="16" r=".8"/><circle cx="14" cy="14" r=".6"/><circle cx="12" cy="19" r=".6"/>' },
+  { name: 'Vibración',                 svg: '<rect x="7" y="9" width="10" height="6" rx="1"/><path d="M3 8l1-1M3 12h2M3 17l1 1"/><path d="M21 8l-1-1M21 12h-2M21 17l-1 1"/>' },
+  { name: 'Flujo',                     svg: '<path d="M3 8h18M3 16h18"/><path d="M7 12h10"/><path d="M14 9l3 3-3 3"/>' },
+  { name: 'Viscosidad',                svg: '<path d="M7 3h10"/><path d="M8 3c0 4-3 6-3 9a7 7 0 0 0 14 0c0-3-3-5-3-9"/><path d="M12 13v6"/><circle cx="12" cy="20" r="1" fill="currentColor"/>' },
+  { name: 'pH',                        svg: '<path d="M9 3v12a3 3 0 0 0 6 0V3"/><path d="M7.5 3h9"/><path d="M9 9h6"/><circle cx="11" cy="13" r=".6" fill="currentColor"/><circle cx="13" cy="11" r=".6" fill="currentColor"/>' },
+  { name: 'Conductividad',             svg: '<path d="M9 3v4M15 3v4"/><path d="M7 7h10v4a5 5 0 0 1-5 5v5"/>' },
+  { name: 'Cloro',                     svg: '<circle cx="12" cy="12" r="2.2"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/>' },
+  { name: 'Oxígeno Disuelto',          svg: '<path d="M3 21h18"/><circle cx="8" cy="17" r="2"/><circle cx="14" cy="13" r="1.5"/><circle cx="10" cy="8" r="1"/><circle cx="16" cy="5" r=".7"/>' },
+  { name: 'Dimensional',               svg: '<rect x="2" y="9" width="20" height="6" rx="1"/><path d="M6 9v3M10 9v3M14 9v3M18 9v3M4 9v2M8 9v2M12 9v2M16 9v2M20 9v2"/>' },
+  { name: 'Mediciones especiales',     svg: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><path d="M6 6l2.5 2.5M15.5 15.5L18 18M6 18l2.5-2.5M15.5 8.5L18 6"/><circle cx="12" cy="12" r="3"/>' },
+  { name: '%Humedad',                  svg: '<path d="M7 15a4 4 0 0 1 0-8 5 5 0 0 1 10 0 3 3 0 0 1 0 6"/><path d="M12 15c-1.3 2.2-2 3.3-2 4.3a2 2 0 0 0 4 0c0-1-.7-2.1-2-4.3z"/>' },
+  { name: 'Frecuencia',                svg: '<path d="M2 12c2-6 4-6 6 0s4 6 6 0 4-6 6 0"/><path d="M3 20v1M21 20v1M12 20v1"/>' },
+  { name: 'Coeficiente de Fricción',   svg: '<rect x="5" y="7" width="12" height="6" rx="1"/><path d="M3 15h18"/><path d="M6 18l-1 2M10 18l-1 2M14 18l-1 2M18 18l-1 2"/><path d="M17 10h5M20 8l2 2-2 2"/>' },
+  { name: 'Ondas de Radio',            svg: '<path d="M8 21l4-15 4 15"/><path d="M10 15h4"/><path d="M5 10a10 10 0 0 1 14 0"/><path d="M3 7a14 14 0 0 1 18 0"/>' },
+];
 ---
 
 <Base
@@ -24,374 +66,294 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <main>
 
-    <!-- ══ HERO DE PÁGINA ══ -->
-    <section class="page-hero">
-      <div class="container">
-        <nav class="breadcrumb" aria-label="Ruta de navegación">
-          <ol>
-            <li><a href={`${b}/`}>Inicio</a></li>
-            <li aria-current="page">Servicios</li>
-          </ol>
-        </nav>
-        <h1>Servicios de Calibración</h1>
-        <p class="page-hero__subtitle">
-          Laboratorio acreditado EMA bajo ISO/IEC 17025. Calibramos 32 magnitudes físicas con
-          trazabilidad al CENAM y NIST — en nuestras instalaciones o directamente en su planta.
-        </p>
-      </div>
-    </section>
+    <!-- ══ SECCIÓN 1: PAGE HEADER COMPACTO ══ -->
+    <PageHeader
+      label="Servicio de calibración y venta de suministros IME"
+      breadcrumb={[{ label: 'Inicio', href: `${b}/` }, { label: 'Servicios' }]}
+      title="Servicio de Calibración"
+      titleAccent="& Venta de Suministros"
+      subtitle="Modalidades de servicio, 32 magnitudes y el respaldo técnico detrás de cada certificado."
+      anchors={[
+        { label: 'Modalidades',      href: '#modalidades' },
+        { label: 'Magnitudes',       href: '#magnitudes'  },
+        { label: 'Respaldo Técnico', href: '#respaldo'   },
+      ]}
+      video={`${b}/assets/video/hero-servicios.mp4`}
+      poster={`${b}/assets/images/hero/hero-poster.png`}
+      mediaFit="contain"
+    />
 
-    <!-- ══ MODALIDADES DE SERVICIO ══ -->
-    <section class="section">
+    <!-- ══ SECCIÓN 2: MODALIDADES ══ -->
+    <section id="modalidades" class="section srv-modalidades" aria-labelledby="modalidades-heading">
       <div class="container">
 
         <header class="section__header text-center">
           <p class="section__eyebrow">Cómo trabajamos</p>
-          <h2 class="section-title">Dos modalidades de servicio</h2>
-          <p class="section__subtitle text-muted">
-            Adaptamos nuestra operación a sus procesos para minimizar tiempos de paro.
-          </p>
+          <h2 class="section-title" id="modalidades-heading">Dos modalidades de servicio</h2>
+          <p class="section__subtitle text-muted">Adaptamos el servicio para minimizar tiempos de paro.</p>
         </header>
 
-        <div class="modalidades-grid">
+        <div class="srv-modalidades__grid">
 
-          <div class="modalidad-card animate-on-scroll">
-            <div class="modalidad-card__header">
-              <div class="modalidad-card__icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                  <path fill-rule="evenodd" d="M3 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5H15v-18a.75.75 0 000-1.5H3zM6.75 19.5v-2.25a.75.75 0 01.75-.75h3a.75.75 0 01.75.75v2.25a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75zM6 6.75A.75.75 0 016.75 6h.75a.75.75 0 010 1.5h-.75A.75.75 0 016 6.75zM6.75 9h.75a.75.75 0 010 1.5h-.75a.75.75 0 010-1.5zM6 12.75a.75.75 0 01.75-.75h.75a.75.75 0 010 1.5h-.75a.75.75 0 01-.75-.75zM10.5 6a.75.75 0 000 1.5h.75a.75.75 0 000-1.5h-.75zm-.75 3.75A.75.75 0 0110.5 9h.75a.75.75 0 010 1.5h-.75a.75.75 0 01-.75-.75zM10.5 12a.75.75 0 000 1.5h.75a.75.75 0 000-1.5h-.75zM16.5 6.75v15h5.25a.75.75 0 000-1.5H21v-12a.75.75 0 00-.75-.75h-3.75zm1.5 4.5a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.008a.75.75 0 01-.75-.75v-.008zm.75 2.25a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75v-.008a.75.75 0 00-.75-.75h-.008zM18 17.25a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.008a.75.75 0 01-.75-.75v-.008z" clip-rule="evenodd"/>
+          <!-- Card: En el Laboratorio -->
+          <article class="srv-modalidad animate-on-scroll">
+            <div class="srv-modalidad__img-wrap">
+              <Image
+                src={slide1}
+                alt="Interior del laboratorio IME — instalaciones especializadas de calibración"
+                widths={[480,800,1200]}
+                sizes="(max-width:768px) 100vw, 50vw"
+                loading="lazy"
+                format="webp"
+                quality={75}
+              />
+              <div class="srv-modalidad__img-overlay" aria-hidden="true"></div>
+              <div class="srv-modalidad__tag srv-modalidad__tag--blue">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M3 2.25a.75.75 0 000 1.5v16.5h-.75a.75.75 0 000 1.5H15v-18a.75.75 0 000-1.5H3zM6.75 19.5v-2.25a.75.75 0 01.75-.75h3a.75.75 0 01.75.75v2.25a.75.75 0 01-.75.75h-3a.75.75 0 01-.75-.75zM6 6.75A.75.75 0 016.75 6h.75a.75.75 0 010 1.5h-.75A.75.75 0 016 6.75zM6.75 9h.75a.75.75 0 010 1.5h-.75a.75.75 0 010-1.5zM6 12.75a.75.75 0 01.75-.75h.75a.75.75 0 010 1.5h-.75a.75.75 0 01-.75-.75zM10.5 6a.75.75 0 000 1.5h.75a.75.75 0 000-1.5h-.75zm-.75 3.75A.75.75 0 0110.5 9h.75a.75.75 0 010 1.5h-.75a.75.75 0 01-.75-.75zM10.5 12a.75.75 0 000 1.5h.75a.75.75 0 000-1.5h-.75z" clip-rule="evenodd"/>
                 </svg>
+                En el Laboratorio
               </div>
-              <h3 class="modalidad-card__title">En laboratorio</h3>
             </div>
-            <p class="modalidad-card__body">
-              Sus instrumentos llegan a nuestras instalaciones en Tlaxcala. Contamos con áreas controladas de temperatura y humedad, equipos de referencia trazables y personal certificado.
-            </p>
-            <ul class="modalidad-card__lista">
-              <li>Entrega y recolección coordinada</li>
-              <li>Embalaje y manejo especializado</li>
-              <li>Acuse de recibo y seguimiento en línea</li>
-              <li>Entrega de certificado digital y físico</li>
-            </ul>
-          </div>
+            <div class="srv-modalidad__body">
+              <h3 class="srv-modalidad__title">Calibración en Nuestras Instalaciones</h3>
+              <p class="srv-modalidad__intro">
+                La opción ideal para un entorno controlado y personal especializado.
+              </p>
+              <ul class="srv-modalidad__list" role="list">
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                  <div>
+                    <strong>1,814 m² de instalaciones</strong>
+                    <span>Laboratorios especializados con espacios controlados para cada calibración</span>
+                  </div>
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                  <div>
+                    <strong>Asesores especializados</strong>
+                    <span>Seguimiento a tu servicio en cada etapa de la calibración</span>
+                  </div>
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                  <div>
+                    <strong>Condiciones controladas</strong>
+                    <span>Entorno diseñado para obtener resultados más exactos</span>
+                  </div>
+                </li>
+              </ul>
+              <a href={`${b}/contacto/`} class="btn btn-primary">Solicitar servicio en laboratorio</a>
+            </div>
+          </article>
 
-          <div class="modalidad-card animate-on-scroll">
-            <div class="modalidad-card__header">
-              <div class="modalidad-card__icon modalidad-card__icon--gold" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <!-- Card: En Sitio -->
+          <article class="srv-modalidad animate-on-scroll">
+            <div class="srv-modalidad__img-wrap">
+              <Image
+                src={slide3}
+                alt="Técnico IME calibrando equipo directamente en instalaciones del cliente"
+                widths={[480,800,1200]}
+                sizes="(max-width:768px) 100vw, 50vw"
+                loading="lazy"
+                format="webp"
+                quality={75}
+              />
+              <div class="srv-modalidad__img-overlay" aria-hidden="true"></div>
+              <div class="srv-modalidad__tag srv-modalidad__tag--gold">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M3.375 4.5C2.339 4.5 1.5 5.34 1.5 6.375V13.5h12V6.375c0-1.036-.84-1.875-1.875-1.875h-8.25zM13.5 15h-12v2.625c0 1.035.84 1.875 1.875 1.875h.375a3 3 0 116 0h3a.75.75 0 00.75-.75V15z"/>
                   <path d="M8.25 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0zM15.75 6.75a.75.75 0 00-.75.75v11.25c0 .087.015.17.042.248a3 3 0 015.958.464c.853-.175 1.522-.935 1.464-1.883a18.659 18.659 0 00-3.732-10.104 1.837 1.837 0 00-1.47-.725H15.75z"/>
                   <path d="M19.5 19.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0z"/>
                 </svg>
+                Calibración en Sitio
               </div>
-              <h3 class="modalidad-card__title">En campo (on-site)</h3>
             </div>
-            <p class="modalidad-card__body">
-              Nuestros ingenieros se desplazan a su planta con equipos de referencia portátiles. Ideal para instrumentos de gran tamaño, instalados en línea o que no pueden salir de producción.
-            </p>
-            <ul class="modalidad-card__lista">
-              <li>Cobertura en toda la República Mexicana</li>
-              <li>Equipos de referencia portátiles certificados</li>
-              <li>Calibración sin interrumpir su producción</li>
-              <li>Certificado emitido en el mismo día</li>
-            </ul>
-          </div>
+            <div class="srv-modalidad__body">
+              <h3 class="srv-modalidad__title">Calibración en sus Instalaciones</h3>
+              <p class="srv-modalidad__intro">
+                Ideal cuando necesitas continuidad operativa, rapidez y trabajar directamente en condiciones reales.
+              </p>
+              <ul class="srv-modalidad__list" role="list">
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                  <div>
+                    <strong>Evaluación en condiciones reales</strong>
+                    <span>El equipo se evalúa en el entorno donde realmente opera, considerando variables reales del proceso</span>
+                  </div>
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                  <div>
+                    <strong>Equipos difíciles de mover</strong>
+                    <span>Ideal para instrumentos sensibles, pesados o instalados directamente en línea</span>
+                  </div>
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                  <div>
+                    <strong>Protocolos de seguridad industrial</strong>
+                    <span>Personal certificado operando bajo normativas y estándares vigentes</span>
+                  </div>
+                </li>
+              </ul>
+              <a href={`${b}/contacto/`} class="btn btn-secondary">Solicitar servicio en sitio</a>
+            </div>
+          </article>
 
         </div>
       </div>
     </section>
 
-    <!-- ══ MAGNITUDES — 32 SERVICIOS ══ -->
-    <section class="section section--alt" id="magnitudes">
+    <!-- ══ SECCIÓN 3: 32 MAGNITUDES ══ -->
+    <section class="srv-mag section" id="magnitudes" aria-labelledby="mag-heading">
       <div class="container">
 
+        <!-- Header -->
         <header class="section__header text-center">
-          <p class="section__eyebrow">Nuestras capacidades</p>
+          <p class="section__eyebrow" id="mag-heading">Nuestras capacidades</p>
           <h2 class="section-title">32 Magnitudes de Calibración</h2>
           <p class="section__subtitle text-muted">
-            Cada magnitud enlaza al catálogo de instrumentos. Si no encuentra el suyo, contáctenos.
+            Un solo proveedor para todas tus necesidades de calibración. Si no encuentras tu instrumento, contáctanos.
           </p>
         </header>
 
-        <div class="cards-grid cards-grid--services">
+        <!-- Grid con íconos — cascada diagonal al entrar al viewport -->
+        <ol class="srv-mag__grid animate-on-scroll" aria-label="Lista de magnitudes calibradas">
+          {magnitudes.map((m, i) => (
+            <li class="srv-mag__card" style={`--i:${i}`}>
+              <div class="srv-mag__inner">
+                <div class="srv-mag__icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" set:html={m.svg} />
+                </div>
+                <span class="srv-mag__name">{m.name}</span>
+              </div>
+            </li>
+          ))}
+        </ol>
 
-          <a href={`${b}/catalogo/?magnitud=longitud`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M3 6a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6zm.75 3.75a.75.75 0 000 1.5h10.5a.75.75 0 000-1.5H3.75zm0 4.5a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Longitud / Dimensional</h3>
-            <p class="card__body">Micrómetros, verniers, bloques patrón, comparadores de carátula, altímetros.</p>
+        <div class="srv-mag__cta-wrap">
+          <a href={`${b}/catalogo/`} class="srv-mag__cta">
+            <span>Ver catálogo completo de instrumentos</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 10h12M11 5l5 5-5 5"/>
+            </svg>
           </a>
-
-          <a href={`${b}/catalogo/?magnitud=masa`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v.756a49.106 49.106 0 019.152 1 .75.75 0 01-.152 1.485h-1.918l2.474 10.124a.75.75 0 01-.375.84A6.723 6.723 0 0118.75 18a6.723 6.723 0 01-3.131-.745.75.75 0 01-.375-.84l2.474-10.124H12.75v13.28c1.293.076 2.534.343 3.697.776a.75.75 0 01-.262 1.453h-8.37a.75.75 0 01-.262-1.453c1.162-.433 2.404-.7 3.697-.775V6.291H8.332l2.474 10.124a.75.75 0 01-.375.84A6.723 6.723 0 015.25 18a6.723 6.723 0 01-3.131-.745.75.75 0 01-.375-.84L4.218 7.291H2.3a.75.75 0 01-.152-1.485 49.105 49.105 0 019.152-1V3a.75.75 0 01.75-.75z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Masa</h3>
-            <p class="card__body">Pesas patrón OIML, balanzas analíticas, básculas industriales y de plataforma.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=temperatura`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M15.75 14.25a3.75 3.75 0 11-7.313-1.172c.628.465 1.35.81 2.133 1a5.99 5.99 0 011.925-3.545 3.75 3.75 0 013.255 3.717z"/><path fill-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.648 6.61a.75.75 0 00-1.152-.082A9 9 0 1015.68 4.534a7.46 7.46 0 01-2.717-2.248z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Temperatura</h3>
-            <p class="card__body">Termómetros, RTDs, termopares, registradores de temperatura, hornos y baños térmicos.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=presion`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-.53 14.03a.75.75 0 001.06 0l3-3a.75.75 0 10-1.06-1.06l-1.72 1.72V8.25a.75.75 0 00-1.5 0v5.69l-1.72-1.72a.75.75 0 00-1.06 1.06l3 3z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Presión</h3>
-            <p class="card__body">Manómetros, transmisores, calibradores de presión, vacuómetros, diferenciales.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=fuerza`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Fuerza</h3>
-            <p class="card__body">Dinamómetros, celdas de carga, máquinas de prueba universal, pesos muertos.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=torque`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Torque / Par de apriete</h3>
-            <p class="card__body">Torquímetros, llaves de torque, destornilladores de torque, analizadores.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=electrico`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.818a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.845-.143z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Eléctrico</h3>
-            <p class="card__body">Multímetros, pinzas amperimétricas, fuentes, analizadores de potencia.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=volumen`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.25 4.533A9.707 9.707 0 006 3a9.735 9.735 0 00-3.25.555.75.75 0 00-.5.707v14.25a.75.75 0 001 .707A8.237 8.237 0 016 18.75c1.995 0 3.823.707 5.25 1.886V4.533zM12.75 20.636A8.214 8.214 0 0118 18.75c.966 0 1.89.166 2.75.47a.75.75 0 001-.708V4.262a.75.75 0 00-.5-.707A9.735 9.735 0 0018 3a9.707 9.707 0 00-5.25 1.533v16.103z"/></svg>
-            </div>
-            <h3 class="card__title">Volumen</h3>
-            <p class="card__body">Matraces, buretas, pipetas, material volumétrico de laboratorio.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=humedad`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.484 2.17a.75.75 0 011.032 0 11.209 11.209 0 007.877 3.08.75.75 0 01.722.515 12.74 12.74 0 01.635 3.985c0 5.942-4.064 10.933-9.563 12.348a.749.749 0 01-.374 0C6.314 20.683 2.25 15.692 2.25 9.75c0-1.39.223-2.73.635-3.985a.75.75 0 01.722-.516l.143.001c2.996 0 5.718-1.17 7.734-3.08z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Humedad</h3>
-            <p class="card__body">Higrómetros, termohigrómetros, cámaras climáticas, dataloggers.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=ph`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">pH y Conductividad</h3>
-            <p class="card__body">Potenciómetros, medidores de pH, conductivímetros, soluciones buffer.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=flujo`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm8.25 5.25a.75.75 0 01.75-.75h8.25a.75.75 0 010 1.5H12a.75.75 0 01-.75-.75z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Flujo / Caudal</h3>
-            <p class="card__body">Caudalímetros, rotámetros, medidores de flujo ultrasónicos, válvulas.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=velocidad`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.47 2.47a.75.75 0 011.06 0l6 6a.75.75 0 010 1.06l-6 6a.75.75 0 11-1.06-1.06l4.72-4.72H9a5.25 5.25 0 100 10.5h3a.75.75 0 010 1.5H9a6.75 6.75 0 010-13.5h10.19l-4.72-4.72a.75.75 0 010-1.06z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Velocidad / Tacometría</h3>
-            <p class="card__body">Tacómetros, estroboscopios, anemómetros, medidores de velocidad lineal.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=angulo`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Ángulo / Nivelación</h3>
-            <p class="card__body">Goniómetros, inclinómetros, niveles digitales, escuadras de referencia.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=dureza`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 117.5 0 3.75 3.75 0 01-7.5 0zM15.75 9.75a3 3 0 116 0 3 3 0 01-6 0zM2.25 9.75a3 3 0 116 0 3 3 0 01-6 0zM6.31 15.117A6.745 6.745 0 0112 12a6.745 6.745 0 016.709 7.498.75.75 0 01-.372.568A12.696 12.696 0 0112 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 01-.372-.568 6.787 6.787 0 011.019-4.38z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Dureza</h3>
-            <p class="card__body">Durómetros Rockwell, Vickers, Brinell, bloques de dureza de referencia.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=rugosidad`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>
-            </div>
-            <h3 class="card__title">Rugosidad superficial</h3>
-            <p class="card__body">Rugosímetros, perfilómetros, patrones de rugosidad de referencia.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=vibracion`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z" clip-rule="evenodd"/><path fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Vibración / Aceleración</h3>
-            <p class="card__body">Acelerómetros, vibrómetros, analizadores de vibración, calibradores de choque.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=sonido`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 .898.121 1.768.35 2.595.341 1.24 1.518 1.905 2.659 1.905h1.93l4.5 4.5c.945.945 2.561.276 2.561-1.06V4.06zM18.584 5.106a.75.75 0 011.06 0c3.808 3.807 3.808 9.98 0 13.788a.75.75 0 11-1.06-1.06 8.25 8.25 0 000-11.668.75.75 0 010-1.06z"/><path d="M15.932 7.757a.75.75 0 011.061 0 6 6 0 010 8.486.75.75 0 01-1.06-1.061 4.5 4.5 0 000-6.364.75.75 0 010-1.06z"/></svg>
-            </div>
-            <h3 class="card__title">Sonido / Nivel de ruido</h3>
-            <p class="card__body">Sonómetros, calibradores acústicos, analizadores de frecuencia.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=optica`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Óptica / Luminosidad</h3>
-            <p class="card__body">Luxómetros, fotómetros, refractómetros, espectrofotómetros.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=tiempo-frecuencia`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6a.75.75 0 00-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 000-1.5h-3.75V6z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Tiempo y Frecuencia</h3>
-            <p class="card__body">Cronómetros, temporizadores, generadores de frecuencia, contadores.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=viscosidad`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M11.484 2.17a.75.75 0 011.032 0 11.209 11.209 0 007.877 3.08.75.75 0 01.722.515 12.74 12.74 0 01.635 3.985c0 5.942-4.064 10.933-9.563 12.348a.749.749 0 01-.374 0C6.314 20.683 2.25 15.692 2.25 9.75c0-1.39.223-2.73.635-3.985a.75.75 0 01.722-.516l.143.001c2.996 0 5.718-1.17 7.734-3.08z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Viscosidad</h3>
-            <p class="card__body">Viscosímetros rotacionales y capilares, líquidos de referencia.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=densidad`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.25 4.533A9.707 9.707 0 006 3a9.735 9.735 0 00-3.25.555.75.75 0 00-.5.707v14.25a.75.75 0 001 .707A8.237 8.237 0 016 18.75c1.995 0 3.823.707 5.25 1.886V4.533zM12.75 20.636A8.214 8.214 0 0118 18.75c.966 0 1.89.166 2.75.47a.75.75 0 001-.708V4.262a.75.75 0 00-.5-.707A9.735 9.735 0 0018 3a9.707 9.707 0 00-5.25 1.533v16.103z"/></svg>
-            </div>
-            <h3 class="card__title">Densidad</h3>
-            <p class="card__body">Densímetros, areómetros, picnómetros, balanzas de densidad.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=concentracion`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Concentración</h3>
-            <p class="card__body">Refractómetros, espectrofotómetros UV-Vis, tituladores automáticos.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=potencia-energia`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 01.359.852L12.982 9.75h7.268a.75.75 0 01.548 1.262l-10.5 11.25a.75.75 0 01-1.272-.71l1.992-7.302H3.818a.75.75 0 01-.548-1.262l10.5-11.25a.75.75 0 01.845-.143z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Potencia y Energía</h3>
-            <p class="card__body">Vatímetros, analizadores de red, contadores de energía, clamps de potencia.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=radiacion`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v7.5a.75.75 0 01-1.5 0v-7.5a.75.75 0 01.75-.75zm-4.22 3.03a.75.75 0 010 1.061L5.22 10.4a.75.75 0 01-1.06-1.061l2.56-2.56a.75.75 0 011.06 0zm8.44 0a.75.75 0 011.06 0l2.56 2.56a.75.75 0 01-1.06 1.06l-2.56-2.56a.75.75 0 010-1.06zM12 16.5a4.5 4.5 0 100-9 4.5 4.5 0 000 9zm5.25-4.5a.75.75 0 01.75-.75h3a.75.75 0 010 1.5h-3a.75.75 0 01-.75-.75zm-13.5 0a.75.75 0 01.75-.75h3a.75.75 0 010 1.5h-3a.75.75 0 01-.75-.75z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Radiación</h3>
-            <p class="card__body">Dosímetros, detectores de radiación, medidores de UV, radiación solar.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=gases`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.315 7.584C12.195 3.883 16.695 1.5 21.75 1.5a.75.75 0 01.75.75c0 5.056-2.383 9.555-6.084 12.436A6.75 6.75 0 019.75 22.5a.75.75 0 01-.75-.75v-4.131A15.838 15.838 0 016.382 15H2.25a.75.75 0 01-.75-.75 6.75 6.75 0 017.815-6.666zM15 6.75a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">Gases / Analizadores</h3>
-            <p class="card__body">Detectores de gas, analizadores de combustión, medidores de O₂ y CO₂.</p>
-          </a>
-
-          <a href={`${b}/catalogo/?magnitud=dimensional-3d`} class="card card--service animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12.378 1.602a.75.75 0 00-.756 0L3 6.632l4.349 2.503A3.75 3.75 0 0112 6.75a3.75 3.75 0 014.651 2.385L21 6.632l-8.622-5.03zM21.75 7.93l-4.5 2.595v1.473a.75.75 0 01-1.5 0V11.08l-2.25 1.297v9.043l7.5-4.33V7.929zM11.25 21.42v-9.043L9 11.08v.918a.75.75 0 01-1.5 0V10.524L3 7.93v9.365l7.5 4.33a.75.75 0 00.75 0l.75-.433z"/></svg>
-            </div>
-            <h3 class="card__title">Metrología 3D</h3>
-            <p class="card__body">Máquinas de medición por coordenadas (MMC), brazos de medición, escáneres.</p>
-          </a>
-
-          <a href={`${b}/contacto/`} class="card card--service card--more animate-on-scroll">
-            <div class="card__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd"/></svg>
-            </div>
-            <h3 class="card__title">¿No encontró su magnitud?</h3>
-            <p class="card__body">Contáctenos. Calibramos 32 magnitudes y evaluamos casos especiales.</p>
-          </a>
-
-        </div>
-
-        <div class="section__cta text-center" style="margin-top: var(--space-12);">
-          <a href={`${b}/catalogo/`} class="btn btn-primary btn-lg">Ver catálogo completo de instrumentos</a>
         </div>
 
       </div>
     </section>
 
-    <!-- ══ NORMAS Y TRAZABILIDAD ══ -->
-    <section class="section">
+    <!-- ══ SECCIÓN 4: RESPALDO TÉCNICO ══ -->
+    <section id="respaldo" class="section section--alt srv-respaldo" aria-labelledby="respaldo-heading">
       <div class="container">
 
         <header class="section__header text-center">
-          <p class="section__eyebrow">Respaldo técnico</p>
-          <h2 class="section-title">Normas y Trazabilidad</h2>
+          <p class="section__eyebrow">Confianza y trazabilidad</p>
+          <h2 class="section-title" id="respaldo-heading">Respaldo Técnico Internacional</h2>
           <p class="section__subtitle text-muted">
-            Nuestros certificados son reconocidos por organismos de acreditación internacionales.
+            Nuestros Certificados son reconocidos por organismos acreditadores Nacionales e Internacionales.
           </p>
         </header>
 
-        <div class="content-columns">
-          <div class="content-col animate-on-scroll">
-            <h3>Marco normativo</h3>
-            <ul class="list--check">
-              <li>ISO/IEC 17025 — Requisitos para laboratorios de ensayo y calibración</li>
-              <li>Acreditación EMA (Entidad Mexicana de Acreditación)</li>
-              <li>ISO 9001:2015 — Compatible para auditorías de sistema de calidad</li>
-              <li>IATF 16949 — Aplica para industria automotriz</li>
-              <li>ISO 13485 — Aplica para dispositivos médicos</li>
-            </ul>
-          </div>
-          <div class="content-col animate-on-scroll">
-            <h3>Cadena de trazabilidad</h3>
-            <ul class="list--check">
-              <li>CENAM — Centro Nacional de Metrología (México)</li>
-              <li>NIST — National Institute of Standards and Technology (EUA)</li>
-              <li>PTB — Physikalisch-Technische Bundesanstalt (Alemania)</li>
-              <li>Laboratorios acreditados ILAC/MRA a nivel internacional</li>
-              <li>Patrones de laboratorio calibrados anualmente</li>
-            </ul>
-          </div>
-        </div>
+        <ul class="srv-respaldo__list" role="list">
 
-        <div class="normas-cta text-center" style="margin-top: var(--space-10);">
-          <a href={`${b}/acreditaciones/`} class="btn btn-secondary">Ver certificados de acreditación</a>
+          <li class="srv-respaldo__item animate-on-scroll">
+            <div class="srv-respaldo__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M3 12h18"/>
+                <path d="M12 3c2.5 2.5 4 5.5 4 9s-1.5 6.5-4 9"/>
+                <path d="M12 3c-2.5 2.5-4 5.5-4 9s1.5 6.5 4 9"/>
+              </svg>
+            </div>
+            <h3 class="srv-respaldo__title">ILAC/MRA</h3>
+            <p class="srv-respaldo__body">Acuerdo internacional que garantiza la aceptación global de nuestros certificados.</p>
+          </li>
+
+          <li class="srv-respaldo__item animate-on-scroll">
+            <div class="srv-respaldo__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="9" r="6"/>
+                <path d="M8 14l-2 7 6-3 6 3-2-7"/>
+                <path d="M9.5 9l2 2 3.5-3.5"/>
+              </svg>
+            </div>
+            <h3 class="srv-respaldo__title">ISO/IEC 17025</h3>
+            <p class="srv-respaldo__body">Norma internacional que certifica la competencia técnica del laboratorio.</p>
+          </li>
+
+          <li class="srv-respaldo__item animate-on-scroll">
+            <div class="srv-respaldo__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/>
+                <path d="M9 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <h3 class="srv-respaldo__title">EMA</h3>
+            <p class="srv-respaldo__body">Entidad Mexicana de Acreditación que avala nuestra competencia nacional.</p>
+          </li>
+
+          <li class="srv-respaldo__item animate-on-scroll">
+            <div class="srv-respaldo__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 21h18"/>
+                <path d="M5 21V9l7-5 7 5v12"/>
+                <path d="M9 21v-6h6v6"/>
+                <path d="M10 10h4"/>
+              </svg>
+            </div>
+            <h3 class="srv-respaldo__title">CENAM</h3>
+            <p class="srv-respaldo__body">Centro Nacional de Metrología, trazabilidad directa a patrones nacionales.</p>
+          </li>
+
+          <li class="srv-respaldo__item animate-on-scroll">
+            <div class="srv-respaldo__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="16" rx="2"/>
+                <path d="M3 10h18"/>
+                <path d="M8 3v4M16 3v4"/>
+                <path d="M9 14.5l2.5 2.5 4-5"/>
+              </svg>
+            </div>
+            <h3 class="srv-respaldo__title">Calibración anual</h3>
+            <p class="srv-respaldo__body">Nuestros patrones se calibran cada año para asegurar trazabilidad continua.</p>
+          </li>
+
+        </ul>
+
+        <div class="srv-mag__cta-wrap">
+          <a href={`${b}/acreditaciones/`} class="srv-mag__cta">
+            <span>Ver certificados de acreditación</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 10h12M11 5l5 5-5 5"/>
+            </svg>
+          </a>
         </div>
 
       </div>
     </section>
 
-    <!-- ══ CTA FINAL ══ -->
-    <section class="section section--cta">
-      <div class="container container--narrow text-center">
-        <h2>¿Listo para solicitar su calibración?</h2>
-        <p>Cuéntenos qué instrumentos necesita calibrar y le enviamos una cotización en 24 horas.</p>
-        <div class="cta-actions">
-          <a href={`${b}/contacto/`} class="btn btn-primary btn-lg">Solicitar cotización</a>
-          <a href="https://calibracionesime.com.mx" class="btn btn-outline-white btn-lg" target="_blank" rel="noopener noreferrer">
-            Portal de informes ↗
-          </a>
+    <!-- ══ SECCIÓN 5: CTA FINAL ══ -->
+    <section class="srv-cta-final" aria-labelledby="srv-cta-heading">
+      <div class="container">
+        <div class="srv-cta-final__inner">
+          <h2 class="srv-cta-final__title" id="srv-cta-heading">¿Listo para calibrar?</h2>
+          <p class="srv-cta-final__body">Cotización en 24 horas. Asesoría técnica sin costo.</p>
+          <div class="srv-cta-final__actions">
+            <a href={`${b}/contacto/`} class="srv-cta-final__btn srv-cta-final__btn--primary">
+              <span>Solicitar cotización</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 10h12M11 5l5 5-5 5"/>
+              </svg>
+            </a>
+            <a href={`${b}/catalogo/`} class="srv-cta-final__btn srv-cta-final__btn--ghost">
+              <span>Ver catálogo de calibraciones</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 10h12M11 5l5 5-5 5"/>
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>

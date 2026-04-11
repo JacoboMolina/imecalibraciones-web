@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -30,79 +31,33 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <main>
 
-    <!-- ===== HERO ===== -->
-    <section class="acred-hero">
-      <div class="container">
-        <nav class="breadcrumb acred-hero__breadcrumb" aria-label="Ruta de navegación">
-          <ol>
-            <li><a href={`${b}/`}>Inicio</a></li>
-            <li aria-current="page">Acreditaciones</li>
-          </ol>
-        </nav>
-
-        <div class="acred-hero__body">
-          <div class="acred-hero__text">
-            <p class="acred-hero__eyebrow">ISO/IEC 17025:2017</p>
-            <h1 class="acred-hero__title">La única doble acreditación en México</h1>
-            <p class="acred-hero__subtitle">
-              IME Calibraciones es el único laboratorio en México con acreditación simultánea ante
-              <strong>EMA</strong> y <strong>PJLA</strong>, garantizando validez nacional e internacional
-              en cada certificado emitido.
-            </p>
-          </div>
-
-          <div class="acred-hero__badges">
-            <div class="acred-hero__badge">
-              <div class="acred-hero__badge-seal">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
-              </div>
-              <div class="acred-hero__badge-info">
-                <strong>EMA</strong>
-                <span>Entidad Mexicana de Acreditación</span>
-                <span class="acred-hero__badge-scope">Alcance Nacional</span>
-              </div>
-            </div>
-
-            <div class="acred-hero__badge-divider" aria-hidden="true">+</div>
-
-            <div class="acred-hero__badge">
-              <div class="acred-hero__badge-seal acred-hero__badge-seal--pjla">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
-              </div>
-              <div class="acred-hero__badge-info">
-                <strong>PJLA · No. 54194</strong>
-                <span>Perry Johnson Laboratory Accreditation</span>
-                <span class="acred-hero__badge-scope">Alcance Internacional · ILAC/MRA</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- ===== PAGE HEADER COMPACTO ===== -->
+    <PageHeader
+      label="Acreditaciones IME Calibraciones"
+      breadcrumb={[{ label: 'Inicio', href: `${b}/` }, { label: 'Acreditaciones' }]}
+      title="Doble Acreditación"
+      titleAccent="Internacional"
+      subtitle="El único laboratorio en México con acreditación simultánea ante EMA y PJLA bajo ISO/IEC 17025. Validez nacional e internacional en cada certificado."
+      anchors={[
+        { label: 'Acreditación EMA',  href: '#panel-ema'  },
+        { label: 'Acreditación PJLA', href: '#panel-pjla' },
+      ]}
+      video={`${b}/assets/video/hero-acreditaciones.mp4`}
+      poster={`${b}/assets/images/hero/hero-poster.png`}
+      mediaFit="contain"
+    />
 
     <!-- ===== CERTIFICADOS ===== -->
     <section class="section acred-certs">
       <div class="container">
 
-        <!-- Tabs -->
-        <div class="acred-tabs" role="tablist" aria-label="Certificados de acreditación">
-          <button id="tab-ema" class="acred-tab acred-tab--active" role="tab" aria-selected="true" aria-controls="panel-ema" data-tab="ema">
-            <span class="acred-tab__dot acred-tab__dot--blue"></span>
-            Acreditación EMA
-          </button>
-          <button id="tab-pjla" class="acred-tab" role="tab" aria-selected="false" aria-controls="panel-pjla" data-tab="pjla">
-            <span class="acred-tab__dot acred-tab__dot--purple"></span>
-            Acreditación PJLA · No. 54194
-          </button>
-        </div>
-
         <div class="acred-grid">
 
           <!-- EMA -->
-          <div class="acred-card" id="panel-ema" role="tabpanel" aria-labelledby="tab-ema">
+          <div class="acred-card" id="panel-ema">
             <div class="acred-card__top">
               <div class="acred-card__seal">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                <img src={`${b}/assets/images/acreditaciones/logo-ema.png`} alt="EMA — Entidad Mexicana de Acreditación" loading="lazy" />
               </div>
               <div class="acred-card__heading">
                 <h2>Acreditación EMA</h2>
@@ -119,9 +74,27 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
               <span class="chip chip--gray">Alcance Nacional</span>
               <span class="chip chip--gray">Vigente</span>
             </div>
+            <div class="acred-cert-details">
+              <div class="acred-cert-details__codes">
+                <p class="acred-cert-details__label">Números de acreditación</p>
+                <div class="acred-cert-details__chips">
+                  <span class="chip chip--blue">H-79</span>
+                  <span class="chip chip--blue">M-245</span>
+                  <span class="chip chip--blue">ME-29</span>
+                  <span class="chip chip--blue">E-167</span>
+                  <span class="chip chip--blue">P-192</span>
+                  <span class="chip chip--blue">T-171</span>
+                  <span class="chip chip--blue">V-103</span>
+                </div>
+              </div>
+              <div class="acred-cert-details__why">
+                <h4>¿Por qué calibrar con un Laboratorio Acreditado ante EMA?</h4>
+                <p>Bajo la Ley de Infraestructura de la Calidad, se entiende que acreditación es el reconocimiento emitido por una Entidad de Acreditación por la cual se reconoce la competencia técnica y confiabilidad de las entidades para operar como Organismos de Evaluación de la Conformidad.</p>
+              </div>
+            </div>
             <div class="acred-card__viewer">
               <iframe
-                src={`${b}/assets/pdfs/acreditacion-ema.pdf`}
+                src={`${b}/assets/pdfs/acreditacion-ema.pdf#zoom=page-width&toolbar=0`}
                 title="Certificado EMA — IME Calibraciones"
                 loading="lazy">
                 <p>Tu navegador no puede mostrar PDFs. <a href={`${b}/assets/pdfs/acreditacion-ema.pdf`} download>Descarga el certificado aquí</a>.</p>
@@ -130,10 +103,10 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
           </div>
 
           <!-- PJLA -->
-          <div class="acred-card acred-card--pjla" id="panel-pjla" role="tabpanel" aria-labelledby="tab-pjla" hidden>
+          <div class="acred-card acred-card--pjla" id="panel-pjla">
             <div class="acred-card__top">
               <div class="acred-card__seal acred-card__seal--pjla">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.491 4.491 0 01-3.497-1.307 4.491 4.491 0 01-1.307-3.497A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd"/></svg>
+                <img src={`${b}/assets/images/acreditaciones/logo-pjla.jpg`} alt="PJLA — Perry Johnson Laboratory Accreditation" loading="lazy" />
               </div>
               <div class="acred-card__heading">
                 <h2>Acreditación PJLA</h2>
@@ -150,14 +123,27 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
               <span class="chip chip--gray">ILAC / MRA</span>
               <span class="chip chip--gray">+100 países</span>
             </div>
+            <div class="acred-cert-details acred-cert-details--pjla">
+              <div class="acred-cert-details__codes">
+                <p class="acred-cert-details__label">Número de acreditación</p>
+                <div class="acred-cert-details__chips">
+                  <span class="chip chip--purple">54194</span>
+                </div>
+              </div>
+              <div class="acred-cert-details__why">
+                <h4>¿Por qué calibrar con un Laboratorio Acreditado ante PJLA?</h4>
+                <p>IME proporciona servicios de calibración en 32 magnitudes acreditadas y equipos trazables ante el SI, bajo la norma ISO/IEC 17025:2017 y su equivalente en Norma Mexicana NMX-EC-17025-IMNC-2018.</p>
+              </div>
+            </div>
             <div class="acred-card__viewer">
               <iframe
-                src={`${b}/assets/pdfs/acreditacion-pjla.pdf`}
+                src={`${b}/assets/pdfs/acreditacion-pjla.pdf#zoom=page-width&toolbar=0`}
                 title="Certificado PJLA No. 54194 — IME Calibraciones"
                 loading="lazy">
                 <p>Tu navegador no puede mostrar PDFs. <a href={`${b}/assets/pdfs/acreditacion-pjla.pdf`} download>Descarga el certificado aquí</a>.</p>
               </iframe>
             </div>
+          </div>
           </div>
 
         </div>
@@ -214,12 +200,12 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
       </div>
     </section>
 
-    <!-- ===== BENEFICIOS ===== -->
+    <!-- ===== LO QUE TIENES QUE SABER ===== -->
     <section class="section">
       <div class="container">
         <header class="section__header text-center">
           <p class="section__eyebrow">Valor para su empresa</p>
-          <h2 class="section-title">¿Qué significa para usted?</h2>
+          <h2 class="section-title">Lo que tienes que saber</h2>
         </header>
         <div class="acred-benefits">
           <div class="acred-benefit">
@@ -257,16 +243,18 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     <!-- ===== CTA ===== -->
     <section class="section section--cta">
       <div class="container container--narrow text-center">
-        <h2>¿Necesita un certificado con validez oficial?</h2>
-        <p>Solicite su calibración acreditada y obtenga documentación reconocida por auditores, clientes y reguladores.</p>
+        <h2>Más que un servicio de calibración</h2>
+        <p>Ofrecemos respaldo para que tus mediciones sean confiables y tus procesos cumplan ante auditorías.</p>
         <div class="cta-actions">
-          <a href={`${b}/contacto/`} class="btn btn-primary">Solicitar calibración</a>
+          <a href={`${b}/contacto/`} class="btn btn-primary">Solicita tu calibración acreditada</a>
           <a href={`${b}/servicios/`} class="btn btn-secondary">Ver servicios</a>
         </div>
       </div>
     </section>
 
   </main>
+
+
 </Base>
 
 <style>
@@ -373,48 +361,16 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
   color: rgba(255,255,255,.3);
 }
 
-/* ── TABS ── */
-.acred-certs { padding-top: var(--space-10); }
-.acred-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: var(--space-5);
-  border-bottom: 1px solid var(--color-line);
-  padding-bottom: 0;
-}
-.acred-tab {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: none;
-  border: none;
-  padding: 10px 18px;
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-muted);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
-  transition: color .15s, border-color .15s;
-  font-family: inherit;
-}
-.acred-tab:hover { color: var(--color-ink); }
-.acred-tab--active { color: var(--color-ink); border-bottom-color: var(--color-primary); }
-.acred-tab__dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.acred-tab__dot--blue   { background: var(--color-primary); }
-.acred-tab__dot--purple { background: #7c3aed; }
-
 /* ── CERT CARDS ── */
+.acred-certs { padding-top: var(--space-10); }
 .acred-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-6);
+  gap: var(--space-8);
   align-items: start;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .acred-card {
@@ -436,14 +392,19 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
   flex-wrap: wrap;
 }
 .acred-card__seal {
-  width: 44px; height: 44px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #041a39, #063d73);
+  height: 48px;
+  width: auto;
+  min-width: 56px;
+  max-width: 110px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--color-line);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
+  padding: 5px 10px;
+  overflow: hidden;
 }
-.acred-card__seal--pjla { background: linear-gradient(135deg, #4c1d95, #7c3aed); }
-.acred-card__seal svg { width: 22px; height: 22px; color: #f0d060; }
+.acred-card__seal img { width: 100%; height: 100%; object-fit: contain; display: block; }
 
 .acred-card__heading { flex: 1; min-width: 0; }
 .acred-card__heading h2 {
@@ -499,9 +460,12 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 .chip--green  { background: #dcfce7; color: #15803d; }
 .chip--gray   { background: #f1f5f9; color: #475569; }
 
+.acred-card__viewer {
+  line-height: 0;
+}
 .acred-card__viewer iframe {
   width: 100%;
-  height: 540px;
+  height: 620px;
   border: none;
   display: block;
 }
@@ -592,6 +556,38 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
   margin: 0;
 }
 
+/* ── DETALLES DEBAJO DEL CARD ── */
+.acred-cert-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-line);
+  background: #fff;
+}
+.acred-cert-details__label {
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0 0 var(--space-2);
+}
+.acred-cert-details__chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.acred-cert-details__why h4 {
+  font-size: .9375rem;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-2);
+  line-height: 1.4;
+}
+.acred-cert-details__why p {
+  font-size: .875rem;
+  color: var(--color-muted);
+  line-height: 1.7;
+  margin: 0;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .acred-benefits { grid-template-columns: repeat(2, 1fr); }
@@ -600,41 +596,13 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
   .acred-hero__body { grid-template-columns: 1fr; }
   .acred-hero__badges { flex-direction: row; flex-wrap: wrap; justify-content: center; }
   .acred-hero__badge { width: auto; }
+  .acred-card__viewer iframe { height: 480px; }
+
 }
 @media (max-width: 640px) {
   .acred-benefits { grid-template-columns: 1fr; }
-  .acred-card__viewer iframe { height: 420px; }
   .acred-hero__badges { flex-direction: column; align-items: stretch; }
   .acred-hero__badge { width: 100%; }
 }
 </style>
 
-<script>
-  const tabs = document.querySelectorAll<HTMLButtonElement>('.acred-tab');
-
-  function activateTab(tabId: string) {
-    tabs.forEach(t => {
-      const isTarget = t.dataset.tab === tabId;
-      t.classList.toggle('acred-tab--active', isTarget);
-      t.setAttribute('aria-selected', String(isTarget));
-    });
-    document.querySelectorAll<HTMLElement>('.acred-card').forEach(panel => {
-      panel.hidden = panel.id !== `panel-${tabId}`;
-    });
-  }
-
-  // Activar tab según el hash de la URL al cargar
-  const hash = window.location.hash.replace('#tab-', '');
-  if (hash === 'ema' || hash === 'pjla') {
-    activateTab(hash);
-    document.getElementById(`tab-${hash}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.tab!;
-      activateTab(target);
-      history.replaceState(null, '', `#tab-${target}`);
-    });
-  });
-</script>

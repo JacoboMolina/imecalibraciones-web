@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -9,32 +10,29 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 >
   <main>
 
-    <section class="page-hero">
-      <div class="container">
-        <nav class="breadcrumb" aria-label="Ruta de navegación">
-          <ol>
-            <li><a href={`${b}/`}>Inicio</a></li>
-            <li aria-current="page">Bolsa de trabajo</li>
-          </ol>
-        </nav>
-        <h1>Bolsa de trabajo</h1>
-        <p class="page-hero__subtitle">
-          Forma parte del equipo de IME Calibraciones y contribuye al desarrollo
-          de la metrología en México.
-        </p>
-      </div>
-    </section>
+    <PageHeader
+      label="Bolsa de trabajo — IME Calibraciones"
+      breadcrumb={[{ label: 'Inicio', href: `${b}/` }, { label: 'Bolsa de trabajo' }]}
+      title="Bolsa de trabajo"
+      subtitle="Forma parte del equipo de IME Calibraciones y contribuye al desarrollo de la metrología en México."
+      anchors={[
+        { label: 'Ver vacantes', href: '#vacantes' },
+        { label: 'Enviar CV',    href: '#formulario-cv' },
+      ]}
+      video={`${b}/assets/video/hero-lab.mp4`}
+      poster={`${b}/assets/images/hero/hero-poster.png`}
+    />
 
     <section class="section">
       <div class="container container--narrow">
 
         <!-- TODO: reemplazar con vacantes reales cuando las haya -->
-        <div class="bolsa-aviso">
+        <div id="vacantes" class="bolsa-aviso">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
           <p>Por el momento no tenemos vacantes abiertas. Si deseas dejar tu currículum para futuras oportunidades, completa el formulario a continuación.</p>
         </div>
 
-        <form class="contacto-form bolsa-form" id="bolsa-form" action="#" method="POST" novalidate>
+        <form id="formulario-cv" class="contacto-form bolsa-form" action="#" method="POST" novalidate>
           <div class="form-row">
             <div class="form-group">
               <label for="bolsa-nombre">Nombre completo <span aria-hidden="true">*</span></label>

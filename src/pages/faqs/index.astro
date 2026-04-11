@@ -1,5 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -64,28 +65,26 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   <main>
 
-    <!-- ===== PAGE HERO ===== -->
-    <section class="page-hero">
-      <div class="container">
-        <nav class="breadcrumb" aria-label="Ruta de navegación">
-          <ol>
-            <li><a href={`${b}/`}>Inicio</a></li>
-            <li aria-current="page">Preguntas Frecuentes</li>
-          </ol>
-        </nav>
-        <h1>Preguntas Frecuentes</h1>
-        <p class="page-hero__subtitle">
-          Respuestas a las preguntas más comunes sobre calibración, acreditación, trazabilidad
-          y nuestros procesos de servicio.
-        </p>
-      </div>
-    </section>
+    <!-- ===== PAGE HEADER COMPACTO ===== -->
+    <PageHeader
+      label="Preguntas Frecuentes — IME Calibraciones"
+      breadcrumb={[{ label: 'Inicio', href: `${b}/` }, { label: 'Preguntas Frecuentes' }]}
+      title="Preguntas"
+      titleAccent="Frecuentes"
+      subtitle="Respuestas a las preguntas más comunes sobre calibración, acreditación, trazabilidad y nuestros procesos de servicio."
+      anchors={[
+        { label: 'Ver preguntas',    href: '#preguntas' },
+        { label: '¿Tienes más dudas?', href: '#mas-dudas' },
+      ]}
+      video={`${b}/assets/video/hero-lab.mp4`}
+      poster={`${b}/assets/images/hero/hero-poster.png`}
+    />
 
     <!-- ===== FAQs ===== -->
     <!-- TODO: contenido final pendiente del equipo de IME.
          Revisar cada pregunta y respuesta con el equipo técnico antes de publicar.
          Añadir o eliminar preguntas según las consultas más frecuentes de los clientes reales. -->
-    <section class="section">
+    <section id="preguntas" class="section">
       <div class="container container--narrow">
 
         <!-- CATEGORÍA: General -->
@@ -299,7 +298,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     </section>
 
     <!-- ===== CTA ===== -->
-    <section class="section section--cta">
+    <section id="mas-dudas" class="section section--cta">
       <div class="container container--narrow text-center">
         <h2>¿No encuentras tu respuesta?</h2>
         <p>Contáctanos directamente y nuestro equipo técnico resolverá todas tus dudas.</p>
