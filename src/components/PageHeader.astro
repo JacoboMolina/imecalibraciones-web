@@ -4,6 +4,9 @@
  * Misma estructura visual que srv-page-header de Servicios.
  * Media: video (por defecto) o imagen estática vía prop `image`.
  */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
   /** aria-label para el <section> */
   label?: string;
@@ -21,8 +24,8 @@ interface Props {
   video?: string;
   /** Poster para el video */
   poster?: string;
-  /** Ruta a imagen de fondo (alternativa al video) */
-  image?: string;
+  /** Imagen de fondo: ImageMetadata (import desde src/assets) o URL string */
+  image?: ImageMetadata | string;
   /** Alt text cuando se usa imagen */
   imageAlt?: string;
   /** Override del object-position del media (por defecto "center 30%") */
@@ -75,7 +78,9 @@ const mainMediaClass = `srv-page-header__video${isFocusMode ? ' srv-page-header_
           ? <video autoplay muted loop playsinline poster={poster}>
               <source src={video} type="video/mp4" />
             </video>
-          : <img src={image} alt="" />
+          : typeof image === 'string'
+            ? <img src={image} alt="" />
+            : <Image src={image!} alt="" widths={[640,1024,1440]} sizes="100vw" format="webp" quality={75} />
         }
       </div>
     )}
@@ -91,7 +96,9 @@ const mainMediaClass = `srv-page-header__video${isFocusMode ? ' srv-page-header_
           <source src={video} type="video/mp4" />
         </video>
       : image
-        ? <img class={mainMediaClass} src={image} alt={imageAlt} style={mediaStyle} />
+        ? typeof image === 'string'
+          ? <img class={mainMediaClass} src={image} alt={imageAlt} style={mediaStyle} />
+          : <Image class={mainMediaClass} src={image} alt={imageAlt} style={mediaStyle} widths={[640,1024,1440]} sizes="100vw" format="webp" quality={75} />
         : null
     }
 

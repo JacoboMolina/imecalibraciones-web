@@ -1,6 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import { Image } from 'astro:assets';
+import logoEma from '../../assets/images/acreditaciones/logo-ema.png';
+import logoPjla from '../../assets/images/acreditaciones/logo-pjla.jpg';
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -57,7 +60,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
           <div class="acred-card" id="panel-ema">
             <div class="acred-card__top">
               <div class="acred-card__seal">
-                <img src={`${b}/assets/images/acreditaciones/logo-ema.png`} alt="EMA — Entidad Mexicana de Acreditación" loading="lazy" />
+                <Image src={logoEma} alt="EMA — Entidad Mexicana de Acreditación" loading="lazy" format="webp" quality={85} />
               </div>
               <div class="acred-card__heading">
                 <h2>Acreditación EMA</h2>
@@ -106,7 +109,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
           <div class="acred-card acred-card--pjla" id="panel-pjla">
             <div class="acred-card__top">
               <div class="acred-card__seal acred-card__seal--pjla">
-                <img src={`${b}/assets/images/acreditaciones/logo-pjla.jpg`} alt="PJLA — Perry Johnson Laboratory Accreditation" loading="lazy" />
+                <Image src={logoPjla} alt="PJLA — Perry Johnson Laboratory Accreditation" loading="lazy" format="webp" quality={85} />
               </div>
               <div class="acred-card__heading">
                 <h2>Acreditación PJLA</h2>
