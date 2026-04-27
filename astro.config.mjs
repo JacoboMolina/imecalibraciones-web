@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://jacobomolina.github.io',
-  base: '/imecalibraciones-web',
+  site: 'https://imecalibraciones.com',
   output: 'static',
 });
