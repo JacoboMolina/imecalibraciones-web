@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import '../../styles/catalog.css';
-import heroCatalogo from '../../assets/images/hero/hero-catalogo.jpeg';
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -34,8 +33,6 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
         { label: 'Buscar instrumento', href: '#catalog-search' },
         { label: 'Ver resultados',     href: '#products-grid'  },
       ]}
-      image={heroCatalogo}
-      imageAlt="Instrumentos de medición y calibración del catálogo IME"
     />
 
     <!-- ===== LAYOUT PRINCIPAL: FILTROS + RESULTADOS ===== -->

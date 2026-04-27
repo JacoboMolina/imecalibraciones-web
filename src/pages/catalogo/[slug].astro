@@ -1,7 +1,16 @@
 ---
 import Base from '../../layouts/Base.astro';
 import '../../styles/catalog.css';
+import { Image } from 'astro:assets';
 import productosData from '../../../public/data/productos.json';
+
+const allProductImages = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/images/productos/*.{png,jpg,jpeg,webp}',
+  { eager: true }
+);
+function getProductImg(filename: string): ImageMetadata | undefined {
+  return allProductImages[`../../assets/images/productos/${filename}`]?.default;
+}
 
 export function getStaticPaths() {
   return productosData.productos
@@ -20,9 +29,9 @@ const relacionados = productosData.productos
   .slice(0, 4);
 
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
-const imgSrc = p.imagenes?.[0]
-  ? `${b}/assets/images/productos/${p.imagenes[0]}`
-  : `${b}/assets/images/productos/placeholder.webp`;
+const mainImg = p.imagenes?.[0]
+  ? getProductImg(p.imagenes[0])
+  : getProductImg('placeholder.webp');
 
 /* Badges de acreditación */
 const badges = [];
@@ -89,22 +98,17 @@ const whatsappHref = `https://wa.me/522461261782?text=${whatsappMsg}`;
         <div class="product-gallery">
           <div class="product-gallery-main">
             <!-- FOTO REAL: instrumento sobre fondo blanco, centrado, luz uniforme, sin fondo colorido -->
-            <img
-              src={imgSrc}
-              alt={`Instrumento para calibración: ${p.nombre}`}
-              width="600"
-              height="600"
-            />
+            {mainImg && <Image src={mainImg} alt={`Instrumento para calibración: ${p.nombre}`} width={600} height={600} />}
           </div>
           {p.imagenes?.length > 1 && (
             <div class="product-gallery-thumbs">
               {p.imagenes.map((img, i) => (
                 <button
                   class={`product-thumb ${i === 0 ? 'active' : ''}`}
-                  onclick={`switchImage('${b}/assets/images/productos/${img}', this)`}
+                  onclick={`switchImage('${getProductImg(img)?.src ?? ''}', this)`}
                   aria-label={`Ver imagen ${i + 1} de ${p.nombre}`}
                 >
-                  <img src={`${b}/assets/images/productos/${img}`} alt="" width="72" height="72" loading="lazy" />
+                  {getProductImg(img) && <Image src={getProductImg(img)!} alt="" width={72} height={72} loading="lazy" />}
                 </button>
               ))}
             </div>

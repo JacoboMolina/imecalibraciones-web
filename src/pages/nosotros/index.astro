@@ -1,6 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import { Image } from 'astro:assets';
+import equipoIme from '../../assets/images/nosotros/equipo-ime.png';
+import bannerNosotros from '../../assets/images/nosotros/banner-nosotros.jpeg';
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
@@ -34,9 +37,8 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
         { label: '¿Quiénes Somos?', href: '#quienes-somos' },
         { label: 'Misión y Visión', href: '#mision-vision' },
         { label: 'Valores',         href: '#valores'       },
+        { label: 'Políticas',       href: '#politicas'     },
       ]}
-      video={`${b}/assets/video/hero-lab.mp4`}
-      poster={`${b}/assets/images/hero/hero-poster.png`}
     />
 
     <!-- ===== HISTORIA / QUIÉNES SOMOS ===== -->
@@ -45,37 +47,23 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
         <div class="content-with-image content-with-image--reverse">
           <div class="content-with-image__text">
             <h2>¿Quiénes Somos?</h2>
-            <!-- TODO: textos definitivos pendientes del cliente.
-                 Usar texto del sitio actual como base para redacción final.
-                 Incluir: año de fundación, sector al que sirven, diferenciadores clave. -->
             <p>
               IME Calibraciones es un laboratorio de calibración acreditado por la Entidad Mexicana
               de Acreditación (EMA) bajo la norma ISO/IEC 17025, con sede en Tlaxcala, México.
             </p>
             <p>
-              <!-- TODO: textos definitivos — historia de la empresa, años de operación, hitos importantes -->
               Desde nuestra fundación, nos hemos dedicado a ofrecer servicios de calibración
               metrológica confiables y trazables para empresas de los sectores manufacturero,
               farmacéutico, alimentario y automotriz en toda la República Mexicana.
             </p>
             <p>
-              <!-- TODO: agregar diferenciadores reales con datos del cliente -->
               Nuestra trayectoria, respaldada por acreditaciones vigentes y un equipo de técnicos
               especializados, nos posiciona como un aliado estratégico para el aseguramiento de
               la calidad de su empresa.
             </p>
           </div>
           <div class="content-with-image__media">
-            <div class="qs-ig-wrap">
-              <iframe
-                src="https://www.instagram.com/p/DWO5_p0ia8T/embed/"
-                frameborder="0"
-                scrolling="no"
-                allowtransparency="true"
-                loading="lazy"
-                title="Equipo IME Calibraciones — Instagram"
-              ></iframe>
-            </div>
+            <Image src={equipoIme} alt="Equipo IME Calibraciones — técnicos en laboratorio" widths={[600, 900, 1200]} sizes="(max-width:768px) 100vw, 60vw" format="webp" quality={80} />
           </div>
         </div>
       </div>
@@ -84,81 +72,72 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     <!-- ===== MISIÓN Y VISIÓN — Carrusel ===== -->
     <section id="mision-vision" class="section mv-section">
       <div class="container">
-        <div class="mv-carousel" id="mvCarousel" aria-label="Misión y Visión">
+        <div class="mv-layout">
 
-          <!-- Slide 1: Misión -->
-          <div class="mv-slide mv-slide--active" role="tabpanel" aria-label="Misión">
-            <div class="mv-slide__layout">
-              <div class="mv-slide__media" aria-hidden="true">
-                <div class="mv-slide__icon-ring">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8">
-                    <circle cx="12" cy="12" r="10"/>
-                    <circle cx="12" cy="12" r="6"/>
-                    <circle cx="12" cy="12" r="2"/>
-                  </svg>
+          <!-- Foto fija — igual en ambos slides -->
+          <div class="mv-photo">
+            <Image src={bannerNosotros} alt="Laboratorio IME Calibraciones" width={800} height={600} />
+          </div>
+
+          <!-- Columna de texto: carrusel -->
+          <div>
+            <div class="mv-carousel" id="mvCarousel" aria-label="Misión y Visión">
+
+              <!-- Slide 1: Misión -->
+              <div class="mv-slide mv-slide--active" role="tabpanel" aria-label="Misión">
+                <div class="mv-slide__content">
+                  <p class="section__eyebrow">Nuestra Misión</p>
+                  <h2 class="section-title" style="text-align:left">Calidad en cada entrega</h2>
+                  <p>Satisfacer las necesidades de nuestros clientes entregándoles servicios de alta calidad en el tiempo establecido, basados en la normatividad, para la conservación de sus instrumentos y equipos.</p>
+                  <ul class="video-section__bullets">
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                      Promovemos el desarrollo humano y la mejora tecnológica
+                    </li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                      Confiabilidad garantizada en proveedores y procesos
+                    </li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                      Eficiencia y servicio a la sociedad como prioridad
+                    </li>
+                  </ul>
                 </div>
               </div>
-              <div class="mv-slide__content">
-                <p class="section__eyebrow">Nuestra Misión</p>
-                <h2 class="section-title" style="text-align:left">Calidad en cada entrega</h2>
-                <p>Satisfacer las necesidades de nuestros clientes entregándoles servicios de alta calidad en el tiempo establecido, basados en la normatividad, para la conservación de sus instrumentos y equipos.</p>
-                <ul class="video-section__bullets">
-                  <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-                    Promovemos el desarrollo humano y la mejora tecnológica
-                  </li>
-                  <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-                    Confiabilidad garantizada en proveedores y procesos
-                  </li>
-                  <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-                    Eficiencia y servicio a la sociedad como prioridad
-                  </li>
-                </ul>
+
+              <!-- Slide 2: Visión -->
+              <div class="mv-slide" role="tabpanel" aria-label="Visión">
+                <div class="mv-slide__content">
+                  <p class="section__eyebrow">Nuestra Visión</p>
+                  <h2 class="section-title" style="text-align:left">Referentes en metrología</h2>
+                  <p>Consolidarse como una empresa reconocida por su alta calidad en el área de metrología, siendo un soporte técnico confiable y profesional para sus clientes.</p>
+                  <ul class="video-section__bullets">
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                      Alta calidad reconocida en el área de metrología
+                    </li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                      Soporte técnico confiable y profesional
+                    </li>
+                    <li>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                      Reconocimiento nacional e internacional
+                    </li>
+                  </ul>
+                </div>
               </div>
+
+            </div>
+
+            <!-- Dots de navegación -->
+            <div class="mv-dots" role="tablist" aria-label="Navegación Misión y Visión">
+              <button class="mv-nav-dot mv-nav-dot--active" data-mv-slide="0" aria-label="Misión" aria-selected="true" role="tab"></button>
+              <button class="mv-nav-dot" data-mv-slide="1" aria-label="Visión" aria-selected="false" role="tab"></button>
             </div>
           </div>
 
-          <!-- Slide 2: Visión -->
-          <div class="mv-slide" role="tabpanel" aria-label="Visión">
-            <div class="mv-slide__layout">
-              <div class="mv-slide__media" aria-hidden="true">
-                <div class="mv-slide__icon-ring">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                    <circle cx="12" cy="12" r="3"/>
-                  </svg>
-                </div>
-              </div>
-              <div class="mv-slide__content">
-                <p class="section__eyebrow">Nuestra Visión</p>
-                <h2 class="section-title" style="text-align:left">Referentes en metrología</h2>
-                <p>Consolidarse como una empresa reconocida por su alta calidad en el área de metrología, siendo un soporte técnico confiable y profesional para sus clientes.</p>
-                <ul class="video-section__bullets">
-                  <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-                    Alta calidad reconocida en el área de metrología
-                  </li>
-                  <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-                    Soporte técnico confiable y profesional
-                  </li>
-                  <li>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-                    Reconocimiento nacional e internacional
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Dots de navegación -->
-        <div class="mv-dots" role="tablist" aria-label="Navegación Misión y Visión">
-          <button class="mv-nav-dot mv-nav-dot--active" data-mv-slide="0" aria-label="Misión" aria-selected="true" role="tab"></button>
-          <button class="mv-nav-dot" data-mv-slide="1" aria-label="Visión" aria-selected="false" role="tab"></button>
         </div>
 
       </div>
@@ -348,6 +327,124 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
       </div>
     </section>
 
+    <!-- ===== POLÍTICAS DE LA EMPRESA ===== -->
+    <section id="politicas" class="section politicas-section">
+      <div class="container container--narrow">
+        <header class="section__header text-center">
+          <p class="section__eyebrow">Nuestro compromiso</p>
+          <h2 class="section-title">Políticas de la <span class="politicas-accent">Empresa</span></h2>
+        </header>
+
+        <div class="politicas-stack">
+
+          <details class="politica" open>
+            <summary class="politica__header">
+              <div class="politica__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <polyline points="9 12 11 14 15 10"/>
+                </svg>
+              </div>
+              <span class="politica__title">Política de Calidad</span>
+              <svg class="politica__chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+            </summary>
+            <div class="politica__body">
+              <p>
+                La Dirección del Laboratorio mantiene su compromiso de documentar un Sistema de Gestión
+                y mantener el cumplimiento con los requisitos de la norma ISO/IEC 17025 vigente, con un
+                enfoque permanente de gestionar riesgos y oportunidades, así como mantener la integridad
+                del sistema ante cambios; con el propósito de mejorar la eficacia de los procesos internos,
+                dar máxima calidad de servicio y asegurar la validez de los resultados de las actividades
+                de laboratorio, salvaguardando la imparcialidad y confidencialidad, contando con personal
+                competente y consciente de la importancia de cumplir sus funciones.
+              </p>
+            </div>
+          </details>
+
+          <details class="politica">
+            <summary class="politica__header">
+              <div class="politica__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 1 8-1 3.5-3.5 5-6 6"/>
+                  <path d="M12 20V10"/>
+                </svg>
+              </div>
+              <span class="politica__title">Política Ambiental</span>
+              <svg class="politica__chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+            </summary>
+            <div class="politica__body">
+              <p>
+                Compromiso con la conservación, protección y mejora continua de las actividades relacionadas
+                con el medio ambiente, previniendo riesgos para el entorno natural y la salud de las personas.
+              </p>
+              <ul>
+                <li>Optimizar recursos ambientales y hacer uso responsable de la energía eléctrica.</li>
+                <li>Incentivar la cultura de reutilización y reciclado.</li>
+                <li>Cumplir con la legislación y reglamentación ambiental aplicable.</li>
+                <li>Aplicar mejora continua en aspectos ambientales significativos.</li>
+                <li>Manejar adecuadamente los residuos del proceso de calibración.</li>
+                <li>Formar y concientizar a la organización sobre los aspectos ambientales.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="politica">
+            <summary class="politica__header">
+              <div class="politica__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  <circle cx="12" cy="16" r="1"/>
+                </svg>
+              </div>
+              <span class="politica__title">Política de Confidencialidad</span>
+              <svg class="politica__chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+            </summary>
+            <div class="politica__body">
+              <p>
+                El Laboratorio se compromete con el resguardo, privacidad y trámite de la información
+                creada o recibida de los clientes durante las actividades de laboratorio. La información
+                generada es confidencial, a excepción de la requerida por la ley. La información será
+                compartida únicamente cuando se haya acordado previamente con el cliente.
+              </p>
+            </div>
+          </details>
+
+          <details class="politica">
+            <summary class="politica__header">
+              <div class="politica__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v18"/>
+                  <path d="M6 21h12"/>
+                  <path d="M6 7h12"/>
+                  <circle cx="12" cy="4.5" r="1.2"/>
+                  <path d="M6 7l-3 6a3 3 0 0 0 6 0L6 7z"/>
+                  <path d="M18 7l-3 6a3 3 0 0 0 6 0l-3-6z"/>
+                </svg>
+              </div>
+              <span class="politica__title">Política de Imparcialidad</span>
+              <svg class="politica__chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd"/></svg>
+            </summary>
+            <div class="politica__body">
+              <p>
+                Compromiso en ofrecer un servicio transparente, justo y objetivo apegado al estricto
+                cumplimiento de la normativa nacional e internacional.
+              </p>
+              <ul>
+                <li>Los contratos no interfieren con el cumplimiento de la imparcialidad.</li>
+                <li>Se informa al cliente cualquier conflicto de interés factible.</li>
+                <li>Se evita toda presión comercial o financiera que comprometa la imparcialidad.</li>
+                <li>El personal actúa con apego a la transparencia en todo momento.</li>
+                <li>Ningún miembro puede solicitar ni ofrecer remuneración que propicie resultados sesgados.</li>
+                <li>Se identifican y eliminan los riesgos a la imparcialidad mediante los diferentes procesos.</li>
+              </ul>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ===== CTA ===== -->
     <section class="section section--cta">
       <div class="container container--narrow text-center">
@@ -388,6 +485,27 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 .mv-section .section-title    { color: #fff; }
 .mv-section p                  { color: rgba(255, 255, 255, .75); }
 
+/* Layout foto + carrusel texto */
+.mv-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+
+/* Foto fija */
+.mv-photo {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(8, 82, 154, .18), 0 4px 16px rgba(0, 0, 0, .1);
+}
+.mv-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* Carousel */
 .mv-carousel { position: relative; }
 
@@ -401,49 +519,20 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
   to   { opacity: 1; transform: translateY(0);    }
 }
 
-/* Slide layout — igual que video-section__layout */
-.mv-slide__layout {
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: var(--space-16);
-  align-items: center;
-  padding: var(--space-4) 0 var(--space-8);
-}
-
-/* Media — icono decorativo */
-.mv-slide__media {
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius-xl);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 60px rgba(8, 82, 154, .18), 0 4px 16px rgba(0, 0, 0, .1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.mv-slide__icon-ring {
-  width: 58%;
-  aspect-ratio: 1;
-  display: flex; align-items: center; justify-content: center;
-}
-.mv-slide__icon-ring svg {
-  width: 100%; height: 100%;
-  stroke: rgba(147, 197, 253, .35);
-}
-
-/* Content */
+/* Content dentro de cada slide */
 .mv-slide__content {
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
+  padding: var(--space-4) 0 var(--space-6);
 }
 
 /* Navigation dots */
 .mv-dots {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: var(--space-3);
-  padding-top: var(--space-8);
+  padding-top: var(--space-6);
 }
 .mv-nav-dot {
   height: 8px; width: 8px;
@@ -460,13 +549,14 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 }
 
 @media (max-width: 860px) {
-  .mv-slide__layout {
+  .mv-layout {
     grid-template-columns: 1fr;
   }
-  .mv-slide__media { display: none; }
+  .mv-photo { display: none; }
   .mv-slide__content { text-align: center; }
   .mv-slide__content .section-title { text-align: center !important; }
   .mv-slide__content .video-section__bullets { align-items: center; }
+  .mv-dots { justify-content: center; }
 }
 
 /* ── Valores ── */
@@ -534,18 +624,120 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
   .valores-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* ── Embed Instagram — ¿Quiénes Somos? ── */
-.qs-ig-wrap {
+/* ── Políticas de la Empresa (accordion stack) ── */
+.politicas-accent { color: var(--color-primary); }
+
+.politicas-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.politica {
+  background: #fff;
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
-.qs-ig-wrap iframe {
-  width: 100%;
-  min-height: 480px;
-  display: block;
-  border: none;
+.politica[open] {
+  border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  box-shadow: 0 4px 16px rgba(8, 82, 154, 0.08);
 }
+
+.politica__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.politica__header::-webkit-details-marker { display: none; }
+.politica__header::marker { content: ''; }
+
+.politica__icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--color-primary) 10%, white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s ease;
+}
+.politica[open] .politica__icon {
+  background: var(--color-primary);
+}
+.politica__icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--color-primary);
+  transition: stroke 0.25s ease;
+}
+.politica[open] .politica__icon svg {
+  stroke: #fff;
+}
+
+.politica__title {
+  flex: 1;
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--color-ink);
+}
+
+.politica__chevron {
+  width: 20px;
+  height: 20px;
+  color: var(--color-muted);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+.politica[open] .politica__chevron {
+  transform: rotate(180deg);
+  color: var(--color-primary);
+}
+
+.politica__body {
+  padding: 0 var(--space-6) var(--space-6);
+  padding-left: calc(var(--space-6) + 42px + var(--space-4));
+}
+.politica__body p {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.7;
+  margin: 0 0 var(--space-3);
+}
+.politica__body p:last-child { margin-bottom: 0; }
+
+.politica__body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.politica__body ul li {
+  position: relative;
+  padding-left: var(--space-5);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+.politica__body ul li:last-child { margin-bottom: 0; }
+.politica__body ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.4;
+}
+
 </style>
 
 <script>

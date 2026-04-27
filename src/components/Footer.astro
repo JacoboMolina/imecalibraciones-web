@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logoIME from '../assets/images/logo/logo-principal.png';
 const year = new Date().getFullYear();
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
@@ -10,9 +12,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
       <!-- Marca -->
       <div class="footer-brand">
         <a class="site-logo" href={`${b}/`} aria-label="IME Calibraciones">
-          <img src={`${b}/assets/images/logo/logo-principal.png`}
-               alt="IME Calibraciones"
-               width="140" height="42">
+          <Image src={logoIME} alt="IME Calibraciones" width={140} height={42} />
         </a>
         <p>Laboratorio de calibración acreditado ante EMA y PJLA. Tlaxcala, México.</p>
         <div class="footer-social">
@@ -59,7 +59,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
         <h4>Contacto</h4>
         <a href="tel:+522464667048">+52 246 466 7048</a>
         <a href="tel:+522461261782">+52 246 126 1782</a>
-        <a href="mailto:contacto@imecalibraciones.com">contacto@imecalibraciones.com</a>
+        <a href="mailto:marketing@imecalibraciones.com">marketing@imecalibraciones.com</a>
         <a href={`${b}/contacto/`}>Ver ubicación</a>
       </div>
 

@@ -1,5 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Base
@@ -8,141 +10,196 @@ import Base from '../../layouts/Base.astro';
 >
   <main>
 
-    <!-- ===== PAGE HERO ===== -->
-    <section class="page-hero">
-      <div class="container">
-        <nav class="breadcrumb" aria-label="Ruta de navegación">
-          <ol>
-            <li><a href="/">Inicio</a></li>
-            <li aria-current="page">Aviso de Privacidad</li>
-          </ol>
-        </nav>
-        <h1>Aviso de Privacidad</h1>
-        <p class="page-hero__subtitle">
-          Conforme a la Ley Federal de Protección de Datos Personales en Posesión de los
-          Particulares (LFPDPPP) y su Reglamento.
-        </p>
-      </div>
-    </section>
+    <PageHeader
+      label="Aviso de Privacidad — IME Calibraciones"
+      breadcrumb={[{ label: 'Inicio', href: `${b}/` }, { label: 'Aviso de Privacidad' }]}
+      title="Aviso de"
+      titleAccent="Privacidad"
+      subtitle="Conforme a la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) y su Reglamento."
+    />
 
-    <!-- ===== CONTENIDO ===== -->
-    <!-- TODO: migrar y actualizar el texto completo del sitio actual.
-         Verificar cumplimiento con la LFPDPPP vigente antes de publicar.
-         Revisar con asesor legal si es necesario. Indicar la fecha de última actualización. -->
     <section class="section">
       <div class="container container--narrow">
         <div class="legal-content">
 
-          <p class="legal-content__updated">
-            <em>Última actualización: <!-- TODO: fecha de última revisión --> (pendiente)</em>
-          </p>
+          <!-- ═══ RESPONSABLE ═══ -->
+          <div class="legal-block">
+            <h2>I. Responsable del tratamiento</h2>
+            <p>
+              <strong>Ingeniería y Metrología Certificada para Calibración de Equipos de Control
+              y Pruebas S.A. de C.V.</strong>, mejor conocido como <strong>IME</strong>, con
+              domicilio en calle Privada de la Secundaria Federal 2 No. 4, Col. Magisterial
+              Vista Hermosa, Tlaxcala, Tlaxcala, C.P. 90014, y portal de internet
+              <a href="https://www.imecalibraciones.com">www.imecalibraciones.com</a>,
+              es el responsable del uso, protección y privacidad de sus datos personales.
+            </p>
+          </div>
 
-          <!-- SECCIÓN 1: Responsable -->
-          <h2>I. Responsable del Tratamiento de Datos Personales</h2>
-          <!-- TODO: completar con los datos completos de la razón social de IME Calibraciones -->
-          <p>
-            <strong>IME Calibraciones</strong> (en adelante "el Responsable"), con domicilio en
-            <!-- TODO: dirección completa del domicilio fiscal / laboral del responsable -->
-            Tlaxcala, México (<em>TODO: dirección completa</em>), es responsable del tratamiento
-            de sus datos personales conforme a la LFPDPPP.
-          </p>
-          <p>
-            Para cualquier asunto relacionado con la protección de sus datos personales puede
-            contactarnos a través de:
-          </p>
-          <ul>
-            <li>Correo electrónico: <!-- TODO: correo del responsable de privacidad --> <em>(TODO: confirmar)</em></li>
-            <li>Teléfono: <a href="tel:+522464667048">+52 246 466 7048</a> / <a href="tel:+522461261782">+52 246 126 1782</a></li>
-          </ul>
+          <!-- ═══ FINALIDADES ═══ -->
+          <div class="legal-block">
+            <h2>II. Finalidades del tratamiento</h2>
 
-          <!-- SECCIÓN 2: Datos que recabamos -->
-          <h2>II. Datos Personales que Recabamos</h2>
-          <!-- TODO: revisar y completar esta lista con todos los datos que realmente se recaban -->
-          <p>
-            Para los fines señalados en este aviso, el Responsable podrá recabar las siguientes
-            categorías de datos personales:
-          </p>
-          <ul>
-            <li><strong>Datos de identificación:</strong> nombre completo.</li>
-            <li><strong>Datos de contacto:</strong> correo electrónico, número de teléfono, empresa.</li>
-            <li><strong>Datos de navegación:</strong> dirección IP, tipo de navegador, páginas visitadas
-                (recopilados de manera automática mediante tecnologías de rastreo).</li>
-          </ul>
-          <p>
-            <em>TODO: confirmar si se recaban datos sensibles (salud, biometría, etc.) y agregar
-            la cláusula correspondiente de consentimiento expreso si aplica.</em>
-          </p>
+            <h3>Finalidades primarias</h3>
+            <ul>
+              <li>Enviarle información respecto de la prestación de servicios.</li>
+              <li>Realizar encuestas de calidad y/o satisfacción del servicio.</li>
+              <li>Dar cumplimiento a la relación jurídica o a requerimientos legales o de autoridad.</li>
+              <li>Dar seguimiento a solicitudes, reclamaciones y/o quejas.</li>
+              <li>Gestionar citas y actualización de servicios.</li>
+            </ul>
 
-          <!-- SECCIÓN 3: Finalidades -->
-          <h2>III. Finalidades del Tratamiento</h2>
-          <!-- TODO: completar y verificar las finalidades reales con el equipo de IME -->
-          <p>Sus datos personales serán utilizados para las siguientes finalidades:</p>
-          <h3>Finalidades primarias (necesarias para la relación comercial)</h3>
-          <ul>
-            <li>Atender solicitudes de información, cotización o calibración.</li>
-            <li>Identificarle como cliente o prospecto.</li>
-            <li>Emitir certificados de calibración y documentación de servicio.</li>
-            <li>Contactarle para dar seguimiento a sus solicitudes.</li>
-          </ul>
-          <h3>Finalidades secundarias (opcionales)</h3>
-          <ul>
-            <!-- TODO: confirmar si existen finalidades secundarias como newsletter, encuestas, etc. -->
-            <li>Envío de comunicaciones comerciales, novedades y boletines informativos. <em>(TODO: confirmar)</em></li>
-          </ul>
-          <p>
-            Si no desea que sus datos sean tratados para las finalidades secundarias, puede
-            manifestarlo enviando un correo a la dirección indicada en la sección I.
-          </p>
+            <h3>Finalidades secundarias</h3>
+            <p>De manera adicional, su información podrá ser utilizada para:</p>
+            <ul>
+              <li>Mercadotecnia o publicitaria.</li>
+              <li>Prospección comercial.</li>
+              <li>Estadísticas.</li>
+            </ul>
+            <p>
+              Si no desea que sus datos personales se utilicen para estas finalidades secundarias,
+              puede indicarlo enviando su solicitud a
+              <a href="mailto:juridico@calibracionesime.com.mx">juridico@calibracionesime.com.mx</a>.
+            </p>
+            <p>
+              La negativa para el uso de sus datos personales para estas finalidades no podrá ser
+              motivo para negarle los servicios y productos que solicita o contrata con nosotros.
+            </p>
+          </div>
 
-          <!-- SECCIÓN 4: Derechos ARCO -->
-          <h2>IV. Derechos ARCO</h2>
-          <p>
-            Usted tiene derecho a <strong>Acceder</strong>, <strong>Rectificar</strong>,
-            <strong>Cancelar</strong> u <strong>Oponerse</strong> al tratamiento de sus datos
-            personales (Derechos ARCO), así como a revocar el consentimiento que haya otorgado
-            y a limitar el uso o divulgación de sus datos.
-          </p>
-          <p>
-            Para ejercer sus Derechos ARCO, deberá presentar una solicitud dirigida al
-            Responsable a través de los medios de contacto indicados en la sección I, con la
-            siguiente información:
-          </p>
-          <ul>
-            <li>Nombre completo del titular.</li>
-            <li>Descripción del derecho que desea ejercer.</li>
-            <li>Copia de identificación oficial vigente.</li>
-            <li>Cualquier elemento que facilite la localización de sus datos.</li>
-          </ul>
-          <p>
-            El Responsable responderá a su solicitud en un plazo máximo de 20 días hábiles,
-            conforme a lo establecido en la LFPDPPP.
-          </p>
+          <!-- ═══ DATOS QUE RECABAMOS ═══ -->
+          <div class="legal-block">
+            <h2>III. Datos personales que utilizamos</h2>
+            <p>Para las finalidades descritas, utilizaremos los siguientes datos personales:</p>
+            <ul>
+              <li>Nombre / Razón Social</li>
+              <li>Registro Federal de Contribuyentes (RFC)</li>
+              <li>Domicilio</li>
+              <li>Correo electrónico institucional</li>
+              <li>Puesto o cargo de contacto</li>
+              <li>Teléfono institucional</li>
+            </ul>
+          </div>
 
-          <!-- SECCIÓN 5: Contacto -->
-          <h2>V. Contacto del Responsable</h2>
-          <!-- TODO: confirmar datos completos del contacto de privacidad -->
-          <p>
-            Para cualquier duda, comentario o solicitud relacionada con este Aviso de Privacidad,
-            puede comunicarse con nosotros a:
-          </p>
-          <ul>
-            <li>Correo: <em>(TODO: confirmar correo)</em></li>
-            <li>Teléfono: <a href="tel:+522464667048">+52 246 466 7048</a> / <a href="tel:+522461261782">+52 246 126 1782</a></li>
-            <li>Domicilio: <em>(TODO: dirección completa)</em></li>
-          </ul>
+          <!-- ═══ DERECHOS ARCO ═══ -->
+          <div class="legal-block">
+            <h2>IV. Derechos ARCO</h2>
+            <p>
+              Usted tiene derecho a conocer qué datos personales tenemos de usted, para qué los
+              utilizamos y las condiciones del uso que les damos (<strong>Acceso</strong>);
+              solicitar la corrección de su información personal en caso de que esté desactualizada,
+              sea inexacta o incompleta (<strong>Rectificación</strong>); que la eliminemos de
+              nuestros registros o bases de datos cuando considere que no está siendo utilizada
+              adecuadamente (<strong>Cancelación</strong>); así como oponerse al uso de sus datos
+              personales para fines específicos (<strong>Oposición</strong>).
+            </p>
+            <p>
+              Para el ejercicio de cualquiera de los derechos ARCO, deberá presentar su solicitud
+              a través del correo electrónico
+              <a href="mailto:juridico@calibracionesime.com.mx">juridico@calibracionesime.com.mx</a>,
+              indicando el tipo de solicitud:
+            </p>
+            <div class="legal-arco-grid">
+              <span class="legal-arco-tag">Solicitud de Acceso</span>
+              <span class="legal-arco-tag">Solicitud de Rectificación</span>
+              <span class="legal-arco-tag">Solicitud de Cancelación</span>
+              <span class="legal-arco-tag">Solicitud de Oposición</span>
+            </div>
 
-          <!-- SECCIÓN 6: Modificaciones -->
-          <h2>VI. Modificaciones al Aviso de Privacidad</h2>
-          <p>
-            El Responsable se reserva el derecho de efectuar modificaciones o actualizaciones
-            al presente Aviso de Privacidad en cualquier momento, para la atención de novedades
-            legislativas o jurisprudenciales, políticas internas, nuevos requerimientos para la
-            prestación u ofrecimiento de nuestros servicios o productos, y prácticas del mercado.
-          </p>
-          <p>
-            Dichas modificaciones estarán disponibles en
-            <a href="https://imecalibraciones.com/aviso-de-privacidad/">https://imecalibraciones.com/aviso-de-privacidad/</a>
-          </p>
+            <h3>Requisitos de la solicitud</h3>
+            <p>Con fundamento en el artículo 29 de la LFPDPPP:</p>
+            <ul>
+              <li>Nombre del titular y domicilio u otro medio para comunicarle la respuesta.</li>
+              <li>Documentos que acrediten la identidad o, en su caso, la representación legal del titular.</li>
+              <li>Descripción clara y precisa de los datos personales respecto de los que se busca ejercer alguno de los derechos.</li>
+              <li>Cualquier otro elemento o documento que facilite la localización de los datos.</li>
+            </ul>
+            <p>
+              Se dará contestación en un término no mayor a <strong>20 días</strong>, contados
+              desde la recepción de la solicitud, a efecto de que, si resulta procedente, se haga
+              efectiva la misma dentro de los 15 días siguientes a la fecha en que se comunica la respuesta.
+            </p>
+          </div>
+
+          <!-- ═══ CONTACTO DEL DEPARTAMENTO ═══ -->
+          <div class="legal-block">
+            <h2>V. Datos de contacto del departamento de datos personales</h2>
+            <div class="legal-contact-card">
+              <dl>
+                <div>
+                  <dt>Departamento</dt>
+                  <dd>Área Jurídica</dd>
+                </div>
+                <div>
+                  <dt>Domicilio</dt>
+                  <dd>Calle Privada de la Secundaria Federal 2 No. 4, Col. Magisterial Vista Hermosa, Tlaxcala, Tlaxcala, C.P. 90014</dd>
+                </div>
+                <div>
+                  <dt>Correo electrónico</dt>
+                  <dd><a href="mailto:juridico@calibracionesime.com.mx">juridico@calibracionesime.com.mx</a></dd>
+                </div>
+                <div>
+                  <dt>Teléfono</dt>
+                  <dd><a href="tel:+522464665706">+52 246 466 5706</a></dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          <!-- ═══ REVOCACIÓN ═══ -->
+          <div class="legal-block">
+            <h2>VI. Revocación del consentimiento</h2>
+            <p>
+              Usted puede revocar el consentimiento que nos haya otorgado para el tratamiento
+              de sus datos personales. Sin embargo, es importante considerar que no en todos los
+              casos podremos atender su solicitud o concluir el uso de forma inmediata, ya que es
+              posible que por alguna obligación legal requiramos seguir tratando sus datos.
+            </p>
+            <p>
+              Para ciertos fines, la revocación de su consentimiento implicará que no le podamos
+              seguir prestando el servicio solicitado, o la conclusión de su relación con nosotros.
+            </p>
+            <p>
+              Para revocar su consentimiento, presente su solicitud por escrito de manifestación
+              de revocación al correo:
+              <a href="mailto:juridico@calibracionesime.com.mx">juridico@calibracionesime.com.mx</a>.
+            </p>
+          </div>
+
+          <!-- ═══ COOKIES ═══ -->
+          <div class="legal-block">
+            <h2>VII. Uso de cookies</h2>
+            <p>
+              Le informamos que nuestro sitio web utiliza cookies, a través de las cuales es posible
+              monitorear su comportamiento como usuario de internet para brindarle un mejor servicio
+              y experiencia de usuario. Sus datos serán utilizados para:
+            </p>
+            <ul>
+              <li>Estadísticas.</li>
+              <li>Base de datos interna.</li>
+              <li>Publicidad.</li>
+            </ul>
+            <p>
+              Estas cookies pueden ser deshabilitadas. Para conocer cómo hacerlo, consulte el menú
+              de ayuda de su navegador. Tenga en cuenta que, en caso de desactivar las cookies, es
+              posible que no pueda acceder a ciertas funciones personalizadas en nuestro sitio web.
+            </p>
+          </div>
+
+          <!-- ═══ MODIFICACIONES ═══ -->
+          <div class="legal-block">
+            <h2>VIII. Modificaciones al aviso de privacidad</h2>
+            <p>
+              El presente aviso de privacidad puede sufrir modificaciones, cambios o actualizaciones
+              derivadas de nuevos requerimientos legales; de nuestras propias necesidades por los
+              productos o servicios que ofrecemos; de nuestras prácticas de privacidad; de cambios
+              en nuestro modelo de negocio, o por otras causas.
+            </p>
+            <p>
+              Nos comprometemos a mantenerlo informado sobre los cambios que pueda sufrir el presente
+              aviso de privacidad a través de nuestro sitio web:
+              <a href="https://www.imecalibraciones.com/aviso-de-privacidad/">www.imecalibraciones.com/aviso-de-privacidad</a>.
+            </p>
+          </div>
 
         </div>
       </div>
@@ -150,3 +207,120 @@ import Base from '../../layouts/Base.astro';
 
   </main>
 </Base>
+
+<style>
+/* ============================================================
+   AVISO DE PRIVACIDAD — estilos de la página legal
+   ============================================================ */
+.legal-content {
+  line-height: 1.8;
+  color: var(--color-ink);
+}
+
+.legal-block {
+  margin-bottom: var(--space-10);
+}
+.legal-block:last-child {
+  margin-bottom: 0;
+}
+
+.legal-content h2 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+.legal-content h3 {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-3);
+}
+
+.legal-content p {
+  color: var(--color-muted);
+  margin-bottom: var(--space-4);
+}
+
+.legal-content ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--space-4);
+}
+.legal-content ul li {
+  position: relative;
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-2);
+  color: var(--color-muted);
+}
+.legal-content ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.5;
+}
+
+.legal-content a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--transition-fast);
+}
+.legal-content a:hover {
+  color: var(--color-primary-dark);
+}
+
+/* ARCO tags */
+.legal-arco-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-4) 0;
+}
+.legal-arco-tag {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--color-primary) 8%, white);
+  border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+/* Contact card */
+.legal-contact-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin-top: var(--space-4);
+}
+.legal-contact-card dl {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+}
+.legal-contact-card dt {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+  margin-bottom: var(--space-1);
+}
+.legal-contact-card dd {
+  margin: 0;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+}
+</style>

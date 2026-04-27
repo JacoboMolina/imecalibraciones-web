@@ -856,19 +856,19 @@ a.contact-detail__value:hover { color: var(--color-primary); }
    ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── */
 .content-with-image {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-12);
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-8);
   align-items: center;
 }
 .content-with-image--reverse .content-with-image__text { order: 2; }
 .content-with-image--reverse .content-with-image__media { order: 1; }
 .content-with-image__text h2 { font-size: var(--text-2xl); margin-bottom: var(--space-4); }
-.content-with-image__text p { color: var(--color-muted); }
+.content-with-image__text p { color: var(--color-muted); font-size: var(--text-sm); }
 .content-with-image__media img {
   border-radius: var(--radius-lg);
   width: 100%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
 }
 
 .mision-vision-grid {

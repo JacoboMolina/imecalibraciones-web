@@ -1,105 +1,440 @@
 ---
 import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Base
   title="Términos y Condiciones — IME Calibraciones"
-  description="Términos y condiciones de uso del sitio web de IME Calibraciones."
+  description="Términos y condiciones aplicables a las relaciones jurídicas entre el cliente e IME Calibraciones. Servicios de calibración, mantenimiento, formas de pago y más."
 >
   <main>
 
-    <!-- ===== PAGE HERO ===== -->
-    <section class="page-hero">
-      <div class="container">
-        <nav class="breadcrumb" aria-label="Ruta de navegación">
-          <ol>
-            <li><a href={`${b}/`}>Inicio</a></li>
-            <li aria-current="page">Términos y Condiciones</li>
-          </ol>
-        </nav>
-        <h1>Términos y Condiciones</h1>
-        <p class="page-hero__subtitle">
-          Condiciones de uso del sitio web de IME Calibraciones.
-        </p>
-      </div>
-    </section>
+    <PageHeader
+      label="Términos y Condiciones — IME Calibraciones"
+      breadcrumb={[{ label: 'Inicio', href: `${b}/` }, { label: 'Términos y Condiciones' }]}
+      title="Términos y"
+      titleAccent="Condiciones"
+      subtitle="Condiciones aplicables a las relaciones jurídicas entre el cliente e IME."
+    />
 
-    <!-- ===== CONTENIDO ===== -->
-    <!-- TODO: migrar el texto completo de términos y condiciones del sitio actual.
-         Verificar con asesor legal que el contenido sea vigente y aplicable.
-         Indicar la fecha de última actualización. -->
     <section class="section">
       <div class="container container--narrow">
+
+        <div class="legal-download-bar">
+          <p>También puede descargar este documento en formato PDF.</p>
+          <a href={`${b}/docs/Terminos-y-condiciones-IME_SEPT25.pdf`} class="legal-download-btn" download>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" width="18" height="18"><path d="M10.75 2.75a.75.75 0 00-1.5 0v8.614L6.295 8.235a.75.75 0 10-1.09 1.03l4.25 4.5a.75.75 0 001.09 0l4.25-4.5a.75.75 0 00-1.09-1.03l-2.955 3.129V2.75z"/><path d="M3.5 12.75a.75.75 0 00-1.5 0v2.5A2.75 2.75 0 004.75 18h10.5A2.75 2.75 0 0018 15.25v-2.5a.75.75 0 00-1.5 0v2.5c0 .69-.56 1.25-1.25 1.25H4.75c-.69 0-1.25-.56-1.25-1.25v-2.5z"/></svg>
+            Descargar PDF
+          </a>
+        </div>
+
         <div class="legal-content">
 
-          <p class="legal-content__updated">
-            <em>Última actualización: <!-- TODO: fecha de última revisión --> (pendiente)</em>
-          </p>
+          <!-- ═══ PRIMERO ═══ -->
+          <div class="legal-block">
+            <h2>Primero — Objeto de IME</h2>
+            <p>El objeto de IME es:</p>
+            <ol type="a">
+              <li>Prestación de servicios de calibración a instrumentos de medición y pruebas según acreditaciones nacionales o internacionales.</li>
+              <li>Mantenimiento preventivo y correctivo a válvulas de control, seguridad y alivio.</li>
+              <li>Mantenimiento preventivo a equipos de medición y pruebas conforme a manuales del fabricante.</li>
+              <li>Proyectos y montaje de instrumentación y equipo eléctrico en general.</li>
+              <li>Cursos, capacitación y asesoría en metrología.</li>
+              <li>Venta y suministros de equipos de medición y pruebas.</li>
+              <li>Diseño y fabricación de equipos prototipo de medición y pruebas.</li>
+              <li>Desarrollo de procedimiento de calibración de equipos o instrumentos para el cumplimiento de las necesidades metrológicas.</li>
+            </ol>
+          </div>
 
-          <h2>1. Aceptación de los Términos</h2>
-          <!-- TODO: texto definitivo — migrar del sitio actual -->
-          <p>
-            Al acceder y utilizar el sitio web <a href="https://imecalibraciones.com">imecalibraciones.com</a>
-            (en adelante "el Sitio"), usted acepta cumplir con los presentes Términos y Condiciones de Uso.
-            Si no está de acuerdo con estos términos, le solicitamos que se abstenga de utilizar el Sitio.
-          </p>
+          <!-- ═══ SEGUNDO ═══ -->
+          <div class="legal-block">
+            <h2>Segundo — Del objeto del contrato en general</h2>
+            <p>
+              Es la prestación de servicios y/o suministros; las partes pueden fijar, de común acuerdo,
+              retribución debida por ellos a cambio de un pago cierto y determinado.
+            </p>
+            <p>Para efectos de interpretación se entenderá por:</p>
+            <dl class="legal-definitions">
+              <div>
+                <dt>Ajuste</dt>
+                <dd>Operación de llevar un instrumento de medición a un estado de funcionamiento adecuado para su uso, con el fin de que produzca indicaciones prescritas correspondientes a valores dados de la magnitud a ser medida.</dd>
+              </div>
+              <div>
+                <dt>Calibración</dt>
+                <dd>Comparación, conjunto de mediciones y análisis de un equipo de referencia o patrón contra otro que no lo es. La calibración no modifica ninguna condición del equipo.</dd>
+              </div>
+              <div>
+                <dt>Caracterizar</dt>
+                <dd>Determinación de uno o más valores de las características o propiedades metrológicas o técnicas de un medio que son relevantes para su utilización final.</dd>
+              </div>
+              <div>
+                <dt>Clase de exactitud</dt>
+                <dd>Clase de instrumentos o sistemas de medida que satisfacen requisitos metrológicos determinados destinados a mantener los errores de medida dentro de límites especificados.</dd>
+              </div>
+              <div>
+                <dt>Mantenimiento correctivo</dt>
+                <dd>Aquel que corrige los defectos observados en los equipamientos o instalaciones; consiste en localizar averías o defectos para corregirlos.</dd>
+              </div>
+              <div>
+                <dt>Mantenimiento preventivo</dt>
+                <dd>Destinado a la conservación de equipos o instalaciones mediante la realización de revisión y limpieza que garanticen su buen funcionamiento y fiabilidad.</dd>
+              </div>
+              <div>
+                <dt>Medición</dt>
+                <dd>Proceso que consiste en obtener experimentalmente uno o varios valores que pueden atribuirse razonablemente a una magnitud.</dd>
+              </div>
+              <div>
+                <dt>Proyectos</dt>
+                <dd>Planificación de actividades coordinadas para prestar un servicio, constando de ideas, diseño, ejecución y evaluación.</dd>
+              </div>
+              <div>
+                <dt>Reparación</dt>
+                <dd>Toda intervención, consecuencia de una avería, que requiera levantamiento de precintos y devuelva el instrumento de medida a su estado original.</dd>
+              </div>
+              <div>
+                <dt>Verificar</dt>
+                <dd>Confirmar objetivamente el cumplimiento de requisitos.</dd>
+              </div>
+            </dl>
+            <p>IME cuenta con dos tipos de servicios: <strong>en campo</strong> y <strong>en laboratorio</strong>.</p>
+          </div>
 
-          <h2>2. Propiedad Intelectual</h2>
-          <!-- TODO: texto definitivo — migrar del sitio actual -->
-          <p>
-            Todos los contenidos del Sitio, incluyendo textos, imágenes, logotipos, gráficos y
-            cualquier otro material, son propiedad de IME Calibraciones o de sus respectivos
-            titulares, y están protegidos por las leyes de propiedad intelectual aplicables en
-            México. Queda prohibida su reproducción total o parcial sin autorización expresa y
-            por escrito del Responsable.
-          </p>
+          <!-- ═══ TERCERO ═══ -->
+          <div class="legal-block">
+            <h2>Tercero — Reglas para los servicios en general</h2>
+            <ol class="legal-roman">
+              <li>El cliente debe hacer petición formal a IME para la prestación de servicios, a través de los medios idóneos.</li>
+              <li>
+                <p>El cliente debe proporcionar la información correcta y completa. Obligatoriamente deberá proporcionar:</p>
+                <ol type="a">
+                  <li>Nombre, denominación o razón social del cliente.</li>
+                  <li>Descripción del equipo, marca, modelo, número de serie.</li>
+                  <li>Si requiere operaciones especiales o no.</li>
+                  <li>Alcance.</li>
+                  <li>Clase de exactitud.</li>
+                  <li>Resolución.</li>
+                  <li>Puntos específicos a calibrar.</li>
+                  <li>Accesorios (cuando aplique): fuente de voltaje, cables, conexiones, baterías, líquidos, soluciones o soportes especiales.</li>
+                  <li>Código de identificación interno del equipo.</li>
+                  <li>Ubicación.</li>
+                  <li>Manual del equipo (de fabricante).</li>
+                  <li>Regla de decisión y criterios de aceptación (según aplique).</li>
+                </ol>
+                <p>Si el cliente no proporcionara estos requisitos, IME tendrá la facultad de detener la prestación de servicio hasta contar con dicha información.</p>
+              </li>
+              <li>IME deberá remitir la información de la prestación de servicios a través de una cotización, orden de servicio o documento que se destine para este efecto.</li>
+              <li>IME se deberá sujetar a los términos y condiciones para la prestación de servicios emitidos por IME.</li>
+              <li>El cliente deberá emitir la orden de compra correspondiente y datos de facturación a más tardar 10 días posteriores a la aceptación del servicio.</li>
+              <li>El cliente deberá cubrir los costos pactados en la cotización correspondiente y sujetarse a las formas de pago previstas por IME.</li>
+              <li>Según los servicios pactados, se realizarán en campo o en el Laboratorio de IME.</li>
+            </ol>
+          </div>
 
-          <h2>3. Uso del Sitio</h2>
-          <!-- TODO: texto definitivo — migrar del sitio actual -->
-          <p>El usuario se compromete a utilizar el Sitio de conformidad con la ley, la moral
-          y el orden público, así como con los presentes Términos y Condiciones. Queda prohibido:</p>
-          <ul>
-            <li>Utilizar el Sitio con fines ilícitos o que contravengan las presentes condiciones.</li>
-            <li>Introducir virus informáticos o realizar cualquier otra acción que dañe o inutilice el Sitio.</li>
-            <li>Intentar acceder sin autorización a cualquier área restringida del Sitio.</li>
-          </ul>
+          <!-- ═══ CUARTO ═══ -->
+          <div class="legal-block">
+            <h2>Cuarto — Clasificación de la prestación de servicios</h2>
 
-          <h2>4. Limitación de Responsabilidad</h2>
-          <!-- TODO: texto definitivo — migrar del sitio actual -->
-          <p>
-            IME Calibraciones no garantiza la disponibilidad y continuidad del funcionamiento del
-            Sitio. Asimismo, no será responsable por los daños y perjuicios que puedan derivarse
-            de la falta de disponibilidad o de continuidad del funcionamiento del Sitio o de sus
-            contenidos.
-          </p>
+            <div class="legal-service-types">
+              <div class="legal-service-type">
+                <h3>Servicio Urgente</h3>
+                <p>Servicios que requieren atención inmediata. El cliente deberá cubrir un costo extra según modificaciones a la logística de IME. Tres días hábiles máximo para su programación y realización.</p>
+              </div>
+              <div class="legal-service-type">
+                <h3>Servicio Ordinario</h3>
+                <p>Servicios realizados de manera cotidiana, dentro del horario de <strong>8:00 a 17:30 horas de lunes a viernes</strong>. Ocho días hábiles para la prestación del servicio y entrega de informes. Fuera de este horario tendrá un costo extra.</p>
+              </div>
+              <div class="legal-service-type">
+                <h3>Servicio Nocturno</h3>
+                <p>Servicios realizados dentro de la jornada nocturna, entre las 20:00 y las 6:00 horas (jornada de siete horas). El cliente deberá cubrir costos extras.</p>
+              </div>
+              <div class="legal-service-type">
+                <h3>Servicio en Sábado y Domingo</h3>
+                <p>Se adiciona un <strong>25% extra</strong> al costo total, lo cual se deberá considerar en la cotización.</p>
+              </div>
+              <div class="legal-service-type">
+                <h3>Servicio Extraordinario</h3>
+                <p>Servicios requeridos en días de descanso obligatorio conforme a la Ley Federal del Trabajo. Se pagará al trabajador un salario doble, lo cual se reflejará en la cotización.</p>
+              </div>
+            </div>
+          </div>
 
-          <h2>5. Protección de Datos Personales</h2>
-          <p>
-            El tratamiento de los datos personales que el usuario facilite a través del Sitio se
-            rige por nuestro
-            <a href={`${b}/aviso-de-privacidad/`}>Aviso de Privacidad</a>, el cual forma parte integrante
-            de los presentes Términos y Condiciones.
-          </p>
+          <!-- ═══ QUINTO ═══ -->
+          <div class="legal-block">
+            <h2>Quinto — De los servicios en campo</h2>
+            <p>
+              Servicios que por su naturaleza son imposibles de realizar en lugar distinto a su lugar de origen
+              o que por necesidades del cliente se deben realizar en sus instalaciones.
+            </p>
+            <ul>
+              <li>Se deberán pactar fechas y horario respetándolas en todo momento y de acuerdo a los tiempos de IME.</li>
+              <li>El cliente deberá informar a IME, a más tardar dos días antes del servicio, los requisitos de ingreso, equipo de protección personal y medidas de seguridad.</li>
+              <li>El cliente deberá asignar un representante con autoridad para toma de decisiones y firma de documentos durante todo el servicio.</li>
+              <li>El cliente deberá garantizar el acceso, seguridad y tránsito del personal de IME en sus instalaciones.</li>
+              <li>Cuando los equipos requieran controladores especiales (computadoras, PLC, etc.), el cliente asignará personal para su operación. El técnico de IME no operará el equipo bajo ninguna circunstancia.</li>
+              <li>Los equipos deberán ser desmontados e instalados por personal del cliente; IME no se hace responsable de otro tipo de manipulación.</li>
+              <li>Si el técnico determina que no existen condiciones para el servicio, se informará a su superior y se reprogramará, debiendo el cliente cubrir los gastos de traslado.</li>
+              <li>El cliente deberá firmar el formato de conformidad del servicio, autorización de ajuste (en su caso) y carta de satisfacción.</li>
+            </ul>
+            <p>
+              Si el cliente cancela o no cumple con las condiciones pactadas, deberá cubrir una <strong>penalización del 5%</strong>
+              por cancelación, más los gastos de traslado y viáticos generados por la nueva programación.
+            </p>
+          </div>
 
-          <h2>6. Legislación Aplicable y Jurisdicción</h2>
-          <!-- TODO: texto definitivo — confirmar jurisdicción con asesor legal -->
-          <p>
-            Los presentes Términos y Condiciones se rigen por la legislación mexicana vigente.
-            Para la resolución de cualquier controversia derivada del acceso o uso del Sitio,
-            las partes se someten expresamente a la jurisdicción de los tribunales competentes
-            <!-- TODO: confirmar jurisdicción: Tlaxcala o Ciudad de México -->
-            de Tlaxcala, México, renunciando a cualquier otro fuero que pudiera corresponderles.
-          </p>
+          <!-- ═══ SEXTO ═══ -->
+          <div class="legal-block">
+            <h2>Sexto — De los servicios en el laboratorio de IME</h2>
+            <p>
+              Servicios realizados en los laboratorios de IME para equipos que requieran condiciones especiales.
+            </p>
+            <h3>Recolección de equipos</h3>
+            <ul>
+              <li>Horario de recolección: <strong>8:00 a 17:30 horas</strong>, previo acuerdo.</li>
+              <li>Tolerancia de espera en las instalaciones del cliente: <strong>20 minutos</strong> a partir de la llegada.</li>
+              <li>Duración del servicio: <strong>8 días hábiles</strong> desde la recolección hasta la entrega.</li>
+            </ul>
+            <h3>Almacenaje</h3>
+            <p>
+              Si el cliente no recoge o solicita sus equipos, IME cobrará una cuota de recuperación diaria
+              por utilización de espacio de <strong>$20.00 a $100.00 MXN + IVA</strong>, según las dimensiones del equipo.
+            </p>
+          </div>
 
-          <h2>7. Modificaciones</h2>
-          <p>
-            IME Calibraciones se reserva el derecho de modificar los presentes Términos y
-            Condiciones en cualquier momento. Los cambios serán publicados en esta página y
-            entrarán en vigor desde el momento de su publicación.
-          </p>
+          <!-- ═══ SÉPTIMO ═══ -->
+          <div class="legal-block">
+            <h2>Séptimo — De la prestación de servicios de calibración</h2>
+            <p>
+              El cliente deberá proporcionar las especificaciones de calibración: clase de exactitud, resolución,
+              alcance, puntos especiales y/o adicionales.
+            </p>
+            <ul>
+              <li>Si el equipo está fuera de su clase de exactitud, se informará al cliente. Si desea continuar, se requerirá el manual del fabricante para determinar si es apto para ajuste.</li>
+              <li><strong>Ajuste menor:</strong> sin costo adicional.</li>
+              <li><strong>Ajuste mayor</strong> (requiere equipo patrón especial): se cotizará por separado.</li>
+              <li>Si el equipo no permite ajuste, se realizará el informe técnico y se cobrará el total de la cotización.</li>
+              <li>En ningún momento se podrán establecer en los informes fechas retroactivas a la real de calibración.</li>
+            </ul>
+          </div>
 
-          <!-- TODO: agregar las secciones restantes tomadas del sitio actual -->
+          <!-- ═══ OCTAVO ═══ -->
+          <div class="legal-block">
+            <h2>Octavo — Certificados de calibración</h2>
+            <p>
+              Es el documento a través del cual se establecen datos, metodología y opiniones técnicas respecto
+              de los equipos calibrados. El costo va incluido en el total del importe por la prestación de los servicios.
+            </p>
+          </div>
+
+          <!-- ═══ NOVENO ═══ -->
+          <div class="legal-block">
+            <h2>Noveno — De la entrega de certificados y equipos</h2>
+            <p>
+              Previo a la entrega, IME enviará el proyecto de certificado para revisión del cliente, quien deberá
+              remitir sus consideraciones en un máximo de:
+            </p>
+            <ul>
+              <li><strong>Servicio ordinario:</strong> 48 horas.</li>
+              <li><strong>Servicio urgente:</strong> 12 horas.</li>
+            </ul>
+            <p>De no tener respuesta en este término, se generarán los certificados con los datos disponibles.</p>
+
+            <h3>Sanciones específicas</h3>
+            <div class="legal-sanctions">
+              <div class="legal-sanction-card">
+                <p class="legal-sanction-label">Por error del cliente</p>
+                <ul>
+                  <li>Dentro de los 10 días naturales desde la emisión: <strong>$300.00 MXN + IVA</strong>.</li>
+                  <li>A partir del día 11: <strong>$400.00 MXN + IVA</strong>.</li>
+                  <li>Después de 15 días naturales no se realizarán cambios; se deberá cotizar nueva calibración.</li>
+                </ul>
+              </div>
+              <div class="legal-sanction-card">
+                <p class="legal-sanction-label">Por error de IME</p>
+                <p>El cliente podrá manifestar su inconformidad dentro de los 10 días naturales siguientes. IME corregirá y repondrá el certificado <strong>sin costo</strong>.</p>
+              </div>
+            </div>
+            <p>
+              En caso de incumplimiento por parte del cliente, se aplicará una penalización del
+              <strong>50%</strong> sobre el valor total del servicio más viáticos generados.
+            </p>
+          </div>
+
+          <!-- ═══ DÉCIMO ═══ -->
+          <div class="legal-block">
+            <h2>Décimo — De las cotizaciones y órdenes de compra</h2>
+            <p>
+              La cotización es el documento a través del cual se establecen precios, puntos especiales, viáticos,
+              horas extras y condiciones que regirán el servicio. Deberá estar <strong>firmada por el cliente</strong> para la
+              aceptación, programación y ejecución.
+            </p>
+            <ul>
+              <li>Cotización con 10 equipos o más: precio mayoreo, servicio en una o dos exhibiciones máximo.</li>
+              <li>Si el cliente secciona los servicios por partidas, se emitirá nueva cotización con gastos correspondientes.</li>
+              <li>Una vez emitida la orden de compra y realizada la factura, el cliente no podrá hacer cambios.</li>
+            </ul>
+            <h3>Formas de autorización</h3>
+            <ol>
+              <li>Cotización con firma autógrafa o digital del cliente.</li>
+              <li>Orden de compra / Pedido.</li>
+              <li>Contrato de realización de servicios.</li>
+            </ol>
+            <h3>Vigencia de la cotización</h3>
+            <p>
+              Todas las cotizaciones tienen una validez de <strong>5 días hábiles</strong> a partir de que el cliente
+              acuse recibo. Después de este término, se realizará una nueva cotización.
+            </p>
+          </div>
+
+          <!-- ═══ DÉCIMO PRIMERO ═══ -->
+          <div class="legal-block">
+            <h2>Décimo Primero — Precios</h2>
+            <p>
+              Los precios establecidos no se pueden disminuir a petición o de manera unilateral por el cliente.
+            </p>
+            <div class="legal-callout">
+              <strong>Nota importante:</strong> La prestación de servicios de calibración no incluye ajuste(s),
+              mantenimiento(s), reparación(es), ni envío(s) por mensajería.
+            </div>
+          </div>
+
+          <!-- ═══ DÉCIMO SEGUNDO ═══ -->
+          <div class="legal-block">
+            <h2>Décimo Segundo — Formas de pago</h2>
+
+            <div class="legal-service-types">
+              <div class="legal-service-type">
+                <h3>1. De contado / efectivo</h3>
+                <p>Pagos liquidados antes de la prestación del servicio, de manera instantánea a través de los medios pertinentes.</p>
+              </div>
+
+              <div class="legal-service-type">
+                <h3>2. A crédito</h3>
+                <p>
+                  Deberá ser solicitado por el cliente a IME a través del formato establecido. Pagos semanales,
+                  quincenales o mensuales, y salvo contrato anual. Sujeto a límite de crédito según la prestación de servicios.
+                </p>
+                <p>
+                  Todas las cantidades se cubrirán en las fechas convenidas, sin necesidad de previo requerimiento,
+                  en moneda de curso legal.
+                </p>
+              </div>
+
+              <div class="legal-service-type">
+                <h3>3. Cheque</h3>
+                <p>
+                  Título extendido a favor de <em>Ingeniería y Metrología Certificada para Calibración de Equipos
+                  de Control y Pruebas S.A. de C.V.</em> Si el cheque fuera rechazado, IME cobrará un <strong>15%</strong>
+                  respecto del monto por gastos administrativos más intereses moratorios.
+                </p>
+              </div>
+
+              <div class="legal-service-type">
+                <h3>4. Transferencia electrónica / SPEI</h3>
+                <p>Pagos a BBVA:</p>
+                <ul>
+                  <li><strong>Cuenta:</strong> 0113658651</li>
+                  <li><strong>CLABE:</strong> 012830001136586516</li>
+                </ul>
+              </div>
+
+              <div class="legal-service-type">
+                <h3>5. Pago con terminal (tarjeta)</h3>
+                <p>Dentro de las condiciones de pago establecidas en la factura, tomando como fecha inicial la fecha de la factura.</p>
+              </div>
+            </div>
+
+            <p>
+              Todos los pagos deberán ser notificados a
+              <a href="mailto:facturas@calibracionesime.com.mx">facturas@calibracionesime.com.mx</a>.
+              De lo contrario no serán aplicados. En caso de no pago y canalización a otras áreas,
+              las notificaciones se realizarán a
+              <a href="mailto:juridico@calibracionesime.com.mx">juridico@calibracionesime.com.mx</a>.
+            </p>
+            <p>
+              Si el cliente solicita re-facturación por datos erróneos proporcionados por él mismo,
+              deberá cubrir un costo extra de <strong>$150.00 MXN + IVA</strong>.
+            </p>
+          </div>
+
+          <!-- ═══ DÉCIMO TERCERO ═══ -->
+          <div class="legal-block">
+            <h2>Décimo Tercero — De la confidencialidad</h2>
+            <p>
+              El cliente está obligado a guardar confidencialidad y secrecía respecto del acceso a la información,
+              conocimiento técnico o comercial. Por ningún motivo y bajo ninguna circunstancia las partes
+              obtendrán ventaja comercial frente a la competencia. La violación a esta cláusula resultará
+              en el pago de daños y perjuicios.
+            </p>
+          </div>
+
+          <!-- ═══ DÉCIMO CUARTO ═══ -->
+          <div class="legal-block">
+            <h2>Décimo Cuarto — De la garantía</h2>
+            <p>
+              Los servicios de <strong>mantenimiento correctivo</strong> cuentan con una garantía de
+              <strong>24 horas</strong> a partir de que el cliente recibe el equipo. Una vez fenecido este
+              término, no se aceptarán reclamos o devoluciones.
+            </p>
+            <p>
+              Respecto de las calibraciones, IME no se hace responsable de que el ajuste no sea efectivo
+              o cuando el equipo presente error y el cliente decida que se calibre de todas formas.
+            </p>
+          </div>
+
+          <!-- ═══ DÉCIMO QUINTO ═══ -->
+          <div class="legal-block">
+            <h2>Décimo Quinto — De la subcontratación</h2>
+            <p>
+              Cuando IME recurra a proveedores externos, se ajustará a los procedimientos de calidad
+              establecidos, observando en todo momento la ISO/IEC 17025:2017. Se informará al cliente
+              sobre las actividades realizadas por proveedores externos y se requerirá autorización por escrito.
+            </p>
+            <p>
+              IME no se hace responsable por la mala prestación de un servicio subcontratado.
+            </p>
+          </div>
+
+          <!-- ═══ DÉCIMO SEXTO ═══ -->
+          <div class="legal-block">
+            <h2>Décimo Sexto — Jurisdicción y competencia</h2>
+            <p>
+              Para todo lo relativo a la interpretación y cumplimiento, ambas partes se someten expresamente
+              al fuero de las leyes y a los <strong>Tribunales del Estado de Tlaxcala</strong>, renunciando
+              expresamente al fuero que por su domicilio les pudiera corresponder.
+            </p>
+          </div>
+
+          <!-- ═══ DÉCIMO SÉPTIMO ═══ -->
+          <div class="legal-block">
+            <h2>Décimo Séptimo — De la entrega</h2>
+            <h3>Servicio de mensajería</h3>
+            <p>
+              IME cuenta con servicio de recolección y entrega de equipos, facturas y certificados,
+              sujeto a la programación de IME. Los gastos serán incluidos en la cotización, considerando
+              distancia, horarios, viáticos y gastos de transportación.
+            </p>
+            <h3>Servicio de paquetería</h3>
+            <p>
+              Cuando se envíen documentos o equipos por paquetería comercial, los gastos y riesgos
+              correrán por cuenta del cliente. IME no se responsabilizará por daño, pérdida, deterioro,
+              robo o extravío.
+            </p>
+          </div>
+
+          <!-- ═══ DÉCIMO OCTAVO ═══ -->
+          <div class="legal-block">
+            <h2>Décimo Octavo — Cláusula de cancelación</h2>
+            <p>
+              Toda cancelación de servicios previamente autorizados tendrá un cargo según daños y perjuicios
+              ocasionados a IME.
+            </p>
+            <p>
+              La cancelación notificada con menos de <strong>24 horas</strong> de anticipación, fuera del
+              horario de 8:00 a 17:30 horas o en día inhábil, tendrá un cargo del <strong>60%</strong> sobre
+              el importe total de la cotización u orden de compra.
+            </p>
+          </div>
 
         </div>
       </div>
@@ -107,3 +442,210 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   </main>
 </Base>
+
+<style>
+/* ============================================================
+   TÉRMINOS Y CONDICIONES — estilos de la página legal
+   ============================================================ */
+.legal-content {
+  line-height: 1.8;
+  color: var(--color-ink);
+}
+
+.legal-block {
+  margin-bottom: var(--space-10);
+}
+.legal-block:last-child {
+  margin-bottom: 0;
+}
+
+.legal-content h2 {
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 2px solid color-mix(in srgb, var(--color-primary) 15%, transparent);
+}
+
+.legal-content h3 {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-3);
+}
+
+.legal-content p {
+  color: var(--color-muted);
+  margin-bottom: var(--space-4);
+}
+
+.legal-content ul,
+.legal-content ol {
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-4);
+}
+.legal-content ul { list-style: none; padding: 0; }
+.legal-content ul li {
+  position: relative;
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-2);
+  color: var(--color-muted);
+}
+.legal-content ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  opacity: 0.5;
+}
+.legal-content ol li {
+  margin-bottom: var(--space-2);
+  color: var(--color-muted);
+}
+.legal-content ol[type="a"] {
+  list-style-type: lower-alpha;
+}
+.legal-roman {
+  list-style-type: upper-roman;
+}
+
+.legal-content a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--transition-fast);
+}
+.legal-content a:hover {
+  color: var(--color-primary-dark);
+}
+
+/* Definitions list */
+.legal-definitions {
+  display: grid;
+  gap: var(--space-4);
+  margin: var(--space-4) 0 var(--space-6);
+}
+.legal-definitions > div {
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-primary);
+}
+.legal-definitions dt {
+  font-weight: 700;
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-1);
+}
+.legal-definitions dd {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+/* Service types grid */
+.legal-service-types {
+  display: grid;
+  gap: var(--space-4);
+  margin: var(--space-4) 0;
+}
+.legal-service-type {
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+.legal-service-type h3 {
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+.legal-service-type p:last-child,
+.legal-service-type ul:last-child {
+  margin-bottom: 0;
+}
+
+/* Sanctions */
+.legal-sanctions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  margin: var(--space-4) 0;
+}
+.legal-sanction-card {
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+.legal-sanction-label {
+  font-weight: 700;
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  margin-bottom: var(--space-3);
+}
+@media (max-width: 640px) {
+  .legal-sanctions { grid-template-columns: 1fr; }
+}
+
+/* Callout */
+.legal-callout {
+  padding: var(--space-5);
+  background: color-mix(in srgb, var(--color-gold) 8%, white);
+  border-left: 4px solid var(--color-gold);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  color: var(--color-ink);
+  margin: var(--space-4) 0;
+  font-size: var(--text-sm);
+}
+
+/* Download bar */
+.legal-download-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-10);
+}
+.legal-download-bar p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: var(--text-sm);
+}
+.legal-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--transition-fast);
+}
+.legal-download-btn:hover {
+  background: var(--color-primary-dark);
+}
+@media (max-width: 640px) {
+  .legal-download-bar {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+</style>

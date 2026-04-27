@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logoIME from '../assets/images/logo/logo-principal.png';
 const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const navLinks = [
@@ -27,9 +29,7 @@ const contactoActive = contactoLinks.some(l => isActive(l.href));
 <header class="site-header" role="banner">
   <div class="container">
     <a class="site-logo" href={`${b}/`} aria-label="IME Calibraciones — Inicio">
-      <img src={`${b}/assets/images/logo/logo-principal.png`}
-           alt="IME Calibraciones"
-           width="160" height="48">
+      <Image src={logoIME} alt="IME Calibraciones" width={160} height={48} />
     </a>
 
     <button class="nav-toggle no-print" aria-label="Abrir menú" aria-expanded="false">
