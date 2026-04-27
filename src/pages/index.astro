@@ -78,7 +78,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
       <div class="hero__bg" aria-hidden="true">
         <div class="hero__carousel" id="heroCarousel">
           <div class="hero__slide hero__slide--video hero__slide--active">
-            <video autoplay muted loop playsinline poster={`${b}/assets/images/hero/hero-poster.png`} fetchpriority="high">
+            <video autoplay muted loop playsinline preload="metadata" poster={`${b}/assets/images/hero/hero-poster.png`} fetchpriority="high">
               <source src={`${b}/assets/video/hero-lab.mp4`} type="video/mp4">
             </video>
           </div>
@@ -424,7 +424,9 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
         <div class="sobre-ime__layout">
           <div class="sobre-ime__media">
             <div class="sobre-ime__image-wrap">
-              <video class="sobre-ime__video" src={`${b}/assets/video/logo-animado-white.mp4`} autoplay muted playsinline aria-label="Logo animado IME Calibraciones"></video>
+              <video class="sobre-ime__video" autoplay muted playsinline preload="none" aria-label="Logo animado IME Calibraciones">
+                <source src={`${b}/assets/video/logo-animado-white.mp4`} type="video/mp4">
+              </video>
             </div>
             <div class="sobre-ime__acreds">
               <div class="sobre-ime__acred">
