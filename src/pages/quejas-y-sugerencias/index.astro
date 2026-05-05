@@ -25,21 +25,36 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     <section class="section">
       <div class="container container--narrow">
 
-        <form id="formulario-quejas" class="contacto-form quejas-form" action="#" method="POST" novalidate>
-          <div class="form-row">
+        <form id="formulario-quejas" class="contacto-form quejas-form" action="https://formspree.io/f/mlgzbyjg" method="POST" novalidate>
+
+          <!-- Datos de contacto -->
+          <div class="form-row form-row--two">
             <div class="form-group">
-              <label for="quejas-nombre">Nombre completo <span aria-hidden="true">*</span></label>
-              <input type="text" id="quejas-nombre" name="nombre" required autocomplete="name" placeholder="Juan García">
+              <label for="quejas-nombre" class="form-label">Nombre completo <span aria-hidden="true">*</span></label>
+              <input type="text" id="quejas-nombre" name="nombre" class="form-input" required autocomplete="name" placeholder="Juan García">
             </div>
             <div class="form-group">
-              <label for="quejas-email">Correo electrónico <span aria-hidden="true">*</span></label>
-              <input type="email" id="quejas-email" name="email" required autocomplete="email" placeholder="correo@ejemplo.com">
+              <label for="quejas-email" class="form-label">Correo electrónico <span aria-hidden="true">*</span></label>
+              <input type="email" id="quejas-email" name="email" class="form-input" required autocomplete="email" placeholder="correo@empresa.com">
             </div>
           </div>
-          <div class="form-row">
+
+          <div class="form-row form-row--two">
             <div class="form-group">
-              <label for="quejas-tipo">Tipo de comentario <span aria-hidden="true">*</span></label>
-              <select id="quejas-tipo" name="tipo" required>
+              <label for="quejas-empresa" class="form-label">Empresa <span class="form-label__opt">(opcional)</span></label>
+              <input type="text" id="quejas-empresa" name="empresa" class="form-input" autocomplete="organization" placeholder="Nombre de su empresa">
+            </div>
+            <div class="form-group">
+              <label for="quejas-rfc" class="form-label">RFC <span class="form-label__opt">(opcional)</span></label>
+              <input type="text" id="quejas-rfc" name="rfc" class="form-input" placeholder="Ej. XAXX010101000" maxlength="13" style="text-transform:uppercase">
+            </div>
+          </div>
+
+          <!-- Detalle del comentario -->
+          <div class="form-row form-row--two">
+            <div class="form-group">
+              <label for="quejas-tipo" class="form-label">Tipo de comentario <span aria-hidden="true">*</span></label>
+              <select id="quejas-tipo" name="tipo" class="form-select" required>
                 <option value="">Selecciona una opción</option>
                 <option value="queja">Queja</option>
                 <option value="sugerencia">Sugerencia</option>
@@ -48,19 +63,34 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
               </select>
             </div>
             <div class="form-group">
-              <label for="quejas-folio">N.º de certificado o folio (opcional)</label>
-              <input type="text" id="quejas-folio" name="folio" placeholder="Ej. IME-2025-0123">
+              <label for="quejas-folio" class="form-label">N.º de certificado o folio <span class="form-label__opt">(opcional)</span></label>
+              <input type="text" id="quejas-folio" name="folio" class="form-input" placeholder="Ej. IME-2025-0123">
             </div>
           </div>
+
           <div class="form-group">
-            <label for="quejas-mensaje">Descripción <span aria-hidden="true">*</span></label>
-            <textarea id="quejas-mensaje" name="mensaje" rows="5" required placeholder="Describe tu queja o sugerencia con el mayor detalle posible..."></textarea>
+            <label for="quejas-mensaje" class="form-label">Descripción <span aria-hidden="true">*</span></label>
+            <textarea id="quejas-mensaje" name="mensaje" class="form-textarea" rows="5" required placeholder="Describe tu queja o sugerencia con el mayor detalle posible…"></textarea>
           </div>
+
           <div class="quejas-aviso">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/>
+            </svg>
             <p>Tu información es confidencial. Nos comprometemos a darte respuesta en un plazo máximo de <strong>5 días hábiles</strong>.</p>
           </div>
-          <button type="submit" class="btn btn-primary">Enviar comentario</button>
+
+          <div class="form-group">
+            <button type="submit" id="quejas-submit" class="btn btn--primary btn--full">Enviar comentario</button>
+          </div>
+
+          <div id="quejas-success" class="form-feedback form-feedback--success" role="alert" hidden>
+            <strong>¡Comentario enviado!</strong> Nos pondremos en contacto con usted en un plazo máximo de 5 días hábiles.
+          </div>
+          <div id="quejas-error" class="form-feedback form-feedback--error" role="alert" hidden>
+            <strong>Error al enviar.</strong> Por favor intente de nuevo o contáctenos al <a href="tel:+522461261782">+52 246 126 1782</a>.
+          </div>
+
         </form>
 
       </div>
@@ -69,12 +99,55 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
   </main>
 </Base>
 
+<script>
+  (function () {
+    const form = document.getElementById('formulario-quejas');
+    if (!form) return;
+    const btn = document.getElementById('quejas-submit');
+    const success = document.getElementById('quejas-success');
+    const error = document.getElementById('quejas-error');
+
+    // RFC en mayúsculas automáticamente
+    const rfcInput = document.getElementById('quejas-rfc');
+    if (rfcInput) {
+      rfcInput.addEventListener('input', function () {
+        const pos = this.selectionStart;
+        this.value = this.value.toUpperCase();
+        this.setSelectionRange(pos, pos);
+      });
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Enviando…';
+      success.hidden = true;
+      error.hidden = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          success.hidden = false;
+          success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          error.hidden = false;
+        }
+      } catch (_) {
+        error.hidden = false;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Enviar comentario';
+      }
+    });
+  }());
+</script>
+
 <style>
-.quejas-form .form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
-}
 .quejas-aviso {
   display: flex;
   gap: 10px;
@@ -83,13 +156,9 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
   border: 1px solid #bbf7d0;
   border-radius: var(--radius-lg);
   padding: var(--space-3) var(--space-4);
-  margin-bottom: var(--space-5);
   color: #166534;
   font-size: var(--text-sm);
 }
 .quejas-aviso svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
-.quejas-aviso p { margin: 0; line-height: 1.6; }
-@media (max-width: 600px) {
-  .quejas-form .form-row { grid-template-columns: 1fr; }
-}
+.quejas-aviso p  { margin: 0; line-height: 1.6; }
 </style>

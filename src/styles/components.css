@@ -576,6 +576,10 @@ a.card--service:hover { box-shadow: var(--shadow-md); transform: translateY(-2px
   margin-bottom: var(--space-2);
   color: var(--color-ink);
 }
+.form-label__opt {
+  font-weight: 400;
+  color: var(--color-subtle);
+}
 
 /* .form-control, .form-input, .form-select, .form-textarea son equivalentes */
 .form-control,

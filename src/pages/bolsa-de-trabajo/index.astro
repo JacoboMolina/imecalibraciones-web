@@ -16,8 +16,8 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
       title="Bolsa de trabajo"
       subtitle="Forma parte del equipo de IME Calibraciones y contribuye al desarrollo de la metrología en México."
       anchors={[
-        { label: 'Ver vacantes', href: '#vacantes' },
-        { label: 'Enviar CV',    href: '#formulario-cv' },
+        { label: 'Ver vacantes',     href: '#vacantes'      },
+        { label: 'Enviar solicitud', href: '#formulario-cv' },
       ]}
       video={`${b}/assets/video/hero-lab.mp4`}
       poster={`${b}/assets/images/hero/hero-poster.png`}
@@ -26,49 +26,80 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
     <section class="section">
       <div class="container container--narrow">
 
-        <!-- TODO: reemplazar con vacantes reales cuando las haya -->
+        <!-- Aviso de vacantes -->
         <div id="vacantes" class="bolsa-aviso">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/></svg>
-          <p>Por el momento no tenemos vacantes abiertas. Si deseas dejar tu currículum para futuras oportunidades, completa el formulario a continuación.</p>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd"/>
+          </svg>
+          <p>Por el momento no tenemos vacantes abiertas. Si deseas dejar tus datos para futuras oportunidades, completa el formulario a continuación.</p>
         </div>
 
-        <form id="formulario-cv" class="contacto-form bolsa-form" action="#" method="POST" novalidate>
-          <div class="form-row">
+        <!-- Formulario de postulación -->
+        <form id="formulario-cv" class="contacto-form bolsa-form" action="https://formspree.io/f/mgodkjal" method="POST" novalidate>
+
+          <div class="form-row form-row--two">
             <div class="form-group">
-              <label for="bolsa-nombre">Nombre completo <span aria-hidden="true">*</span></label>
-              <input type="text" id="bolsa-nombre" name="nombre" required autocomplete="name" placeholder="Juan García">
+              <label for="bolsa-nombre" class="form-label">Nombre completo <span aria-hidden="true">*</span></label>
+              <input type="text" id="bolsa-nombre" name="nombre" class="form-input" required autocomplete="name" placeholder="Juan García">
             </div>
             <div class="form-group">
-              <label for="bolsa-email">Correo electrónico <span aria-hidden="true">*</span></label>
-              <input type="email" id="bolsa-email" name="email" required autocomplete="email" placeholder="correo@ejemplo.com">
+              <label for="bolsa-email" class="form-label">Correo electrónico <span aria-hidden="true">*</span></label>
+              <input type="email" id="bolsa-email" name="email" class="form-input" required autocomplete="email" placeholder="correo@ejemplo.com">
             </div>
           </div>
-          <div class="form-row">
+
+          <div class="form-row form-row--two">
             <div class="form-group">
-              <label for="bolsa-telefono">Teléfono</label>
-              <input type="tel" id="bolsa-telefono" name="telefono" autocomplete="tel" placeholder="(222) 123-4567">
+              <label for="bolsa-telefono" class="form-label">Teléfono <span class="form-label__opt">(opcional)</span></label>
+              <input type="tel" id="bolsa-telefono" name="telefono" class="form-input" autocomplete="tel" placeholder="+52 000 000 0000">
             </div>
             <div class="form-group">
-              <label for="bolsa-puesto">Área de interés</label>
-              <select id="bolsa-puesto" name="puesto">
+              <label for="bolsa-puesto" class="form-label">Área de interés <span class="form-label__opt">(opcional)</span></label>
+              <select id="bolsa-puesto" name="puesto" class="form-select">
                 <option value="">Selecciona una opción</option>
-                <option value="tecnico-calibracion">Técnico de calibración</option>
+                <option value="tecnico">Técnico</option>
                 <option value="laboratorio">Laboratorio</option>
-                <option value="administrativo">Administrativo</option>
-                <option value="ventas">Ventas / Atención a clientes</option>
+                <option value="it">Tecnologías de la información (IT)</option>
+                <option value="marketing">Marketing</option>
+                <option value="administracion">Administración</option>
+                <option value="ventas">Ventas</option>
+                <option value="atencion-clientes">Atención a clientes</option>
+                <option value="rh">Recursos humanos (RH)</option>
+                <option value="operaciones">Operaciones</option>
                 <option value="otro">Otro</option>
               </select>
             </div>
           </div>
+
           <div class="form-group">
-            <label for="bolsa-mensaje">Mensaje / presentación breve</label>
-            <textarea id="bolsa-mensaje" name="mensaje" rows="4" placeholder="Cuéntanos sobre tu experiencia y por qué te gustaría unirte a IME..."></textarea>
+            <label for="bolsa-mensaje" class="form-label">Presentación breve <span class="form-label__opt">(opcional)</span></label>
+            <textarea id="bolsa-mensaje" name="mensaje" class="form-textarea" rows="4" placeholder="Cuéntanos sobre tu experiencia y por qué te gustaría unirte a IME…"></textarea>
           </div>
+
+          <!-- Instrucción para enviar CV -->
+          <div class="bolsa-cv-nota">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/>
+              <path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/>
+            </svg>
+            <p>
+              Envía tu currículum directamente a
+              <a href="mailto:marketing@imecalibraciones.com">marketing@imecalibraciones.com</a>
+              con el asunto <strong>"Postulación — [Área de interés]"</strong>.
+            </p>
+          </div>
+
           <div class="form-group">
-            <label for="bolsa-cv">Currículum (PDF, máx. 5 MB)</label>
-            <input type="file" id="bolsa-cv" name="cv" accept=".pdf">
+            <button type="submit" id="bolsa-submit" class="btn btn--primary btn--full">Enviar solicitud</button>
           </div>
-          <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+
+          <div id="bolsa-success" class="form-feedback form-feedback--success" role="alert" hidden>
+            <strong>¡Solicitud enviada!</strong> Revisaremos tu información y te contactaremos si hay una oportunidad adecuada. Recuerda enviar tu CV al correo indicado.
+          </div>
+          <div id="bolsa-error" class="form-feedback form-feedback--error" role="alert" hidden>
+            <strong>Error al enviar.</strong> Por favor intenta de nuevo o contáctanos al <a href="tel:+522461261782">+52 246 126 1782</a>.
+          </div>
+
         </form>
 
       </div>
@@ -76,6 +107,44 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   </main>
 </Base>
+
+<script>
+  (function () {
+    const form = document.getElementById('formulario-cv');
+    if (!form) return;
+    const btn = document.getElementById('bolsa-submit');
+    const success = document.getElementById('bolsa-success');
+    const error = document.getElementById('bolsa-error');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Enviando…';
+      success.hidden = true;
+      error.hidden = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.reset();
+          success.hidden = false;
+          success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          error.hidden = false;
+        }
+      } catch (_) {
+        error.hidden = false;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Enviar solicitud';
+      }
+    });
+  }());
+</script>
 
 <style>
 .bolsa-aviso {
@@ -90,13 +159,19 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
   color: #1e40af;
 }
 .bolsa-aviso svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
-.bolsa-aviso p { margin: 0; font-size: var(--text-sm); line-height: 1.6; }
-.bolsa-form .form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
+.bolsa-aviso p  { margin: 0; font-size: var(--text-sm); line-height: 1.6; }
+
+.bolsa-cv-nota {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--color-bg-alt, #f8f9fa);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  color: var(--color-text);
 }
-@media (max-width: 600px) {
-  .bolsa-form .form-row { grid-template-columns: 1fr; }
-}
+.bolsa-cv-nota svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--color-primary); }
+.bolsa-cv-nota p  { margin: 0; font-size: var(--text-sm); line-height: 1.6; }
+.bolsa-cv-nota a  { color: var(--color-primary); font-weight: 600; }
 </style>

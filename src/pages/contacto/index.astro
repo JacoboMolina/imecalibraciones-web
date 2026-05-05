@@ -81,7 +81,6 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
         submitBtn.textContent = 'Enviando…';
 
         try {
-          // TODO: reemplazar la URL con el endpoint real de Formspree/EmailJS
           const response = await fetch(form.action, {
             method: 'POST',
             body: new FormData(form),
@@ -130,14 +129,11 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
           <div class="contact-form-col">
             <h2>Envíenos un mensaje</h2>
 
-            <!-- TODO: configurar el endpoint del formulario con Formspree o EmailJS.
-                 Reemplazar action="#" con la URL del endpoint correspondiente.
-                 Ejemplo Formspree: action="https://formspree.io/f/[FORM_ID]"
-                 Añadir method="POST" una vez configurado el endpoint. -->
             <form
               id="contact-form"
               class="form"
-              action="#"
+              action="https://formspree.io/f/mkoyrlgp"
+              method="POST"
               novalidate
               aria-label="Formulario de contacto">
 
@@ -161,7 +157,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
                   <span class="form-error" id="nombre-error" role="alert"></span>
                 </div>
                 <div class="form-group">
-                  <label for="empresa" class="form-label">Empresa</label>
+                  <label for="empresa" class="form-label">Empresa <span class="form-label__opt">(opcional)</span></label>
                   <input
                     type="text"
                     id="empresa"
@@ -186,7 +182,7 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
                   <span class="form-error" id="correo-error" role="alert"></span>
                 </div>
                 <div class="form-group">
-                  <label for="telefono" class="form-label">Teléfono</label>
+                  <label for="telefono" class="form-label">Teléfono <span class="form-label__opt">(opcional)</span></label>
                   <input
                     type="tel"
                     id="telefono"
@@ -198,20 +194,15 @@ const b = import.meta.env.BASE_URL.replace(/\/$/, '');
               </div>
 
               <div class="form-group">
-                <label for="magnitud" class="form-label">Magnitud de interés</label>
-                <select id="magnitud" name="magnitud" class="form-select">
-                  <option value="">— Seleccione una magnitud —</option>
-                  <!-- TODO: completar con las 32 magnitudes reales de IME Calibraciones -->
-                  <option value="temperatura">Temperatura</option>
-                  <option value="presion">Presión</option>
-                  <option value="masa">Masa</option>
-                  <option value="dimensional">Dimensional / Longitud</option>
-                  <option value="fuerza">Fuerza / Torque</option>
-                  <option value="volumen">Volumen</option>
-                  <option value="electrico">Eléctrico</option>
-                  <option value="humedad">Humedad</option>
-                  <!-- TODO: agregar las magnitudes restantes -->
-                  <option value="otro">Otra / No estoy seguro</option>
+                <label for="motivo" class="form-label">¿En qué podemos ayudarte? <span class="form-label__opt">(opcional)</span></label>
+                <select id="motivo" name="motivo" class="form-select">
+                  <option value="">— Seleccione una opción —</option>
+                  <option value="cotizacion">Solicitar cotización</option>
+                  <option value="informacion">Información sobre servicios</option>
+                  <option value="visita">Agendar una visita al laboratorio</option>
+                  <option value="acreditaciones">Acreditaciones y certificaciones</option>
+                  <option value="cliente">Soy cliente — consulta sobre mi servicio</option>
+                  <option value="otro">Otro</option>
                 </select>
               </div>
 
