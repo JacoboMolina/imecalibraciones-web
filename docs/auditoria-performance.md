@@ -18,108 +18,58 @@
 | Logos EMA / PJLA | `acreditaciones/index.astro` | `<Image />` desde `src/assets/images/acreditaciones/` |
 | Logo Header | `Header.astro` | `<Image />` desde `src/assets/images/logo/` |
 | Logo Footer | `Footer.astro` | `<Image />` desde `src/assets/images/logo/` |
-| Fotos nosotros (equipo + banner) | `nosotros/index.astro` | `<Image />` desde `src/assets/images/nosotros/` |
-| Imágenes de productos | `catalogo/[slug].astro` | `import.meta.glob` + `<Image />` |
-| PageHeader local images | `PageHeader.astro` | Ya usa `<Image />` para `ImageMetadata` |
+| Foto equipo nosotros | `nosotros/index.astro` | `widths={[600,900,1200]}` + `sizes` ✓ |
+| Banner nosotros | `nosotros/index.astro` | `widths={[400,800,1200]}` + `sizes` + `format="webp"` ✓ (532 kB → 14/41/75 kB) |
+| Imagen principal producto | `catalogo/[slug].astro` | `widths={[300,600,900]}` + `sizes` + `format="webp"` ✓ |
+| PageHeader local images | `PageHeader.astro` | `<Image />` para `ImageMetadata`; `loading="eager"` en `<img>` string ✓ |
+| Todos los `<iframe>` | acreditaciones, contacto, index, nosotros | `loading="lazy"` ya presente ✓ |
+| Fuentes Poppins | `Base.astro` | `@fontsource/poppins` (local, sin CDN) — preconnect no necesario ✓ |
+| Preload hero video home | `index.astro` | `<link rel="preload" as="video">` ✓ |
+| Preload hero video servicios | `servicios/index.astro` | `<link rel="preload" as="video">` ✓ |
+| `preload="metadata"` videos hero | `PageHeader.astro`, `index.astro` | Videos above-fold con `preload="metadata"` ✓ |
+| `preload="none"` logo animado | `index.astro` | `logo-animado-white.mp4` below-fold ✓ |
+| `preload="none"` video blur bg | `PageHeader.astro` (focus mode) | Capa decorativa con `preload="none"` ✓ |
+| Logo print (catálogo) | `catalogo/[slug].astro` | `loading="lazy"` en `<img>` oculto de impresión ✓ |
 
 ---
 
-## Pendientes — qué debe hacer el agente
+## Pendiente — único item restante
 
-### 1. Iframes sin `loading="lazy"`
+### Videos .webm — requiere ffmpeg (no instalado en este entorno)
 
-Añadir `loading="lazy"` a todos los `<iframe>` que no lo tengan:
+Los atributos HTML ya están corregidos (`preload="metadata"` en heroes, `preload="none"` en logo animado).  
+Falta generar las versiones `.webm` (VP9) y añadir el `<source type="video/webm">` antes del fallback MP4.
 
-| Archivo | Descripción |
-|---------|-------------|
-| `src/pages/acreditaciones/index.astro` líneas ~96 y ~139 | iframes de documentos de acreditación |
-| `src/pages/contacto/index.astro` línea ~294 | iframe de Google Maps |
-| `src/pages/index.astro` línea ~531 | iframe embebido (verificar cuál es) |
-| `src/pages/nosotros/index.astro` líneas ~250, ~267, ~284 | iframes TikTok, Instagram, YouTube |
-
----
-
-### 2. Imágenes `<img>` sin `loading="lazy"` ni `<Image />`
-
-| Archivo | Línea aprox. | Qué es | Acción |
-|---------|-------------|--------|--------|
-| `src/components/PageHeader.astro` | ~82 y ~100 | `<img>` con `src` tipo string (no `ImageMetadata`) | Añadir `loading="lazy"` donde corresponda; la primera imagen above-the-fold debe ser `loading="eager"` |
-| `src/pages/catalogo/[slug].astro` | ~161 | Logo SVG en sección de impresión | SVG inline o `loading="lazy"` |
-| `src/pages/index.astro` | ~340 | Thumbnail de YouTube (URL remota) | Ya tiene `loading="lazy"` — verificar |
-
----
-
-### 3. Videos — convertir a formato web moderno
-
-Los 5 videos en `public/assets/video/` se sirven como MP4 sin compresión optimizada:
-
+**Archivos a convertir** (`public/assets/video/`):
 ```
-hero-acreditaciones.mp4
-hero-lab.mp4
-hero-servicios.mp4
-logo-animado.mp4
-logo-animado-white.mp4
+hero-lab.mp4  →  hero-lab.webm
+hero-servicios.mp4  →  hero-servicios.webm
+hero-acreditaciones.mp4  →  hero-acreditaciones.webm
+logo-animado.mp4  →  logo-animado.webm
+logo-animado-white.mp4  →  logo-animado-white.webm
 ```
 
-**Acciones:**
-- Generar versión `.webm` (VP9) de cada uno para navegadores modernos
-- Usar `<source>` múltiple: primero `.webm`, fallback `.mp4`
-- Verificar que todos los `<video>` de fondo tengan: `muted playsinline preload="none"` (o `preload="metadata"` como mínimo)
-- Los videos hero (above-the-fold) pueden usar `preload="metadata"` pero NO `preload="auto"`
-- Logo animado (`logo-animado.mp4` / `logo-animado-white.mp4`) — verificar que usen `preload="none"` si están debajo del fold
+**Comando ffmpeg para cada video:**
+```bash
+ffmpeg -i hero-lab.mp4 -c:v libvpx-vp9 -crf 33 -b:v 0 -an hero-lab.webm
+```
+Repetir para cada archivo. El flag `-an` elimina audio (videos de fondo no lo necesitan).
 
-**Patrón correcto:**
+**Patrón HTML a usar en cada `<video>` una vez generados los .webm:**
 ```html
-<video autoplay muted loop playsinline preload="none" aria-hidden="true">
+<video autoplay muted loop playsinline preload="metadata">
   <source src="/assets/video/hero-lab.webm" type="video/webm">
   <source src="/assets/video/hero-lab.mp4"  type="video/mp4">
 </video>
 ```
 
----
-
-### 4. Imágenes `<Image />` sin `widths` + `sizes` (responsive srcset)
-
-Las imágenes migradas usan `<Image />` pero solo con `width` y `height` fijos (un solo tamaño). Las que ocupan ancho variable en el layout deberían tener `srcset` responsive.
-
-**Candidatas prioritarias (imágenes grandes en layout):**
-- `nosotros/index.astro` — `equipo-ime.png` (columna 50% del container)
-- `nosotros/index.astro` — `banner-nosotros.jpeg` (columna 55% del container)
-- `catalogo/[slug].astro` — imagen principal del producto (columna izquierda ~50%)
-
-**Patrón:**
-```astro
-<Image
-  src={equipoIme}
-  alt="..."
-  widths={[400, 800, 1200]}
-  sizes="(max-width: 860px) 100vw, 50vw"
-/>
-```
+Archivos a editar cuando los .webm estén listos:
+- `src/components/PageHeader.astro` (líneas ~79 y ~96)
+- `src/pages/index.astro` (líneas ~82 y ~428)
 
 ---
 
-### 5. Fuentes — verificar `font-display`
-
-En `src/styles/main.css` se importa Poppins desde Google Fonts:
-```css
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-```
-El `display=swap` ya está presente — correcto. Verificar que en `src/layouts/Base.astro` haya un `<link rel="preconnect" href="https://fonts.googleapis.com">` antes del CSS.
-
----
-
-### 6. Preload del hero
-
-Verificar que en `index.astro` exista un `<link rel="preload">` para el video hero o la imagen above-the-fold más importante (LCP). Actualmente hay un preload del video:
-```html
-<link rel="preload" as="video" href="..." type="video/mp4" slot="head">
-```
-Confirmar que también exista para las páginas con hero de imagen estática (acreditaciones, nosotros, servicios).
-
----
-
-### 7. No optimizable por Astro (dejar como está)
+### No optimizable por Astro (dejar como está)
 
 | Qué | Por qué |
 |-----|---------|
@@ -133,13 +83,11 @@ Confirmar que también exista para las páginas con hero de imagen estática (ac
 
 ## Checklist de verificación
 
-Al terminar, confirmar:
-
-- [ ] Todos los `<iframe>` tienen `loading="lazy"`
-- [ ] Todos los `<img>` que no son above-the-fold tienen `loading="lazy"`
-- [ ] Todas las imágenes grandes en columnas variables tienen `widths` + `sizes`
-- [ ] Todos los `<video>` de fondo tienen `muted playsinline preload="none"`
-- [ ] Existe `<source type="video/webm">` antes del fallback MP4 (si se generaron .webm)
-- [ ] `<link rel="preconnect">` para Google Fonts presente en `Base.astro`
-- [ ] `<link rel="preload">` presente para el asset LCP en cada página principal
-- [ ] Ninguna imagen local usa `<img src="/assets/...">` directo (todas usan `<Image />` con import)
+- [x] Todos los `<iframe>` tienen `loading="lazy"`
+- [x] Todos los `<img>` que no son above-the-fold tienen `loading="lazy"`; los above-fold tienen `loading="eager"`
+- [x] Todas las imágenes grandes en columnas variables tienen `widths` + `sizes`
+- [x] Videos hero con `preload="metadata"`; logo animado y blur bg con `preload="none"`
+- [ ] `<source type="video/webm">` antes del fallback MP4 — **pendiente de generar .webm con ffmpeg**
+- [x] Fuentes: `@fontsource/poppins` (local) — preconnect no requerido
+- [x] `<link rel="preload">` para hero video en `index.astro` y `servicios/index.astro`
+- [x] Ninguna imagen local usa `<img src="/assets/...">` directo (todas usan `<Image />` con import)

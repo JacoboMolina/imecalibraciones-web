@@ -98,7 +98,7 @@ const whatsappHref = `https://wa.me/522461261782?text=${whatsappMsg}`;
         <div class="product-gallery">
           <div class="product-gallery-main">
             <!-- FOTO REAL: instrumento sobre fondo blanco, centrado, luz uniforme, sin fondo colorido -->
-            {mainImg && <Image src={mainImg} alt={`Instrumento para calibración: ${p.nombre}`} width={600} height={600} />}
+            {mainImg && <Image src={mainImg} alt={`Instrumento para calibración: ${p.nombre}`} widths={[300, 600, 900]} sizes="(max-width:768px) 100vw, 50vw" format="webp" quality={80} />}
           </div>
           {p.imagenes?.length > 1 && (
             <div class="product-gallery-thumbs">
@@ -158,7 +158,7 @@ const whatsappHref = `https://wa.me/522461261782?text=${whatsappMsg}`;
 
           <!-- Print header oculto, visible solo al imprimir -->
           <div class="print-header">
-            <img src={`${b}/assets/images/logo/logo-principal.svg`} alt="IME Calibraciones" />
+            <img src={`${b}/assets/images/logo/logo-principal.svg`} alt="IME Calibraciones" loading="lazy" />
             <span>imecalibraciones.com · Tel. +52 246 126 1782</span>
           </div>
 

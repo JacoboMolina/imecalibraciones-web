@@ -75,11 +75,11 @@ const mainMediaClass = `srv-page-header__video${isFocusMode ? ' srv-page-header_
     {isFocusMode && (video || image) && (
       <div class="srv-page-header__bg-blur" aria-hidden="true">
         {video
-          ? <video autoplay muted loop playsinline poster={poster}>
+          ? <video autoplay muted loop playsinline preload="none" poster={poster}>
               <source src={video} type="video/mp4" />
             </video>
           : typeof image === 'string'
-            ? <img src={image} alt="" />
+            ? <img src={image} alt="" loading="eager" />
             : <Image src={image!} alt="" widths={[640,1024,1440]} sizes="100vw" format="webp" quality={75} />
         }
       </div>
@@ -89,7 +89,7 @@ const mainMediaClass = `srv-page-header__video${isFocusMode ? ' srv-page-header_
     {video
       ? <video
           class={mainMediaClass}
-          autoplay muted loop playsinline
+          autoplay muted loop playsinline preload="metadata"
           poster={poster}
           style={mediaStyle}
         >
@@ -97,7 +97,7 @@ const mainMediaClass = `srv-page-header__video${isFocusMode ? ' srv-page-header_
         </video>
       : image
         ? typeof image === 'string'
-          ? <img class={mainMediaClass} src={image} alt={imageAlt} style={mediaStyle} />
+          ? <img class={mainMediaClass} src={image} alt={imageAlt} style={mediaStyle} loading="eager" />
           : <Image class={mainMediaClass} src={image} alt={imageAlt} style={mediaStyle} widths={[640,1024,1440]} sizes="100vw" format="webp" quality={75} />
         : null
     }
